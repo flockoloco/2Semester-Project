@@ -17,4 +17,4 @@ app.use(express.static("addons"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-console.log("AAAAAAAAAAAAAAAAAAAAAAA");
+console.log("bbbbbbbbbbbbbbbbbb");
