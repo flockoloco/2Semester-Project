@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Aboard</title>
+    <link rel="stylesheet" href="/css/MainPage.css">
+</head>
+<body style="background-color:#aac8ff;">
+    <header>
+        <nav>
+            <ul>
+                <a href="/"><img src="https://i.imgur.com/UdWufnm.png" alt="Logo" width="400" height="102" class="center"></a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form action="/Game" method="POST">
+        <label for="UserN">Username:</label>
+        <input type="text" id="UserN" name="Username" required><br><br>
+        <label for="PassW">Password:</label>
+        <input type="password" id="PassW" name="Password" required><br><br>
+        <button type="submit">Login</button><br><br>
+        <a href="/Register">Not registered? Create an account!</a> 
+        </form>
+    </main>
+</body>
+</html>

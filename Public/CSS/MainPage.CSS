@@ -1,0 +1,33 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .Username1,
+  .Password1,
+  .Login1 {
+    opacity: 1;
+    background-color: #000000;
+    color: #ffffff;
+    border-style: ridge;
+    display: flex;
+  }
+
+  .Username1{
+    margin: 10px auto auto;
+  }
+
+  .Password1{
+    margin: 100px auto auto;
+  }
+
+  .Login1{
+    margin: 100px auto auto;
+    justify-content: center;
+  }
+
+  .create{
+    margin: auto;
+    display: flex;
+  }
