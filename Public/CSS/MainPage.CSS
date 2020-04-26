@@ -1,7 +1,12 @@
-.center {
+.center1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.center2 {
+  display: flex;
+  margin: 460px 1px 15px 1800px;
 }
 
   .Username1,
@@ -30,4 +35,17 @@
   .create{
     margin: auto;
     display: flex;
+  }
+
+  .content1 {
+    margin: 100px 1px 15px 800px;
+  }
+  .content2 {
+    margin: 0px 1px 15px 802px;
+  }
+  .content3 {
+    margin: 0px 1px 15px 1000px;
+  }
+  .content4 {
+    margin: 0px 1px 15px 820px;
   }
