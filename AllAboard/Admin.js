@@ -14,8 +14,8 @@ router.get('/Register', (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'View', 'Register.html'));
 });
 
-router.post('/Login', (req, res, next) => {
-    res.redirect('/AllAboard');
+router.post('/AllAboard', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
 })
 
 router.get('/', (req, res, next) => {
