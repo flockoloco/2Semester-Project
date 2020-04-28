@@ -6,7 +6,17 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const adminR = require('./AllAboard/Admin');
-const SketchR = require('./AllAboard/Sketch.js');
+
+const mysql = require('mysql');
+
+//CODE FOR CONNECTION TO DATABASE
+const dbase = mysql.createConnection({
+    host:"localhost",
+    port:"8889",
+    user:"root",
+    password:"Project100",
+    database:"All_Aboard",
+    });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
