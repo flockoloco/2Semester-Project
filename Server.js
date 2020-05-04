@@ -7,7 +7,6 @@ const app = express();
 
 //import folders
 const adminR = require('./AllAboard/Admin');
-const route = require('./database/database');
 
 const port = 3000;
 
@@ -19,6 +18,7 @@ app.use(bodyParser.json())
 
 app.use(express.static('libraries'));
 app.use(express.static('AllAboard'));
+app.use(express.static('database'));
 app.use(express.static('addons'));
 app.use(express.static('public'));
 

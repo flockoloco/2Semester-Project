@@ -4,8 +4,10 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'All_Aboard',
-    password: 'Project100'
+    password: 'root'
   });
+
+  global.db = connection;
 
   connection.connect((err)=>{   
     if (err){
