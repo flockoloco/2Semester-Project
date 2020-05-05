@@ -20,7 +20,7 @@ let board = [];
     rect(0, 120, 520, 800, 10);
     textSize(25);
     fill(255);
-    text('Player', 100, 55);
+    text("player", 100, 55);
     text('Gold', 200, 55);
     text('PP', 300, 55);
     text('Tra', 400, 55);
@@ -43,18 +43,6 @@ let board = [];
     createFriends.mousePressed(GoFriends);
   }
 
-  function GoShop(){
-    Shop = true
-  }
-
-  function GoMarket(){
-    Market = true
-  }
-
-  function GoFriends(){
-    Friend = true
-  }
-
   function mousePressed(){
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length; j++) {
@@ -64,37 +52,18 @@ let board = [];
         }
       }
     }
-
-  if(Shop==true){
-    ShopLayer();
-    Shop = false;
-    return
-    };
-
-    if(Market==true){
-    MarketLayer();
-    Market = false;
-    return
-    };
-
-    if(Friend==true){
-    FriendLayer();
-    Friend = false;
-    return
-    };
   };
+    function GoShop(){
+      print('aqui é uma loja');
+    }
 
-  const ShopLayer = () => {
-    print('aqui é uma loja');
-  }
+    function GoMarket(){
+      print('aqui vc troca produtos com players');
+    }
 
-  const MarketLayer = () => {
-    print('aqui vc troca produtos com players');
-  };
-
-  const FriendLayer = () => {
-    print('voce é um forever alone sinto muito');
-  }
+    function GoFriends(){
+      print('voce é um forever alone sinto muito');
+    }
 
   function getTileInfo() {
     for (let i = 0; i < board.length; i++) {
