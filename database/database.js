@@ -7,8 +7,6 @@ const connection = mysql.createConnection({
     password: 'root'
   });
 
-  global.db = connection;
-
   connection.connect((err)=>{   
     if (err){
         console.log(err);
