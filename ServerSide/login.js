@@ -13,23 +13,23 @@ app.get('/AllAboard', (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
 });
 
+app.get('/', function(req, res) {
+	res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
+});
+
 //login authentication
-app.get('/allaboard', function(req, res) {
+app.post('/', function(req, res) {
 	const username = req.body.username;
 	const password = req.body.password;
 	if (username && password) {
-		connection.query('SELECT * FROM player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		connection.query('SELECT * FROM all_aboard.player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-				res.redirect('/AllAboard');
+				res.redirect('/AllAboard/:id');
 			} else {
 				res.send('Incorrect Username and/or Password!');
 			}		
 		});
 	} 
-});
-
-app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
 });
 
 module.exports = app;
