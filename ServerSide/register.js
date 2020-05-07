@@ -2,10 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const connection = require('../database/database');
-
 const app = express();
-
-
 
 app.get('/register', function(req, res) {
     res.sendFile(path.join(__dirname, '..', 'view', 'register.html'));

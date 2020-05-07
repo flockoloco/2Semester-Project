@@ -1,7 +1,7 @@
 let board = [];  
 
   function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(window.innerWidth-20, window.innerHeight-20);
     background(255);
     canvas();
     initBoard();
@@ -15,9 +15,8 @@ let board = [];
 
   const canvas = () => {
     fill(0);
-    rect(0,0, windowWidth, 100);
+    rect(0, 0, window.innerWidth, 100);
     fill('gray');
-    rect(0, 120, 520, 800, 10);
     textSize(25);
     fill(255);
     text("player", 100, 55);
@@ -114,37 +113,5 @@ let board = [];
         countID++;
         board[i][j] = new tile(x, y, sizeOfTile, 'lightgreen', 25, '', countID);
       }
-    }
-  }
-
-  class tile {
-
-    constructor(x, y, s, c, st, t, id) {
-      this.x = x;
-      this.y = y;
-      this.s = s;
-      this.c = c;
-      this.st = st;
-      this.t = t;
-      this.id = id;
-    }
-
-    draw_tile() {
-      push();
-      fill(this.c);
-      stroke(this.st);
-      square(this.x, this.y, this.s);
-      text(this.t, this.x + this.s / 2, this.y + this.s / 2);
-      pop();
-    }
-
-    click_tile(posx, posy) {
-      if ((posx > this.x & posx < this.x + this.s) & (posy > this.y & posy < this.y + this.s)) {
-        return true;
-      }
-    }
-
-    get_id() {
-      return this.id;
     }
   }
