@@ -1,17 +1,39 @@
 
 class settlement {
-    constructor(id, settName, settType, settRes, pp, ores, food, wood) {
-        this.id = id;
-        this.settName = settName;
-        this.settType = settType;
-        this.settRes = settRes;
-        this.pp = pp;
-        this.ores = ores;
-        this.food = food;
-        this.wood = wood;
+    constructor(idtype, resourcetype, posX, posY, player_id) {
+        this.idtype = idtype;
+        this.resourcetype = resourcetype;
+        this.posX = posX;
+        this.posY = posY;
+        this.player_id = player_id;
     }       
 }
 
+class Player{
+
+  constructor(id,name,pp,gold){
+  this.id=id;
+  this.name=name;
+  this.pp=pp;
+  this.gold = gold;
+  }
+  
+  get_id(){
+  return this.id;
+  }
+  
+  get_name(){
+  return this.name;
+  }
+  
+  get_pp(){
+  return this.pp;
+  }
+
+  get_gold(){
+    return this.gold;
+  }
+};
 
 class tile {
     constructor(x, y, s, c, st, t, id, settlement) {
@@ -48,6 +70,6 @@ class tile {
     	this.settlement=settlement;
     }
     set_color(c){
-	this.c = c;
+	    this.c = c;
     }
 }
