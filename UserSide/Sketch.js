@@ -1,15 +1,23 @@
-let board = [];  
+let board = []; 
+let playerLoged;
+let arrBuildings=[];
+
+let food=false;
+
+  function preload(){
+  getPlayer();
+  }
 
   function setup() {
     createCanvas(window.innerWidth-20, window.innerHeight-20);
     background(255);
     canvas();
     initBoard();
+    createBoard();
     noLoop();
   };
   
   function draw() {
-    createBoard();
     drawBoard();
   };
 
@@ -19,15 +27,31 @@ let board = [];
     fill('gray');
     textSize(25);
     fill(255);
-    text("player", 100, 55);
-    text('Gold', 200, 55);
-    text('PP', 300, 55);
-    text('Tra', 400, 55);
-    text('Rai', 500, 55);
   }
 
+  function getPlayer(){
+
+    loadJSON('/getPlayer', function(data){
+    parsePlayer(data);
+    });
+    }
+
+    function loadAll(){
+
+      loadJSON('/getAllBuildings/'+playerLoged.id,function(data){
+      
+      parseBuildings(data);
+      
+      });
+      
+      }
 
   const createBoard = () => {
+
+    text("Name: "+playerLoged.name,25,60);
+    text("Population Points: "+playerLoged.pp,225,60);
+    text("Gold: "+playerLoged.gold,650,60);
+
     let createShop = createButton('Shop');
     createShop.size(100,50);
     createShop.position(windowWidth-450, 30);
@@ -42,18 +66,37 @@ let board = [];
     createFriends.mousePressed(GoFriends);
   }
 
+  function parsePlayer(data){
+    playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount);
+    }
+
   function mousePressed(){
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board.length; j++) {
-        if (board[i][j].click_tile(mouseX, mouseY)) {
-          print(board[i][j].get_id());
-          break;
-        }
+    for (let i = 0; i<board.length; i++) {
+      for (let j = 0; j<board.length; j++) {
+    
+      if(board[i][j].click_tile(mouseX, mouseY) & food==true){
+        
+      httpPost('/createFood/',{"idtype":1,"resourcetype":1,"posX":i+1,"posY":j+1, "player_id": playerLoged.id},'json',function(data){
+        loadAll();
+
+      });
+      food=false;
+      break;
       }
     }
+  }
   };
+
+
+  function parseBuildings(data){
+    for(let i=0;i<data.length;i++){
+    arrBuildings[i] = new settlement(data[i].idtype,data[i].resourcetype,data[i].posX,data[i].posY, data[i].player_id);
+    }
+    updateBoard();
+    }
+
     function GoShop(){
-      print('aqui é uma loja');
+      food = true;
     }
 
     function GoMarket(){
@@ -115,3 +158,20 @@ let board = [];
       }
     }
   }
+
+  function updateBoard(){
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+      for(let k=0;k<arrBuildings.length;k++){
+        let px=i+1;
+        let py=j+1;
+        if(px==arrBuildings[k].posX & py==arrBuildings[k].posY){
+          board[i][j].set_settlement(arrBuildings[k]);
+          board[i][j].set_color("LightBlue");
+          }
+        }
+    }
+    }
+    drawBoard();
+    }
