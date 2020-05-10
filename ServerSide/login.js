@@ -24,7 +24,7 @@ app.post('/', function(req, res) {
 	if (username && password) {
 		connection.query('SELECT * FROM all_aboard.player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-				res.redirect('/AllAboard/:id');
+				res.redirect('/AllAboard/');
 			} else {
 				res.send('Incorrect Username and/or Password!');
 			}		
