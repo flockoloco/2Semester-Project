@@ -9,22 +9,18 @@ app.get('/Credits', (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'View', 'Credits.html'));
 });
 
-app.get('/AllAboard', (req, res, next) => {
-    res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
+app.get('/', function(req, res) {
+	res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
 });
 
 //login authentication
-app.get('/allaboard', function(req, res) {
+app.post('/allaboard', function(req, res) {
 	const username = req.body.username;
 	const password = req.body.password;
 	if (username && password) {
 		connection.query('SELECT * FROM player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-<<<<<<< HEAD
-				res.redirect('/AllAboard/');
-=======
 				res.redirect('/AllAboard');
->>>>>>> parent of e68d53b... a
 			} else {
 				res.send('Incorrect Username and/or Password!');
 			}		
@@ -32,8 +28,8 @@ app.get('/allaboard', function(req, res) {
 	} 
 });
 
-app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
+app.get('/AllAboard', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
 });
 
 module.exports = app;
