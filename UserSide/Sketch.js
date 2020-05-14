@@ -2,7 +2,10 @@ let board = [];
 let playerLoged;
 let arrBuildings=[];
 
-let food=false;
+let fazenda=false;
+let igreja = false;
+let batalha = false;
+let saude = false;
 
   function preload(){
   getPlayer();
@@ -34,17 +37,15 @@ let food=false;
     loadJSON('/getPlayer', function(data){
     parsePlayer(data);
     });
-    }
+  }
 
-    function loadAll(){
+  function loadAll(){
 
-      loadJSON('/getAllBuildings/'+playerLoged.id,function(data){
+    loadJSON('/getAllBuildings/'+playerLoged.id, function(data){
+    parseBuildings(data);
+    });
       
-      parseBuildings(data);
-      
-      });
-      
-      }
+  }
 
   const createBoard = () => {
 
@@ -52,55 +53,81 @@ let food=false;
     text("Population Points: "+playerLoged.pp,225,60);
     text("Gold: "+playerLoged.gold,650,60);
 
-    let createShop = createButton('Shop');
-    createShop.size(100,50);
-    createShop.position(windowWidth-450, 30);
-    let createMarket = createButton('Market');
-    createMarket.size(100,50);
-    createMarket.position(windowWidth-300, 30);
+    let createLoad = createButton('Load');
+    createLoad.size(100,50);
+    createLoad.position(windowWidth-450, 30);
+    let createPlay = createButton('Play');
+    createPlay.size(100,50);
+    createPlay.position(windowWidth-300, 30);
     let createFriends = createButton('Friends');
     createFriends.size(100,50);
     createFriends.position(windowWidth-150, 30);
-    createShop.mousePressed(GoShop);
-    createMarket.mousePressed(GoMarket);
+    createLoad.mousePressed(Load);
+    createPlay.mousePressed(Play);
     createFriends.mousePressed(GoFriends);
   }
 
   function parsePlayer(data){
-    playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount);
+    playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount, data[0].newplayer);
     }
 
   function mousePressed(){
     for (let i = 0; i<board.length; i++) {
       for (let j = 0; j<board.length; j++) {
-    
-      if(board[i][j].click_tile(mouseX, mouseY) & food==true){
-        
-      httpPost('/createFood/',{"idtype":1,"resourcetype":1,"posX":i+1,"posY":j+1, "player_id": playerLoged.id},'json',function(data){
-        loadAll();
 
+        if(fazenda == true){
+      httpPost('/createfazenda',{"name":"Fazenda", "resource":500, "people":500,"posX":3,"posY":2, "player_id": playerLoged.id},'json',function(data){
+        loadAll();
       });
-      food=false;
+      fazenda = false;
       break;
+        }
+
+        if(igreja == true){
+      httpPost('/createigreja',{"name":"igreja", "resource":500, "people":500,"posX":5,"posY":3, "player_id": playerLoged.id},'json',function(data){
+        loadAll();
+      });
+      igreja = false;
+      break;
+        }
+
+        if(batalha == true){
+      httpPost('/createbatalha',{"name":"batalha", "resource":500, "people":500,"posX":8,"posY":6, "player_id": playerLoged.id},'json',function(data){
+        loadAll();
+      });
+      batalha = false;
+      break;
+        }
+
+
+        if(saude == true){
+      httpPost('/createsaude',{"name":"saude", "resource":500, "people":500,"posX":6,"posY":5, "player_id": playerLoged.id},'json',function(data){
+        loadAll();
+      });
+      saude = false;
+      break;
+        }
       }
     }
-  }
   };
 
 
   function parseBuildings(data){
     for(let i=0;i<data.length;i++){
-    arrBuildings[i] = new settlement(data[i].idtype,data[i].resourcetype,data[i].posX,data[i].posY, data[i].player_id);
+    arrBuildings[i] = new settlement(data[i].name, data[i].resource, data[i].people, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
     }
     updateBoard();
     }
 
-    function GoShop(){
-      food = true;
+    function Load(){
+      loadAll();
     }
 
-    function GoMarket(){
-      print('aqui vc troca produtos com players');
+    function Play(){
+      fazenda = true;
+      igreja = true;
+      batalha = true;
+      saude = true;
     }
 
     function GoFriends(){
@@ -130,7 +157,6 @@ let food=false;
 
     let numberOfCols = 10;
     let sizeOfTile = 80;
-    let GameBoard;
     let GBW = 800;
     let GBH = 800;
     let y = 0;

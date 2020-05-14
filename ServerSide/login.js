@@ -13,12 +13,16 @@ app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
 });
 
+app.get('/AllAboard', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
+});
+
 //login authentication
 app.post('/allaboard', function(req, res) {
 	const username = req.body.username;
 	const password = req.body.password;
 	if (username && password) {
-		connection.query('SELECT * FROM player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		connection.query('SELECT id FROM player WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
 				res.redirect('/AllAboard');
 			} else {
@@ -28,29 +32,28 @@ app.post('/allaboard', function(req, res) {
 	} 
 });
 
-app.get('/AllAboard', (req, res, next) => {
-    res.sendFile(path.join(__dirname, '..', 'View', 'index.html'));
-});
-
-app.get('/getPlayer',function(req,res){
+app.get("/getPlayer", function(req,res){
 
 	let sql = "SELECT * FROM player order by id desc LIMIT 1";
-	
+		
 	connection.query(sql, (err,result)=>{
 	if(err) throw err;
-	
+		
 	let playerid = result[0].id;
-	
+		
 	let sql = "SELECT * FROM Player WHERE id="+playerid;
-	
+		
 	connection.query(sql, (err,result)=>{
 	if(err) throw err;
-	res.send(result);
-	});});});
+	res.send(result);	
+	
+	});	
+	});
+});
 
-app.get("/getAllBuildings/:playerloged", function(req,res){
+app.get("/getAllBuildings/:playerLoged", function(req,res){
 
-	let playerlogedID = req.params.playerloged;
+	let playerlogedID = req.params.playerLoged;
 	
 	let sql = "SELECT * FROM settlement WHERE player_id="+playerlogedID;
 	
@@ -60,41 +63,120 @@ app.get("/getAllBuildings/:playerloged", function(req,res){
 	res.send(result);
 	
 	});
+});
 	
-	});
-	
-	app.get('/getLastInsertedB', sendLast);
-	
-	function sendLast(req,res){
-	
-	let sql = "SELECT * FROM settlement order by id desc LIMIT 1";
-	
-	connection.query(sql, (err,result)=>{
-	if(err) throw err;
-	
-	console.log(result);
-	res.send(result);
-	
-	});
-	
-	}
-	
-	app.post('/createfood/',function (req,res){
-	
+app.post('/createfazenda/',function (req,res){
+
 	let playerlogedID = req.body.player_id;
-	let id = req.body.idtype;
+	let id = req.body.name;
+	let resource = req.body.resource;
+	let people = req.body.people;
 	let posX = req.body.posX;
 	let posY = req.body.posY;
-	let level = 1;
-	
-	let sql = "INSERT INTO `settlement` (`idtype`,`resourcetype`,`posX`,`posY`,`player_id`) VALUES ('"+id+"','"+level+"','"+posX+"','"+posY+"','"+playerlogedID+"');";
-	
-	connection.query(sql, (err,result)=>{
-	if(err) throw err;
-	
-	res.send(result);
-	
-	});
-	});
+
+
+	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
+		if (results.length > 0) {
+	connection.query("SELECT * FROM settlement WHERE posX = ? AND posY = ? ", [posX, posY], function(error, results, fields) {
+		if (results.length > 0) {
+			console.log("Já tem uma insert")
+		}else{
+			let sql = "INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"');"
+			connection.query(sql, (err,result)=>{
+				if(err) throw err;
+				res.send(result);
+			});
+
+		}
+	})
+}
+	})
+});
+
+app.post('/createigreja',function (req,res){
+
+	let playerlogedID = req.body.player_id;
+	let id = req.body.name;
+	let resource = req.body.resource;
+	let people = req.body.people;
+	let posX = req.body.posX;
+	let posY = req.body.posY;
+
+
+	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
+		if (results.length > 0) {
+	connection.query("SELECT * FROM settlement WHERE posX = ? AND posY = ? ", [posX, posY], function(error, results, fields) {
+		if (results.length > 0) {
+			console.log("Já tem uma insert")
+		}else{
+			let sql = "INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"');"
+			connection.query(sql, (err,result)=>{
+				if(err) throw err;
+				res.send(result);
+			});
+
+		}
+	})
+}
+	})
+});
+
+app.post('/createbatalha',function (req,res){
+
+	let playerlogedID = req.body.player_id;
+	let id = req.body.name;
+	let resource = req.body.resource;
+	let people = req.body.people;
+	let posX = req.body.posX;
+	let posY = req.body.posY;
+
+
+	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
+		if (results.length > 0) {
+	connection.query("SELECT * FROM settlement WHERE posX = ? AND posY = ? ", [posX, posY], function(error, results, fields) {
+		if (results.length > 0) {
+			console.log("Já tem uma insert")
+		}else{
+			let sql = "INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"');"
+			connection.query(sql, (err,result)=>{
+				if(err) throw err;
+				res.send(result);
+			});
+
+		}
+	})
+}
+	})
+});
+
+app.post('/createsaude',function (req,res){
+
+	let playerlogedID = req.body.player_id;
+	let id = req.body.name;
+	let resource = req.body.resource;
+	let people = req.body.people;
+	let posX = req.body.posX;
+	let posY = req.body.posY;
+
+
+	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
+		if (results.length > 0) {
+	connection.query("SELECT * FROM settlement WHERE posX = ? AND posY = ? ", [posX, posY], function(error, results, fields) {
+		if (results.length > 0) {
+			console.log("Já tem uma insert")
+		}else{
+			connection.query("UPDATE player SET newplayer = false WHERE id = '"+playerlogedID+"' ")
+			let sql = "INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"');"
+			connection.query(sql, (err,result)=>{
+				if(err) throw err;
+				res.send(result);
+			});
+
+		}
+	})
+}
+	})
+});
+
 
 module.exports = app;

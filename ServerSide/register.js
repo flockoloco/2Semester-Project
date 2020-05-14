@@ -16,7 +16,7 @@ app.post('/register', function(req, res) {
     const Repeat_password = req.body.Repeat_password;
     
 	if(Repeat_password == password)	{
-        connection.query('INSERT INTO player(username,password,populationpoints_total,gold_amount) VALUES (?, ?, 0, 500)', [username, password], function(error, results, fields) {
+        connection.query('INSERT INTO player(username,password,populationpoints_total,gold_amount,newplayer) VALUES (?, ?, 0, 500,true)', [username, password], function(error, results, fields) {
         res.redirect('/');
         });
     };
