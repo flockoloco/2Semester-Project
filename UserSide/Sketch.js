@@ -1,115 +1,145 @@
 let board = []; 
-let playerLoged;
+let myarray = [1];
 let arrBuildings=[];
 
-let fazenda=false;
+let playerLoged;
+
+let playStart = false;
+let fazenda = false;
 let igreja = false;
 let batalha = false;
 let saude = false;
 
-  function preload(){
+function preload(){
   getPlayer();
-  }
+}
 
-  function setup() {
-    createCanvas(window.innerWidth-20, window.innerHeight-20);
-    background(255);
-    canvas();
-    initBoard();
-    createBoard();
-    noLoop();
-  };
+function setup() {
+  createCanvas(window.innerWidth-20, window.innerHeight-20);
+  background(255);
+  canvas();
+  initBoard();
+  timeFunction();
+  createBoard();
+  noLoop();
+};
   
-  function draw() {
-    drawBoard();
-  };
+function draw() {
+  drawBoard();
+};
 
-  const canvas = () => {
-    fill(0);
-    rect(0, 0, window.innerWidth, 100);
-    fill('gray');
-    textSize(25);
-    fill(255);
-  }
+const canvas = () => {
+  fill(0);
+  rect(0, 0, window.innerWidth, 100);
+  fill('gray');
+  textSize(25);
+  fill(255);
+}
 
-  function getPlayer(){
+function getPlayer(){
 
-    loadJSON('/getPlayer', function(data){
-    parsePlayer(data);
-    });
-  }
+  loadJSON('/getPlayer', function(data){
+  parsePlayer(data);
+  });
+}
 
-  function loadAll(){
+function loadAll(){
 
-    loadJSON('/getAllBuildings/'+playerLoged.id, function(data){
-    parseBuildings(data);
-    });
+  loadJSON('/getAllBuildings/'+playerLoged.id, function(data){
+  parseBuildings(data);
+  });
       
-  }
+}
 
-  const createBoard = () => {
+const createBoard = () => {
 
-    text("Name: "+playerLoged.name,25,60);
-    text("Population Points: "+playerLoged.pp,225,60);
-    text("Gold: "+playerLoged.gold,650,60);
+  text("Name: "+playerLoged.name,25,60);
+  text("Population Points: "+playerLoged.pp,225,60);
+  text("Gold: "+playerLoged.gold,650,60);
 
-    let createLoad = createButton('Load');
-    createLoad.size(100,50);
-    createLoad.position(windowWidth-450, 30);
-    let createPlay = createButton('Play');
-    createPlay.size(100,50);
-    createPlay.position(windowWidth-300, 30);
-    let createFriends = createButton('Friends');
-    createFriends.size(100,50);
-    createFriends.position(windowWidth-150, 30);
-    createLoad.mousePressed(Load);
-    createPlay.mousePressed(Play);
-    createFriends.mousePressed(GoFriends);
-  }
+  let createLoad = createButton('Load');
+  createLoad.size(100,50);
+  createLoad.position(windowWidth-450, 30);
+  let createPlay = createButton('Play');
+  createPlay.size(100,50);
+  createPlay.position(windowWidth-300, 30);
+  let createFriends = createButton('Friends');
+  createFriends.size(100,50);
+  createFriends.position(windowWidth-150, 30);
+  createLoad.mousePressed(Load);
+  createPlay.mousePressed(Play);
+  createFriends.mousePressed(GoFriends);
+}
 
-  function parsePlayer(data){
-    playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount, data[0].newplayer);
+function timeFunction(){
+  setInterval(chooseFunction, 5000)
+}
+
+function chooseFunction(){
+  for(let i = 0; i < myarray; i++){
+    if(myarray[i] == 1){
+      decreaseFazenda();
     }
+    if(myarray[i] == 2){
+      decreaseIgreja();
+    }
+    if(myarray[i] == 3){
+      decreaseBatalha();
+    }
+    if(myarray[i] == 4){
+      decreaseSaude();
+    }
+  }
+}
 
-  function mousePressed(){
-    for (let i = 0; i<board.length; i++) {
-      for (let j = 0; j<board.length; j++) {
+function decreaseFazenda() {
+  httpPost('/decreaseFarm', "json", {"reduction": 75, "player_id": playerLoged.id}, function(data){
+  loadAll();
+  })
+}
 
-        if(fazenda == true){
-      httpPost('/createfazenda',{"name":"Fazenda", "resource":500, "people":500,"posX":3,"posY":2, "player_id": playerLoged.id},'json',function(data){
-        loadAll();
+function parsePlayer(data){
+  playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount, data[0].newplayer);
+}
+
+function mousePressed(){
+  for (let i = 0; i<board.length; i++) {
+  for (let j = 0; j<board.length; j++) {
+
+    if(fazenda == true){
+      httpPost('/createfazenda', "json",{"name":"Fazenda", "resource":500, "people":500,"posX":3,"posY":2, "player_id": playerLoged.id},function(data){
+      loadAll();
       });
       fazenda = false;
       break;
-        }
+    }
 
-        if(igreja == true){
-      httpPost('/createigreja',{"name":"igreja", "resource":500, "people":500,"posX":5,"posY":3, "player_id": playerLoged.id},'json',function(data){
-        loadAll();
+    if(igreja == true){
+      httpPost('/createigreja', "json", {"name":"igreja", "resource":500, "people":500,"posX":5,"posY":3, "player_id": playerLoged.id},function(data){
+      loadAll();
       });
       igreja = false;
       break;
-        }
+    }
 
-        if(batalha == true){
-      httpPost('/createbatalha',{"name":"batalha", "resource":500, "people":500,"posX":8,"posY":6, "player_id": playerLoged.id},'json',function(data){
-        loadAll();
+    if(batalha == true){
+      httpPost('/createbatalha', "json", {"name":"batalha", "resource":500, "people":500,"posX":8,"posY":6, "player_id": playerLoged.id} ,function(data){
+      loadAll();
       });
       batalha = false;
       break;
-        }
+    }
 
 
-        if(saude == true){
-      httpPost('/createsaude',{"name":"saude", "resource":500, "people":500,"posX":6,"posY":5, "player_id": playerLoged.id},'json',function(data){
-        loadAll();
+    if(saude == true){
+      httpPost('/createsaude', "json", {"name":"saude", "resource":500, "people":500,"posX":6,"posY":5, "player_id": playerLoged.id} ,function(data){
+      loadAll();
       });
       saude = false;
       break;
-        }
-      }
     }
-  };
+  }}
+};
 
 
   function parseBuildings(data){
@@ -121,9 +151,11 @@ let saude = false;
 
     function Load(){
       loadAll();
+      playStart = true;
     }
 
     function Play(){
+      playStart = true;
       fazenda = true;
       igreja = true;
       batalha = true;

@@ -8,13 +8,20 @@ class settlement {
         this.posY = posY;
         this.player_id = player_id;
         this.id = id
-    }       
+    };   
 
     get_id(){
       return this.id;
-    }
+    };
 
-}
+    get_resource(){
+      return this.resource
+    };
+
+    get_people(){
+      return this.people
+    };
+};
 
 class Player{
   constructor(id,name,pp,gold){
@@ -22,23 +29,23 @@ class Player{
   this.name=name;
   this.pp=pp;
   this.gold = gold;
-  }
+  };
   
   get_id(){
   return this.id;
-  }
+  };
   
   get_name(){
   return this.name;
-  }
+  };
   
   get_pp(){
   return this.pp;
-  }
+  };
 
   get_gold(){
     return this.gold;
-  }
+  };
 };
 
 class tile {
@@ -51,7 +58,7 @@ class tile {
     this.t = t;
     this.id = id;
     this.settlement = settlement;
-  }
+  };
 
   draw_tile() {
     push();
@@ -60,17 +67,17 @@ class tile {
     square(this.x, this.y, this.s);
     text(this.t, this.x + this.s / 2, this.y + this.s / 2);
     pop();
-  }
+  };
 
   get_id() {
     return this.id;
-  }
+  };
 
   set_settlement(settlement){
     this.settlement = settlement;
-  }
+  };
 
   set_color(c){
 	  this.c = c;
-  }
-}
+  };
+};

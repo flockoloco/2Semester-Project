@@ -178,5 +178,11 @@ app.post('/createsaude',function (req,res){
 	})
 });
 
+app.post('/decreaseFarm', function(req, res){
+	let reduction = req.body.reduction;
+	let playerlogedID = req.body.player_id;
+
+	connection.query("UPDATE settlement SET resource = resource-'"+reduction+"' WHERE name = 'Fazenda' AND player_id = '"+playerlogedID+"' ")
+});
 
 module.exports = app;
