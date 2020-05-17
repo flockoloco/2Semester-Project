@@ -9,18 +9,6 @@ class settlement {
         this.player_id = player_id;
         this.id = id
     };   
-
-    get_id(){
-      return this.id;
-    };
-
-    get_resource(){
-      return this.resource
-    };
-
-    get_people(){
-      return this.people
-    };
 };
 
 class Player{
@@ -69,9 +57,19 @@ class tile {
     pop();
   };
 
+  click_tile(posx, posy) {
+    if ((posx > this.x & posx < this.x + this.s) & (posy > this.y & posy < this.y + this.s)) {
+      return true;
+    }
+  }
+
   get_id() {
     return this.id;
   };
+
+  get_settlement(){
+    return this.settlement
+  }
 
   set_settlement(settlement){
     this.settlement = settlement;
