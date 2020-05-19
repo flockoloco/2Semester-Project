@@ -3,6 +3,8 @@ let arrBuildings=[];
 
 let playerLoged;
 let settlementUI;
+let resourceUI;
+let resourceEnergy = 100;
 
 let playStart = false;
 let fazenda = true;
@@ -18,17 +20,24 @@ function setup() {
   createCanvas(window.innerWidth-20, window.innerHeight-20);
   settlementUI = createGraphics(350,550);
   settlementUI.background(155);
-  background(255);
-  canvas();
+  resourceUI = createGraphics(250, 550);
+  resourceUI.background(155);
+  setInterval(recoveryResource, 30000);
   initBoard();
-  createBoard();
+  loadAll();
   noLoop();
 };
 
 function draw() {
+  loop()
+  background(255);
+  canvas();
+  createBoard();
   drawBoard();
   image(settlementUI, 1440,250);
-  //carregarInformacao()
+  image(resourceUI, 100, 250);
+  //carregarInformacao();
+  createResourceUI()
 };
 
   //Canvas
@@ -58,8 +67,8 @@ function loadAll(){
 const createBoard = () => {
   push();
   text("Name: "+playerLoged.name,25,60);
-  text("Population Points: "+playerLoged.pp,300,60);
-  text("Gold: "+playerLoged.gold,625,60);
+  text("Population Points: "+playerLoged.pp,400,60);
+  text("Gold: "+playerLoged.gold,700,60);
   pop();
 
   let createLoad = createButton('Play Game');
@@ -68,12 +77,34 @@ const createBoard = () => {
   let createPlay = createButton('Create City');
   createPlay.size(100,50);
   createPlay.position(windowWidth-300, 30);
-  let createFriends = createButton('Friends');
-  createFriends.size(100,50);
-  createFriends.position(windowWidth-150, 30);
+  let createShop = createButton('Upgrades');
+  createShop.size(100,50);
+  createShop.position(windowWidth-150, 30);
   createLoad.mousePressed(Load);
   createPlay.mousePressed(CreateCity);
-  createFriends.mousePressed(GoFriends);
+  createShop.mousePressed(Upgrades);
+}
+
+const createResourceUI = () => {
+  push()
+  resourceUI.textSize(30)
+  resourceUI.fill(0);
+  resourceUI.text("Resource bar", 40, 100)
+  resourceUI.fill(255);
+  resourceUI.rect(75, 150, 100, 300)
+  resourceUI.fill("saddlebrown");
+  resourceUI.rect(75, 450, 100, -(resourceEnergy*3))
+  noLoop();
+  pop()
+}
+
+const recoveryResource = () => { 
+  if (resourceEnergy <= 99){
+  resourceEnergy = resourceEnergy + 25
+  }
+  if (resourceEnergy >= 100){
+    resourceEnergy = 100
+  }
 }
 
   //Choose a settlement to decrease the resource
@@ -123,6 +154,30 @@ function decreaseSaude() {
   })
 }
 
+const peopleFarm = () => {
+  let peopleNow = arrBuildings[0].people;
+  let peopleLeaving = 10
+  httpPost('/updatePeopleFarm', "json", {"peopleN": peopleNow,"peopleL": peopleLeaving, "player_id": playerLoged.id}, function(data){})
+}
+
+const peopleChurch = () => {
+  let peopleNow = arrBuildings[1].people;
+  let peopleLeaving = 10
+  httpPost('/updatePeopleChurch', "json", {"peopleN": peopleNow,"peopleL": peopleLeaving, "player_id": playerLoged.id}, function(data){})
+}
+
+const peopleWar = () => {
+  let peopleNow = arrBuildings[2].people;
+  let peopleLeaving = 10
+  httpPost('/updatePeopleWar', "json", {"peopleN": peopleNow,"peopleL": peopleLeaving, "player_id": playerLoged.id}, function(data){})
+}
+
+const peopleHospital = () => {
+  let peopleNow = arrBuildings[3].people;
+  let peopleLeaving = 10
+  httpPost('/updatePeopleHospital', "json", {"peopleN": peopleNow,"peopleL": peopleLeaving, "player_id": playerLoged.id}, function(data){})
+}
+
   //Var with the player info
 function parsePlayer(data){
   playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount, data[0].newplayer);
@@ -148,33 +203,54 @@ function mousePressed(){
   for (let i = 0; i<board.length; i++) {
     for (let j = 0; j<board.length; j++) {
 
-    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x & mouseX < x + (sizeOfTile)) & (mouseY > y + (sizeOfTile) & mouseY < y + (sizeOfTile*2))){
-    httpPost('/increaseFarm', "json", {"increase": 50, "player_id": playerLoged.id});
-    settlementUI.background(155);
-    callFarmInfo();
+    if(playStart == true){
+    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x & mouseX < x + (sizeOfTile)) & (mouseY > y + (sizeOfTile) & mouseY < y + (sizeOfTile*2)) & resourceEnergy >= 15){
+      if(mouseButton == LEFT){
+        httpPost('/increaseFarm', "json", {"increase": 50, "player_id": playerLoged.id});
+        resourceEnergy = resourceEnergy - 15
+      }
+      if(mouseButton == RIGHT){
+        settlementUI.background(155);
+        callFarmInfo();
+      }
     break;
     }
 
-    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile) & mouseX < x + (sizeOfTile*2)) & (mouseY > y + (sizeOfTile*3) & mouseY < y + (sizeOfTile*4))){
-    httpPost('/increaseChurch', "json", {"increase": 50, "player_id": playerLoged.id});
-    settlementUI.background(155);
-    callChurchInfo();
+    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile) & mouseX < x + (sizeOfTile*2)) & (mouseY > y + (sizeOfTile*3) & mouseY < y + (sizeOfTile*4)) & resourceEnergy >= 15){
+      if(mouseButton == LEFT){
+        httpPost('/increaseChurch', "json", {"increase": 50, "player_id": playerLoged.id});
+        resourceEnergy = resourceEnergy - 15
+      }
+      if(mouseButton == RIGHT){
+        settlementUI.background(155);
+        callChurchInfo();
+      }
     break;
     }
 
-    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile*3) & mouseX < x + (sizeOfTile*4)) & (mouseY > y + (sizeOfTile*4) & mouseY < y + (sizeOfTile*5))){
-    httpPost('/increaseWar', "json", {"increase": 50, "player_id": playerLoged.id});
-    settlementUI.background(155);
-    callWarInfo();
+    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile*3) & mouseX < x + (sizeOfTile*4)) & (mouseY > y + (sizeOfTile*4) & mouseY < y + (sizeOfTile*5)) & resourceEnergy >= 15){
+      if(mouseButton == LEFT){
+        httpPost('/increaseWar', "json", {"increase": 50, "player_id": playerLoged.id});
+        resourceEnergy = resourceEnergy - 15
+      }
+      if(mouseButton == RIGHT){
+        settlementUI.background(155);
+        callWarInfo();
+      }
     break;
     }
 
-    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile*4) & mouseX < x + (sizeOfTile*5)) & (mouseY > y + (sizeOfTile*6) & mouseY < y + (sizeOfTile*7))){
-    httpPost('/increaseHospital', "json", {"increase": 50, "player_id": playerLoged.id});
-    settlementUI.background(155);
-    callHospitalInfo();
+    if(board[i][j].click_tile(mouseX, mouseY) & (mouseX > x + (sizeOfTile*4) & mouseX < x + (sizeOfTile*5)) & (mouseY > y + (sizeOfTile*6) & mouseY < y + (sizeOfTile*7)) & resourceEnergy >= 15){
+      if(mouseButton == LEFT){
+        httpPost('/increaseHospital', "json", {"increase": 50, "player_id": playerLoged.id});
+        resourceEnergy = resourceEnergy - 15
+      }
+      if(mouseButton == RIGHT){
+        settlementUI.background(155);
+        callHospitalInfo();
+      }
     break;
-    }}
+    }}}
   }
 };
 
@@ -230,13 +306,32 @@ function carregarInformacao(){
   //Starts the game (resume buttom)
 function Load(){
   playStart = true;
-
+  loadAll();
   if(playStart == true){
   var random = Math.floor(Math.random() * (45000 - 30000 + 1) ) + 30000;
   setInterval(chooseFunction, random);
-  } 
-  loadAll();
+  }
 
+  callIf();
+}
+
+function callIf(){
+  if(arrBuildings[0].resource <= 0){
+    setInterval(peopleFarm, 10000)
+  }
+  if(arrBuildings[1].resource <= 0){
+    setInterval(peopleChurch, 10000)
+  }
+  if(arrBuildings[2].resource <= 0){
+    setInterval(peopleWar, 10000)
+  }
+  if(arrBuildings[3].resource <= 0){
+    setInterval(peopleHospital, 10000)
+  }
+
+  if(arrBuildings[0].people <= 0 & arrBuildings[1].people <= 0 & arrBuildings[2].people <= 0 & arrBuildings[3].people <= 0){
+    httpPost('/gameOver', "json", {}, function(data){})
+  }
 }
 
   //If is a new player, create the settlements
@@ -257,7 +352,7 @@ function CreateCity(){
     for (let j = 0; j<board.length; j++) {
 
     if(fazenda == true){
-    httpPost('/createfazenda', "json",{"name":"Potato Farm", "resource":random1, "people":random2,"posX":3,"posY":2, "player_id": playerLoged.id},function(data){
+    httpPost('/createfazenda', "json",{"name":"Farm", "resource":random1, "people":random2,"posX":3,"posY":2, "player_id": playerLoged.id},function(data){
     loadAll();
     });
     fazenda = false;
@@ -291,8 +386,8 @@ function CreateCity(){
 };
 
   //future => Shop
-function GoFriends(){
-  print('voce é um forever alone sinto muito');
+function Upgrades(){
+  print('There will be a shop here');
 }
 
   //draw the board w/ tiles
