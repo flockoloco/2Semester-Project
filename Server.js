@@ -1,35 +1,44 @@
 //import packages
-const path = require('path');
-const http = require('http');
 const express = require('express');
-const bodyParser = require('body-parser');
+const session = require('express-session');
+const path = require('path');
+
+const pageRouter = require('./routes/pages')
 
 const app = express();
 
-//import folders
-const LoginR = require('./ServerSide/login');
-const RegisterR = require('./ServerSide/register');
+// for body parser
+app.use(express.urlencoded({ extended: false }));
 
-const port = 3000;
+// import static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'View')));
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+    secret: "All Aboard session",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 60 * 1000 * 30 }
+}));
 
-// parse application/json
-app.use(bodyParser.json())
+app.use('/', pageRouter);
 
-app.use(express.static('libraries'));
-app.use(express.static('database'));
-app.use(express.static('addons'));
-app.use(express.static('ServerSide'));
-app.use(express.static('UserSide'));
-app.use(express.static('node_modules'));
+// 404 -> page not found
+app.use((req, res, next) => {
+    var err = new Error('Page not found');
+    err.status = 404;
+    next(err);
+});
+/*
+// handling other errors
+app.use((req, res, next) => {
+    res.status(err.status || 500);
+    res.send(err.message);
+});*/
 
-app.use(express.static(path.join(__dirname, 'CSS')));
+// setting up the server
+app.listen(3000, () => {
+    console.log('Server is running');
+});
 
-app.use(LoginR);
-app.use(RegisterR);
-
-app.use((req, res, next) => {res.status(404).sendFile(path.join(__dirname, 'view', '404.html'))});
-
-app.listen(port);
+module.exports = app;
