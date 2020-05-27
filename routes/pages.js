@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../core/user');
+const pool = require('../core/database');
 const router = express.Router();
 const user = new User();
 
@@ -14,7 +15,7 @@ router.get('/', (req, res, next) => {
         return;
     }
 
-    res.render('index', { title: "All Aboard MP" });
+    res.render('login', { title: "All Aboard" });
 
 });
 
@@ -25,7 +26,7 @@ router.get('/home', (req, res, next) => {
     let user = req.session.user;
     if(user)
     {
-        res.render('home', {opp: req.session.opp, name:user.fullname});
+        res.render('script', {opp: req.session.opp, name:user.username});
         return;
     }
     // if no section redicrect to index
@@ -52,9 +53,14 @@ router.post('/login', (req, res, next) => {
     });
 });
 
+router.get('/register', (req, res, next) => {
+
+    res.render('register', { title: "All Aboard" });
+
+})
+
 // ## 4 - POST REGISTER DATA
 router.post('/register', (req, res, next) => {
-
     //REGISTER POST DATA
     let newUser = {
         username: req.body.username,
@@ -86,6 +92,39 @@ router.get('/logout', (req, res, next) => {
             res.redirect('/');
         });
     }
+});
+
+router.get("/getPlayer", function(req,res){
+
+	let sql = "SELECT * FROM users order by id desc LIMIT 1";
+		
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+		
+	let playerid = result[0].id;
+		
+	let sql = "SELECT * FROM users WHERE id="+playerid;
+		
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	res.send(result);	
+	
+	});	
+	});
+});
+
+router.get("/getAllBuildings/:playerLoged", function(req,res){
+
+	let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT * FROM settlement WHERE player_id="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	
+	res.send(result);
+	
+	});
 });
 
 module.exports = router; 

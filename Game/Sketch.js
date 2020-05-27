@@ -387,7 +387,7 @@ function CreateCity(){
 
   //future => Shop
 function Upgrades(){
-  print('There will be a shop here');
+  httpPost('/logout', function(data){})
 }
 
   //draw the board w/ tiles
