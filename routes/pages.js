@@ -24,7 +24,7 @@ router.get('/home', (req, res, next) => {
 
     // ## USER INFO ON WEBPAGE
     let user = req.session.user;
-    if(user)
+    if(user) 
     {
         res.render('script', {opp: req.session.opp, name:user.username});
         return;
@@ -96,14 +96,16 @@ router.get('/logout', (req, res, next) => {
 
 router.get("/getPlayer", function(req,res){
 
-	let sql = "SELECT * FROM users order by id desc LIMIT 1";
+    let user = req.session.user
+    let playerusername = user.username
+    let sql = 'SELECT * FROM allaboard.users WHERE username = "'+playerusername+'" ';
 		
 	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-		
-	let playerid = result[0].id;
-		
-	let sql = "SELECT * FROM users WHERE id="+playerid;
+    if(err) throw err;
+    
+    let playerid = result[0].id;
+
+	let sql = "SELECT * FROM allaboard.users WHERE id="+playerid;
 		
 	pool.query(sql, (err,result)=>{
 	if(err) throw err;
