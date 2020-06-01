@@ -33,7 +33,7 @@ app.use((req, res, next) => {
     err.status = 404;
     next(err);
 });
-//rrgrerthwtrhehhed
+
 // handling other errors
 app.use((req, res, next) => {
     res.status(err.status || 500);
