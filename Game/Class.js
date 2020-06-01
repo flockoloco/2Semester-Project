@@ -1,8 +1,10 @@
 
 class settlement {
-    constructor(name, resource, people, posX, posY, player_id, id) {
+    constructor(name, ore, food, wood, people, posX, posY, player_id, id) {
         this.name = name;
-        this.resource = resource;
+        this.ore = ore;
+        this.food = food;
+        this.wood = wood;
         this.people = people
         this.posX = posX;
         this.posY = posY;
@@ -37,7 +39,7 @@ class Player{
 };
 
 class tile {
-  constructor(x, y, s, c, st, t, id, settlement) {
+  constructor(x, y, s, c, st, t, id, settlement, Deposit, rail) {
     this.x = x;
     this.y = y;
     this.s = s;
@@ -46,6 +48,8 @@ class tile {
     this.t = t;
     this.id = id;
     this.settlement = settlement;
+    this.Deposit = Deposit;
+    this.rail = rail;
   };
 
   draw_tile() {
@@ -63,19 +67,47 @@ class tile {
     }
   }
 
-  get_id() {
-    return this.id;
-  };
-
-  get_settlement(){
-    return this.settlement
-  }
-
   set_settlement(settlement){
     this.settlement = settlement;
   };
+
+  set_Deposit(Deposit){
+    this.Deposit = Deposit;
+  };
+
+  set_rail(rail){
+    this.rail = rail;
+  };
+
+  get_x(){
+    return this.x;
+  }
+  get_y(){
+    return this.y;
+  }
 
   set_color(c){
 	  this.c = c;
   };
 };
+
+class Deposit {
+  constructor(name, ore, food, wood, posX, posY, player_id){
+    this.name = name;
+    this.ore = ore;
+    this.food = food;
+    this.wood = wood;
+    this.posX = posX;
+    this.posY = posY;
+    this.player_id = player_id;
+  };
+}
+
+class rail {
+  constructor(posX, posY, player_id, id){
+    this.posX = posX;
+    this.posY = posY;
+    this.player_id = player_id;
+    this.id = id;
+  }
+}

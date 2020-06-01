@@ -1,6 +1,24 @@
 const pool = require('./database');
 const bcrypt = require('bcrypt');
 
+  //random value between 500-600 for each settlement
+  var random1 = Math.floor(Math.random() * 100) + 500;
+  var random2 = Math.floor(Math.random() * 100) + 500;
+  var random3 = Math.floor(Math.random() * 100) + 500;
+  var random4 = Math.floor(Math.random() * 100) + 500;
+  var random5 = Math.floor(Math.random() * 100) + 500;
+  var random6 = Math.floor(Math.random() * 100) + 500;
+  var random7 = Math.floor(Math.random() * 100) + 500;
+  var random8 = Math.floor(Math.random() * 100) + 500;
+  var random9 = Math.floor(Math.random() * 100) + 500;
+  var random10 = Math.floor(Math.random() * 100) + 500;
+  var random11 = Math.floor(Math.random() * 100) + 500;
+  var random12 = Math.floor(Math.random() * 100) + 500;
+  var random13 = Math.floor(Math.random() * 100) + 500;
+  var random14 = Math.floor(Math.random() * 100) + 500;
+  var random15 = Math.floor(Math.random() * 100) + 500;
+  var random16 = Math.floor(Math.random() * 100) + 500;
+
 function User() {};
 
 User.prototype = {
@@ -49,8 +67,18 @@ User.prototype = {
             if(err) throw err;
             // return the last inserted id. if there is no error
 			callback(result.insertId);
-			console.log(result.insertId) /* **************Finally something good**************** */
-        });
+
+			let city1 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 1', '"+random1+"', '"+random2+"', '"+random3+"', '"+random4+"', '7', '2', '"+result.insertId+"') ";
+			let city2 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 2', '"+random5+"', '"+random6+"', '"+random7+"', '"+random8+"', '9', '4', '"+result.insertId+"') ";
+			let city3 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 3', '"+random9+"', '"+random10+"', '"+random11+"', '"+random12+"', '9', '7', '"+result.insertId+"') ";
+            let city4 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 4', '"+random13+"', '"+random14+"', '"+random15+"', '"+random16+"', '7', '9', '"+result.insertId+"') ";
+
+		pool.query(city1, function(err, result) {});
+		pool.query(city2, function(err, result) {});
+		pool.query(city3, function(err, result) {});
+        pool.query(city4, function(err, result) {});
+        
+		});
     },
 
     login : function(username, password, callback)
@@ -75,199 +103,3 @@ User.prototype = {
 }
 
 module.exports = User;
-
-/*
-app.get("/getAllBuildings/:playerLoged", function(req,res){
-
-	let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM settlement WHERE player_id="+playerlogedID;
-	
-	connection.query(sql, (err,result)=>{
-	if(err) throw err;
-	
-	res.send(result);
-	
-	});
-});
-	
-app.post('/createfazenda/',function (req,res){
-
-	let playerlogedID = req.body.player_id;
-	let id = req.body.name;
-	let resource = req.body.resource;
-	let people = req.body.people;
-	let posX = req.body.posX;
-	let posY = req.body.posY;
-
-
-	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
-		if (results.length <= 0) {
-			console.log('Já tem settlement!')
-		}else{
-			connection.query("INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"')", (err, results, fields) => {});
-		}
-	})
-});
-
-app.post('/createigreja',function (req,res){
-
-	let playerlogedID = req.body.player_id;
-	let id = req.body.name;
-	let resource = req.body.resource;
-	let people = req.body.people;
-	let posX = req.body.posX;
-	let posY = req.body.posY;
-
-
-	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
-		if (results.length <= 0) {
-			console.log('Já tem settlement!')
-		}else{
-			connection.query("INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"')", (err, results, fields) => {});
-		}
-	})
-});
-
-app.post('/createbatalha',function (req,res){
-
-	let playerlogedID = req.body.player_id;
-	let id = req.body.name;
-	let resource = req.body.resource;
-	let people = req.body.people;
-	let posX = req.body.posX;
-	let posY = req.body.posY;
-
-
-	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
-		if (results.length <= 0) {
-			console.log('Já tem settlement!')
-		}else{
-			connection.query("INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"')", (err, results, fields) => {});
-		}
-	})
-});
-
-app.post('/createsaude',function (req,res){
-
-	let playerlogedID = req.body.player_id;
-	let id = req.body.name;
-	let resource = req.body.resource;
-	let people = req.body.people;
-	let posX = req.body.posX;
-	let posY = req.body.posY;
-
-
-	connection.query("SELECT newplayer FROM player WHERE newplayer = TRUE AND id = ? ", [playerlogedID], function(error, results, fields) {
-		if (results.length <= 0) {
-			console.log('Já tem settlement!')
-		}else{
-			connection.query("UPDATE player SET newplayer = false WHERE id = '"+playerlogedID+"' ", (err, results, fields) => {})
-			connection.query("INSERT INTO `settlement` (`name`,`resource`, `people`, `posX`,`posY`, `player_id`) VALUES ('"+id+"','"+resource+"', '"+people+"', '"+posX+"','"+posY+"','"+playerlogedID+"')", (err, results, fields) => {});
-		}
-	})
-});
-
-app.post('/decreaseFarm', function(req, res){
-	let reduction = req.body.reduction;
-	let playerlogedID = req.body.player_id;
-
-	connection.query("UPDATE settlement SET resource = resource-'"+reduction+"' WHERE name = 'Farm' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-});
-
-app.post('/decreaseChurch', function(req, res){
-	let reduction = req.body.reduction;
-	let playerlogedID = req.body.player_id;
-
-	connection.query("UPDATE settlement SET resource = resource-'"+reduction+"' WHERE name = 'Church' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-});
-
-app.post('/decreaseWar', function(req, res){
-	let reduction = req.body.reduction;
-	let playerlogedID = req.body.player_id;
-
-	connection.query("UPDATE settlement SET resource = resource-'"+reduction+"' WHERE name = 'War' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-});
-
-app.post('/decreaseHospital', function(req, res){
-	let reduction = req.body.reduction;
-	let playerlogedID = req.body.player_id;
-
-	connection.query("UPDATE settlement SET resource = resource-'"+reduction+"' WHERE name = 'Hospital' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-});
-
-app.post('/updatePoints', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let Farm = req.body.Farm;
-	let Church = req.body.Church;
-	let War = req.body.War;
-	let Hospital = req.body.Hospital;
-
-	connection.query("UPDATE player SET populationpoints_total = '"+Farm+"'+'"+Church+"'+'"+War+"'+'"+Hospital+"' WHERE id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/increaseFarm', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let increase = req.body.increase;
-
-	connection.query("UPDATE settlement SET resource = resource+'"+increase+"' WHERE name = 'Farm' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/increaseChurch', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let increase = req.body.increase;
-
-	connection.query("UPDATE settlement SET resource = resource+'"+increase+"' WHERE name = 'Church' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/increaseWar', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let increase = req.body.increase;
-
-	connection.query("UPDATE settlement SET resource = resource+'"+increase+"' WHERE name = 'War' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/increaseHospital', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let increase = req.body.increase;
-
-	connection.query("UPDATE settlement SET resource = resource+'"+increase+"' WHERE name = 'Hospital' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/updatePeopleFarm', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let peopleNow = req.body.peopleN;
-	let peopleL = req.body.peopleL;
-
-	connection.query("UPDATE settlement SET people = '"+peopleNow+"'-'"+peopleL+"' WHERE name = 'Farm' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/updatePeopleChurch', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let peopleNow = req.body.peopleN;
-	let peopleL = req.body.peopleL;
-
-	connection.query("UPDATE settlement SET people = '"+peopleNow+"'-'"+peopleL+"' WHERE name = 'Church' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/updatePeopleWar', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let peopleNow = req.body.peopleN;
-	let peopleL = req.body.peopleL;
-
-	connection.query("UPDATE settlement SET people = '"+peopleNow+"'-'"+peopleL+"' WHERE name = 'War' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/updatePeopleHospital', function(req, res){
-	let playerlogedID = req.body.player_id;
-	let peopleNow = req.body.peopleN;
-	let peopleL = req.body.peopleL;
-
-	connection.query("UPDATE settlement SET people = '"+peopleNow+"'-'"+peopleL+"' WHERE name = 'Hospital' AND player_id = '"+playerlogedID+"' ", (err, results, fields) => {});
-})
-
-app.post('/gameOver', function(req, res) {
-    res.send("Game Over boy!")
-});
-
-module.exports = app;*/

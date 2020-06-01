@@ -115,7 +115,7 @@ router.get("/getPlayer", function(req,res){
 	});
 });
 
-router.get("/getAllBuildings/:playerLoged", function(req,res){
+router.get("/getAllSettlements/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
