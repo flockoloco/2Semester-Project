@@ -3,13 +3,22 @@ let arrSettlement = [];
 
 let playerLoged;
 
+let pao;
+let money;
+let war;
+let faith;
+
 function preload(){
   getPlayer();
+  pao = loadImage('../images/pao.png');
+  money = loadImage('../images/dinheiro.png');
+  war = loadImage('../images/guerra.png');
+  faith = loadImage('../images/biblia.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(255);
+  background(250, 218, 94);
 
   initTile();
   loadAll();
@@ -19,7 +28,7 @@ function setup() {
 
 function draw() {
   drawTile();
-
+  createBars();
 };
 
   //Get player info
@@ -58,6 +67,41 @@ function chooseFunction(){
 }
 */
 
+const createBars = () => {
+
+  //food Bar
+  let foodBar = 100
+  fill(255);
+  rect(1275, 75, 50, 150);
+  fill("Green");
+  rect(1275, 225, 50, -(foodBar*1.5))
+  image(pao, 1280, 25);
+
+  //money Bar
+  let moneyBar = 100
+  fill(255);
+  rect(1375, 75, 50, 150);
+  fill("Green");
+  rect(1375, 225, 50, -(moneyBar*1.5))
+  image(money, 1380, 25);
+
+  //war Bar
+  let warBar = 100
+  fill(255);
+  rect(1475, 75, 50, 150);
+  fill("Green");
+  rect(1475, 225, 50, -(warBar*1.5))
+  image(war, 1480, 25);
+
+  //faith Bar
+  let faithBar = 100
+  fill(255);
+  rect(1575, 75, 50, 150);
+  fill("Green");
+  rect(1575, 225, 50, -(faithBar*1.5))
+  image(faith, 1580, 25);
+}
+
 function mousePressed(){
 };
 
@@ -70,64 +114,4 @@ function parseSettlement(data){
   arrSettlement[i] = new settlement(data[i].name, data[i].ore, data[i].food, data[i].wood, data[i].people, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
   }
   updateSettlement();
-}
-
-
-  //draw the tiles
-function drawTile() {
-  for (let i = 0; i < Settlement.length; i++) {
-    for (let j = 0; j < Settlement.length; j++) {
-    Settlement[i][j].draw_tile();
-    }
-  }
-}
-
-  //Tile Info
-function initTile() {
-
-  let numberOfCols = 10;
-  let sizeOfTile = 80;
-  let GBW = 800;
-  let GBH = 800;
-  let y = 0;
-  let x = 0;
-  let countID = 0;
-  let initialY = height / 2 - GBH / 2;
-  let initialX = width / 1.5 - GBW / 2;
-
-  for (let i = 0; i < numberOfCols; i++) {
-  //every colum is also an array
-  Settlement[i] = [];
-  if (i == 0) {
-  y = initialY;
-  } else {
-  y = y + GBH / numberOfCols;
-  }
-    for (var j = 0; j < numberOfCols; j++) {
-    if (j == 0) {
-    x = initialX;
-    } else {
-    x = x + GBW / numberOfCols;
-    }
-    countID++;
-    Settlement[i][j] = new tile(x, y, sizeOfTile, 'lightgreen', 25, '', countID);
-    }
-  }
-}
-
-  //update the tile info 
-function updateSettlement(){
-
-  for (let i = 0; i < Settlement.length; i++) {
-    for (let j = 0; j < Settlement.length; j++) {
-      for(let k=0;k<arrSettlement.length;k++){
-      let px=i+1;
-      let py=j+1;
-      if(px==arrSettlement[k].posX & py==arrSettlement[k].posY){
-      Settlement[i][j].set_settlement(arrSettlement[k]);
-      Settlement[i][j].set_color("LightBlue");
-      }}
-    }
-  }
-  drawTile();
 }
