@@ -111,3 +111,89 @@ class rail {
     this.id = id;
   }
 }
+
+//unfinished objects falta ir buscar os buttoes
+class QuestionCreator{
+  constructor(id,text,concluded,resets,o1,o2,o3){
+    this.id = id; 
+    this.text = text;
+    this.concluded = concluded;
+    this.resets = resets;
+    this.option[0] = o1;
+    this.option[1] = o2;
+    if (o3) {
+      this.option[2] = o3;
+    }
+  }
+
+  PickMe(){
+    //codigo que comeca a processo de escolher a opcao
+    //talvez dar load de algo que muda o draw se necessario
+
+  }
+  PickOption(optionPicked){ //after PickMe()
+    ChangeStats(this.option[optionPicked].stat1,this.option[optionPicked].stat2,this.option[optionPicked].stat3,this.option[optionPicked].stat4)
+    UpdateStats();
+  }
+
+  DrawMe(){
+    //o codigo do draw depende do resto
+  }
+}
+
+class OptionCreator{
+  constructor(id,text,stat1,stat2,stat3,stat4){
+    this.id = id;
+    this.text = text;
+    this.stat1 = stat1;
+    this.stat2 = stat2;
+    this.stat3 = stat3;
+    this.stat4 = stat4;
+  }
+}
+
+let questionArray = [] //this is probably the best way to initialize the object i think desta maneira nao temos de os chamar em separado
+questionArray[0] = new QuestionCreator(1,new OptionCreator(1,20,20,30,40),new OptionCreator(2,-5,10,15,-20),new OptionCreator(3,-10,-15,+30,+10));
+questionArray[1] = new QuestionCreator(4,new OptionCreator(1,20,20,30,40),new OptionCreator(5,-5,10,15,-20));
+
+function ChangeStats(stat1,stat2,stat3,stat4){
+  //ainda nao temos nomes para os stats <--- we need to fix this soon so we get the game concept right!!!!
+  pao = pao + stat1;
+  igreja = igreja + stat2;
+  whatever = whatever + stat3;
+  fodase = fodase + stat4;
+}
+
+function UpdateStats(){
+  stats = {
+    "pao":pao,
+    "igreja":igreja,
+    "whatever":whatever,
+    "fodase":fodase
+  }
+  httpPost('/UpdateStats','json',stats,UpdateStatsReceiver); //depends on how you are calling your routing
+}
+
+function UpdateStatsReceiver(){} //rn doesnt do anything as it doesnt need to.
+
+function PickRandomQuestion(questionArray){ //this is the picks every single one before it refreshes the ones that should be refreshed
+   
+  if (CheckAnyLeft() == true){
+    let foundAPick = false;
+    for (let i = 0;foundAPick == true; i++){
+      let randompick = int(Math.random(0,questionArray.length));
+      if (questionArray[randompick].concluded == false) {
+        questionArray[randompick].PickMe();
+        foundAPick = true;
+      }
+    }
+  }else if(CheckAnyLeft() == false){
+    for(let i = 0;i < questionArray.length;i++){
+      if(questionArray[i].resets == true){
+        questionArray[i].concluded = false;
+      }
+    }
+  }else{
+    console.log("oh no big mistake"); //this shouldnt ever happen, just a caution :D
+  }
+}
