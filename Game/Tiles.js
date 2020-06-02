@@ -50,7 +50,7 @@ for (let i = 0; i < Settlement.length; i++) {
     let py=j+1;
     if(px==arrSettlement[k].posX & py==arrSettlement[k].posY){
     Settlement[i][j].set_settlement(arrSettlement[k]);
-    Settlement[i][j].set_color("LightBlue");
+    Settlement[i][j].set_color("LightGray");
     }}
     }
 }

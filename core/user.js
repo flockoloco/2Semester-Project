@@ -1,24 +1,6 @@
 const pool = require('./database');
 const bcrypt = require('bcrypt');
 
-  //random value between 500-600 for each settlement
-  var random1 = Math.floor(Math.random() * 100) + 500;
-  var random2 = Math.floor(Math.random() * 100) + 500;
-  var random3 = Math.floor(Math.random() * 100) + 500;
-  var random4 = Math.floor(Math.random() * 100) + 500;
-  var random5 = Math.floor(Math.random() * 100) + 500;
-  var random6 = Math.floor(Math.random() * 100) + 500;
-  var random7 = Math.floor(Math.random() * 100) + 500;
-  var random8 = Math.floor(Math.random() * 100) + 500;
-  var random9 = Math.floor(Math.random() * 100) + 500;
-  var random10 = Math.floor(Math.random() * 100) + 500;
-  var random11 = Math.floor(Math.random() * 100) + 500;
-  var random12 = Math.floor(Math.random() * 100) + 500;
-  var random13 = Math.floor(Math.random() * 100) + 500;
-  var random14 = Math.floor(Math.random() * 100) + 500;
-  var random15 = Math.floor(Math.random() * 100) + 500;
-  var random16 = Math.floor(Math.random() * 100) + 500;
-
 function User() {};
 
 User.prototype = {
@@ -68,15 +50,15 @@ User.prototype = {
             // return the last inserted id. if there is no error
 			callback(result.insertId);
 
-			let city1 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 1', '"+random1+"', '"+random2+"', '"+random3+"', '"+random4+"', '7', '2', '"+result.insertId+"') ";
-			let city2 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 2', '"+random5+"', '"+random6+"', '"+random7+"', '"+random8+"', '9', '4', '"+result.insertId+"') ";
-			let city3 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 3', '"+random9+"', '"+random10+"', '"+random11+"', '"+random12+"', '9', '7', '"+result.insertId+"') ";
-            let city4 = "INSERT INTO settlement(name, ore, food, wood, people, posX, posY, player_id) VALUES ('City 4', '"+random13+"', '"+random14+"', '"+random15+"', '"+random16+"', '7', '9', '"+result.insertId+"') ";
+			let CastleNO = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle NO', '3', '3', '"+result.insertId+"') ";
+			let CastleNE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle NE', '3', '4', '"+result.insertId+"') ";
+			let CastleSO = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SO', '4', '3', '"+result.insertId+"') ";
+            let CastleSE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SE', '4', '4', '"+result.insertId+"') ";
 
-		pool.query(city1, function(err, result) {});
-		pool.query(city2, function(err, result) {});
-		pool.query(city3, function(err, result) {});
-        pool.query(city4, function(err, result) {});
+		pool.query(CastleNO, function(err, result) {});
+		pool.query(CastleNE, function(err, result) {});
+		pool.query(CastleSO, function(err, result) {});
+        pool.query(CastleSE, function(err, result) {});
         
 		});
     },

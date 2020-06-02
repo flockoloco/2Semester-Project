@@ -98,14 +98,14 @@ router.get("/getPlayer", function(req,res){
 
     let user = req.session.user
     let playerusername = user.username
-    let sql = 'SELECT * FROM allaboard.users WHERE username = "'+playerusername+'" ';
+    let sql = 'SELECT * FROM belivers.users WHERE username = "'+playerusername+'" ';
 		
 	pool.query(sql, (err,result)=>{
     if(err) throw err;
     
     let playerid = result[0].id;
 
-	let sql = "SELECT * FROM allaboard.users WHERE id="+playerid;
+	let sql = "SELECT * FROM belivers.users WHERE id="+playerid;
 		
 	pool.query(sql, (err,result)=>{
 	if(err) throw err;
@@ -115,11 +115,11 @@ router.get("/getPlayer", function(req,res){
 	});
 });
 
-router.get("/getAllSettlements/:playerLoged", function(req,res){
+router.get("/getCastle/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT * FROM settlement WHERE player_id="+playerlogedID;
+	let sql = "SELECT * FROM castle WHERE player_id="+playerlogedID;
 	
 	pool.query(sql, (err,result)=>{
 	if(err) throw err;

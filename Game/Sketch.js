@@ -40,7 +40,7 @@ function getPlayer(){
 
   //Get settlements info
 function loadAll(){
-  loadJSON('/getAllSettlements/'+playerLoged.id, function(data){
+  loadJSON('/getCastle/'+playerLoged.id, function(data){
   parseSettlement(data);
   });
 }
@@ -64,6 +64,9 @@ function chooseFunction(){
   if(randomCall == 4){
   //oi
   }
+  //random value between 500-600
+  var random1 = Math.floor(Math.random() * 100) + 500;
+
 }
 */
 
@@ -111,7 +114,7 @@ function parsePlayer(data){
 
 function parseSettlement(data){
   for(let i=0;i<data.length;i++){
-  arrSettlement[i] = new settlement(data[i].name, data[i].ore, data[i].food, data[i].wood, data[i].people, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
+  arrSettlement[i] = new settlement(data[i].name, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
   }
   updateSettlement();
 }

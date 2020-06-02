@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    database: 'AllAboard',
+    database: 'belivers',
     password: 'root'
   });
 
@@ -18,7 +18,7 @@ pool.getConnection((err, connection) => {
 
   if(connection)
   {
-    console.log("Connected to the All Aboard DataBase");
+    console.log("Connected to the DataBase");
     connection.release();
   }
 

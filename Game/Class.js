@@ -1,11 +1,7 @@
 
 class settlement {
-    constructor(name, ore, food, wood, people, posX, posY, player_id, id) {
+    constructor(name, posX, posY, player_id, id) {
         this.name = name;
-        this.ore = ore;
-        this.food = food;
-        this.wood = wood;
-        this.people = people
         this.posX = posX;
         this.posY = posY;
         this.player_id = player_id;
@@ -39,7 +35,7 @@ class Player{
 };
 
 class tile {
-  constructor(x, y, s, c, st, t, id, settlement, Deposit, rail) {
+  constructor(x, y, s, c, st, t, id, settlement) {
     this.x = x;
     this.y = y;
     this.s = s;
@@ -48,8 +44,6 @@ class tile {
     this.t = t;
     this.id = id;
     this.settlement = settlement;
-    this.Deposit = Deposit;
-    this.rail = rail;
   };
 
   draw_tile() {
@@ -90,27 +84,6 @@ class tile {
 	  this.c = c;
   };
 };
-
-class Deposit {
-  constructor(name, ore, food, wood, posX, posY, player_id){
-    this.name = name;
-    this.ore = ore;
-    this.food = food;
-    this.wood = wood;
-    this.posX = posX;
-    this.posY = posY;
-    this.player_id = player_id;
-  };
-}
-
-class rail {
-  constructor(posX, posY, player_id, id){
-    this.posX = posX;
-    this.posY = posY;
-    this.player_id = player_id;
-    this.id = id;
-  }
-}
 
 //unfinished objects falta ir buscar os buttoes
 class QuestionCreator{

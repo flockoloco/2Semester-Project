@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', 'pug');
 
 app.use(session({
-    secret: "All Aboard session",
+    secret: "belivers session",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 60 * 1000 * 30 }
