@@ -54,7 +54,11 @@ User.prototype = {
 			let CastleNE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle NE', '3', '4', '"+result.insertId+"') ";
 			let CastleSO = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SO', '4', '3', '"+result.insertId+"') ";
             let CastleSE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SE', '4', '4', '"+result.insertId+"') ";
+            
 
+
+
+            
 		pool.query(CastleNO, function(err, result) {});
 		pool.query(CastleNE, function(err, result) {});
 		pool.query(CastleSO, function(err, result) {});

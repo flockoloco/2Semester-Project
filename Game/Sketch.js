@@ -14,6 +14,13 @@ function preload(){
   money = loadImage('../images/dinheiro.png');
   war = loadImage('../images/guerra.png');
   faith = loadImage('../images/biblia.png');
+
+  //get questionstodas
+  //initialize todas as questoes
+  //questoes.concluded = questionstodas.concluded
+
+
+
 }
 
 function setup() {

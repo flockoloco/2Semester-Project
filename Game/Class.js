@@ -105,7 +105,7 @@ class QuestionCreator{
 
   }
   PickOption(optionPicked){ //after PickMe()
-    ChangeStats(this.option[optionPicked].stat1,this.option[optionPicked].stat2,this.option[optionPicked].stat3,this.option[optionPicked].stat4)
+    ChangeStats(this.option[optionPicked].wheat,this.option[optionPicked].swords,this.option[optionPicked].gold,this.option[optionPicked].faith)
     UpdateStats();
   }
 
@@ -115,13 +115,13 @@ class QuestionCreator{
 }
 
 class OptionCreator{
-  constructor(id,text,stat1,stat2,stat3,stat4){
+  constructor(id,text,wheat,swords,gold,faith){
     this.id = id;
     this.text = text;
-    this.stat1 = stat1;
-    this.stat2 = stat2;
-    this.stat3 = stat3;
-    this.stat4 = stat4;
+    this.wheat = wheat;
+    this.swords = swords;
+    this.gold = gold;
+    this.faith = faith;
   }
 }
 
@@ -129,23 +129,24 @@ let questionArray = [] //this is probably the best way to initialize the object 
 questionArray[0] = new QuestionCreator(1,new OptionCreator(1,20,20,30,40),new OptionCreator(2,-5,10,15,-20),new OptionCreator(3,-10,-15,+30,+10));
 questionArray[1] = new QuestionCreator(4,new OptionCreator(1,20,20,30,40),new OptionCreator(5,-5,10,15,-20));
 
-function ChangeStats(stat1,stat2,stat3,stat4){
+function ChangeStats(wheat,swords,gold,faith){
   //ainda nao temos nomes para os stats <--- we need to fix this soon so we get the game concept right!!!!
-  pao = pao + stat1;
-  igreja = igreja + stat2;
-  whatever = whatever + stat3;
-  fodase = fodase + stat4;
+  player.wheat = player.wheat + wheat;
+  player.swords = player.swords + swords;
+  player.gold = player.gold + gold;
+  player.faith = player.faith + faith;
 }
 
 function UpdateStats(){
-  stats = {
-    "pao":pao,
-    "igreja":igreja,
-    "whatever":whatever,
-    "fodase":fodase
+  let statsToSend = {
+    "wheat":player.wheat,
+    "swords":player.swords,
+    "gold":player.gold,
+    "faith":player.faith
   }
-  httpPost('/UpdateStats','json',stats,UpdateStatsReceiver); //depends on how you are calling your routing
+  httpPost('/updateStats','json',statsToSend,UpdateStatsReceiver); //depends on how you are calling your routing
 }
+
 
 function UpdateStatsReceiver(){} //rn doesnt do anything as it doesnt need to.
 
