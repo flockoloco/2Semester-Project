@@ -2,6 +2,8 @@ let Settlement = [];
 let arrSettlement = [];
 
 let playerLoged;
+let farmX;
+let farmY;
 
 let pao;
 let money;
@@ -14,13 +16,6 @@ function preload(){
   money = loadImage('../images/dinheiro.png');
   war = loadImage('../images/guerra.png');
   faith = loadImage('../images/biblia.png');
-
-  //get questionstodas
-  //initialize todas as questoes
-  //questoes.concluded = questionstodas.concluded
-
-
-
 }
 
 function setup() {
@@ -30,6 +25,7 @@ function setup() {
   initTile();
   loadAll();
 
+  getFarmPos();
   noLoop();
 };
 
@@ -50,6 +46,12 @@ function loadAll(){
   loadJSON('/getCastle/'+playerLoged.id, function(data){
   parseSettlement(data);
   });
+}
+
+function getFarmPos(){
+  loadJSON('/getFarmPos/'+playerLoged.id, function(data){
+  parseFarmPos(data);
+});
 }
 
 /*
@@ -80,7 +82,7 @@ function chooseFunction(){
 const createBars = () => {
 
   //food Bar
-  let foodBar = 100
+  let foodBar = 50
   fill(255);
   rect(1275, 75, 50, 150);
   fill("Green");
@@ -88,7 +90,7 @@ const createBars = () => {
   image(pao, 1280, 25);
 
   //money Bar
-  let moneyBar = 100
+  let moneyBar = 50
   fill(255);
   rect(1375, 75, 50, 150);
   fill("Green");
@@ -96,7 +98,7 @@ const createBars = () => {
   image(money, 1380, 25);
 
   //war Bar
-  let warBar = 100
+  let warBar = 50
   fill(255);
   rect(1475, 75, 50, 150);
   fill("Green");
@@ -104,7 +106,7 @@ const createBars = () => {
   image(war, 1480, 25);
 
   //faith Bar
-  let faithBar = 100
+  let faithBar = 50
   fill(255);
   rect(1575, 75, 50, 150);
   fill("Green");
@@ -116,7 +118,7 @@ function mousePressed(){
 };
 
 function parsePlayer(data){
-    playerLoged = new Player(data[0].id,data[0].username,data[0].populationpoints_total, data[0].gold_amount, data[0].newplayer);
+    playerLoged = new Player(data[0].id,data[0].username);
   }
 
 function parseSettlement(data){
@@ -124,4 +126,14 @@ function parseSettlement(data){
   arrSettlement[i] = new settlement(data[i].name, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
   }
   updateSettlement();
+}
+
+function parseFarmPos(data){
+  console.log(data[0].posX);
+  console.log(data[0].posX1);
+  console.log(data[0].posx);
+  console.log(data[0].posx1);
+
+  farmX = new farmPos([data[0].posX, data[1].posX2, data[2].posX3, data[3].posX4, data[4].posX5, data[5].posX6, data[6].posX7, data[7].posX8]);
+  farmY = new farmPos([data[0].posY1, data[1].posY2, data[2].posY3, data[3].posY4, data[4].posY5, data[5].posY6, data[6].posY7, data[7].posY8]);
 }

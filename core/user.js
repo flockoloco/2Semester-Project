@@ -33,6 +33,7 @@ User.prototype = {
     {
 
         var pwd = body.password;
+
         // Hash the password before insert it into the database.
         body.password = bcrypt.hashSync(pwd,10);
 
@@ -54,15 +55,29 @@ User.prototype = {
 			let CastleNE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle NE', '3', '4', '"+result.insertId+"') ";
 			let CastleSO = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SO', '4', '3', '"+result.insertId+"') ";
             let CastleSE = "INSERT INTO castle(name, posX, posY, player_id) VALUES ('Castle SE', '4', '4', '"+result.insertId+"') ";
-            
 
+            let farmpos1 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('1', '1', '"+result.insertId+"', 1) ";
+            let farmpos2 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('1', '2', '"+result.insertId+"', 1) ";
+            let farmpos3 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('1', '3', '"+result.insertId+"', 1) ";
+            let farmpos4 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('2', '1', '"+result.insertId+"', 1) ";
+            let farmpos5 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('2', '2', '"+result.insertId+"', 1) ";
+            let farmpos6 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('2', '3', '"+result.insertId+"', 1) ";
+            let farmpos7 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('3', '1', '"+result.insertId+"', 1) ";
+            let farmpos8 = "INSERT INTO posicao(posX, posY, player_id, availability) VALUES ('3', '2', '"+result.insertId+"', 1) ";
 
-
-            
 		pool.query(CastleNO, function(err, result) {});
 		pool.query(CastleNE, function(err, result) {});
 		pool.query(CastleSO, function(err, result) {});
         pool.query(CastleSE, function(err, result) {});
+
+        pool.query(farmpos1, function(err, result) {});
+        pool.query(farmpos2, function(err, result) {});
+        pool.query(farmpos3, function(err, result) {});
+        pool.query(farmpos4, function(err, result) {});
+        pool.query(farmpos5, function(err, result) {});
+        pool.query(farmpos6, function(err, result) {});
+        pool.query(farmpos7, function(err, result) {});
+        pool.query(farmpos8, function(err, result) {});
         
 		});
     },

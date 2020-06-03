@@ -50,4 +50,12 @@ CREATE TABLE `belivers`.`users` (
 CREATE TABLE `belivers`.`player` (
   `id` INT NOT NULL,
   PRIMARY KEY (`id`));
-
+  
+  CREATE TABLE `belivers`.`posicao` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `posX` INT NOT NULL,
+  `posY` INT NOT NULL,
+  `player_id` INT UNSIGNED NOT NULL,
+  `availability` TINYINT NOT NULL,
+  PRIMARY KEY (`id`, `player_id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);

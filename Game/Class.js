@@ -10,27 +10,9 @@ class settlement {
 };
 
 class Player{
-  constructor(id,name,pp,gold){
+  constructor(id,name){
   this.id=id;
   this.name=name;
-  this.pp=pp;
-  this.gold = gold;
-  };
-  
-  get_id(){
-  return this.id;
-  };
-  
-  get_name(){
-  return this.name;
-  };
-  
-  get_pp(){
-  return this.pp;
-  };
-
-  get_gold(){
-    return this.gold;
   };
 };
 
@@ -84,6 +66,13 @@ class tile {
 	  this.c = c;
   };
 };
+
+class farmPos{
+  constructor([posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8, posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]){
+    this.posX = [posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8];
+    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]
+  }
+}
 
 //unfinished objects falta ir buscar os buttoes
 class QuestionCreator{

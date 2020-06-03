@@ -64,9 +64,11 @@ router.post('/register', (req, res, next) => {
     //REGISTER POST DATA
     let newUser = {
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword,
     };
 
+    if(newUser.password == newUser.confirmPassword){
     user.create(newUser, function(lastId){
         if(lastId)
         {
@@ -77,11 +79,8 @@ router.post('/register', (req, res, next) => {
                 res.redirect('/home');
             });
         }
-        else
-        {
-            console.log('Error creating a new user');
-        }
-    });
+    })}else{res.send('The Password and Confirm Password must match!')}
+
 });
 
 // ## LOGOUT
@@ -128,5 +127,20 @@ router.get("/getCastle/:playerLoged", function(req,res){
 	
 	});
 });
+
+router.get("/getFarmPos/:playerLoged", function(req,res){
+
+	let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT posX,posY FROM posicao WHERE player_id="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+    
+    res.send([result[0].posX, result[1].posX, result[2].posX, result[3].posX, result[4].posX, result[5].posX, result[6].posX, result[7].posX, result[0].posY, result[1].posY, result[2].posY, result[3].posY, result[4].posY, result[5].posY, result[6].posY, result[7].posY]);
+
+	});
+});
+
 
 module.exports = router; 

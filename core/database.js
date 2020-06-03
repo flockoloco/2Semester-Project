@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 pool.getConnection((err, connection) => {
   if(err)
   {
-    console.log("Something went wrong connection to the All Aboard DataBase");
+    console.log("Something went wrong connection to the DataBase");
   }
 
   if(connection)

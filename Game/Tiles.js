@@ -1,3 +1,4 @@
+
 //draw the tiles
 function drawTile() {
 for (let i = 0; i < Settlement.length; i++) {
