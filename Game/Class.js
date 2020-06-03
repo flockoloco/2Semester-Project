@@ -87,17 +87,20 @@ class QuestionCreator{
       this.option[2] = o3;
     }
   }
-
-  PickMe(){
-    //codigo que comeca a processo de escolher a opcao
-    //talvez dar load de algo que muda o draw se necessario
-
+  PickMe(){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
+    buttonArray[0].AssignQuestion(this.id)
+    buttonArray[1].AssignQuestion(this.id)
+    if (this.option[2]){
+      buttonArray[2].AssignQuestion(this.id)
+    }else {
+      buttonArray[2].DisableMe();
+    }
   }
   PickOption(optionPicked){ //after PickMe()
+    //disable all buttons with the disablebuttons function either here or in the buttons click me function
     ChangeStats(this.option[optionPicked].wheat,this.option[optionPicked].swords,this.option[optionPicked].gold,this.option[optionPicked].faith)
     UpdateStats();
   }
-
   DrawMe(){
     //o codigo do draw depende do resto
   }
@@ -114,49 +117,84 @@ class OptionCreator{
   }
 }
 
-let questionArray = [] //this is probably the best way to initialize the object i think desta maneira nao temos de os chamar em separado
-questionArray[0] = new QuestionCreator(1,new OptionCreator(1,20,20,30,40),new OptionCreator(2,-5,10,15,-20),new OptionCreator(3,-10,-15,+30,+10));
-questionArray[1] = new QuestionCreator(4,new OptionCreator(1,20,20,30,40),new OptionCreator(5,-5,10,15,-20));
 
-function ChangeStats(wheat,swords,gold,faith){
-  //ainda nao temos nomes para os stats <--- we need to fix this soon so we get the game concept right!!!!
-  player.wheat = player.wheat + wheat;
-  player.swords = player.swords + swords;
-  player.gold = player.gold + gold;
-  player.faith = player.faith + faith;
-}
 
-function UpdateStats(){
-  let statsToSend = {
-    "wheat":player.wheat,
-    "swords":player.swords,
-    "gold":player.gold,
-    "faith":player.faith
+
+
+class ButtonCreator{
+  constructor(x,y,width,height,color,questionAssinged,optionAssigned,disable,text){
+	this.posX = x,
+	this.posY = y,
+	this.width = width,
+	this.height = height,
+	this.color = color,
+  this.questionAssigned = questionAssinged,
+  this.optionAssigned = optionAssigned,
+	this.hovered = false,
+	this.disable = disable,
+  this.oneTime = true,
+  this.objectToSend = 0,
+  this.text = text
+  };
+  AssignQuestion(questionNumber){
+    this.oneTime = true;
+    this.questionAssigned = questionNumber;
   }
-  httpPost('/updateStats','json',statsToSend,UpdateStatsReceiver); //depends on how you are calling your routing
-}
-
-
-function UpdateStatsReceiver(){} //rn doesnt do anything as it doesnt need to.
-
-function PickRandomQuestion(questionArray){ //this is the picks every single one before it refreshes the ones that should be refreshed
-   
-  if (CheckAnyLeft() == true){
-    let foundAPick = false;
-    for (let i = 0;foundAPick == true; i++){
-      let randompick = int(Math.random(0,questionArray.length));
-      if (questionArray[randompick].concluded == false) {
-        questionArray[randompick].PickMe();
-        foundAPick = true;
+  CheckHover(x1, y1) { 
+  	if (this.disable == false) {
+	  let testX = x1;
+ 	  let testY = y1;
+	  if (x1 < this.posX){      
+	    testX = this.posX; // test left edge
+  	  }else if (x1 > this.posX+this.width){
+  	    testX = this.posX+this.width; // right edge
+  	  };   
+      if (y1 < this.posY){
+        testY = this.posY; // top edge
+      }else if (y1 > this.posY+this.height){
+        testY = this.posY+this.height; // bottom edge
+      };  
+      if (dist(x1, y1, testX, testY) <= 1) {
+        this.hovered = true;
+  	  }else{
+  	    this.hovered = false;
+	  };
+    }else{
+	    this.hovered = false;
+    };
+  };
+  DrawMe(){
+    push();
+  	if (this.disable == false){
+  	  if (this.hovered == true) {
+  	    fill("white");
+  	  }else{
+  		  fill(this.color);
+  	  }
+  	  rect(this.posX, this.posY, this.width, this.height, 10);
+      textAlign(CENTER);
+      textSize(15);
+      fill("black");
+      text(this.text,this.posX+this.width/2,this.posY+this.height/2);
+    }
+    pop();
+  }
+  ClickMe(){ //Might remove one of these gates in the future. probably onetime
+    if (this.hovered == true){
+      if (this.disable == false){
+        if (this.oneTime == true){
+          this.oneTime = false;
+          questionArray[this.questionAssigned].PickOption(this.optionAssigned);
+        } 
       }
     }
-  }else if(CheckAnyLeft() == false){
-    for(let i = 0;i < questionArray.length;i++){
-      if(questionArray[i].resets == true){
-        questionArray[i].concluded = false;
-      }
-    }
-  }else{
-    console.log("oh no big mistake"); //this shouldnt ever happen, just a caution :D
   }
-}
+  DisableMe(){
+		this.disable = true;
+  };
+  EnableMe(){
+  	this.disable = false;
+  };
+};
+
+
