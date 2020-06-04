@@ -11,6 +11,11 @@ let money;
 let war;
 let faith;
 
+//initializing questions and buttons for filling the in the future
+let questionArray = [];
+let buttonArray = [];
+let getNewQuestion = true;
+
 function preload(){
   getPlayer();
   pao = loadImage('../images/pao.png');
@@ -26,6 +31,9 @@ function setup(callback) {
   initTile();
   loadAll();
 
+  //filling questions and buttons arrays with everything they need
+  //LoadQuestions();
+
   getFarmPos();
 
   noLoop();
@@ -34,6 +42,26 @@ function setup(callback) {
 function draw() {
   drawTile();
   createBars();
+  
+ //all commented so it doesnt crash for now :P
+  /*picks a new question. THIS CANT BE IN DRAW OR IT SPAMS NEW QUESTIONS
+  if (getNewQuestion == true){
+    getNewQuestion == false;
+    PickRandomQuestion(questionArray)
+  }
+  //making buttonsarray work XD
+  for (let i = 0; buttonArray.length; i++){
+    buttonsArray[i].CheckHover(mouseX,mouseY);
+    buttonsArray[i].DrawMe();
+  }
+
+  if (mouseIsPressed) {
+
+    for (let i = 0; buttonArray.length; i++){
+      buttonsArray[i].ClickMe();
+    }
+  }
+  */
 };
 
   //Get player info
@@ -141,4 +169,8 @@ function chooseDeleteFarm(){
   // if the result >= 0 get this value and remove from DB
   //if (positionX > 0){ farm.posX.splice(positionX, 1);
 
+  farmX = new farmPos([data[0].posX, data[1].posX2, data[2].posX3, data[3].posX4, data[4].posX5, data[5].posX6, data[6].posX7, data[7].posX8]);
+  farmY = new farmPos([data[0].posY1, data[1].posY2, data[2].posY3, data[3].posY4, data[4].posY5, data[5].posY6, data[6].posY7, data[7].posY8]);
+  
 }
+

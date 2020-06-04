@@ -156,5 +156,10 @@ router.post("/FarmDB", function(req,res){
     //pool.query(remove, () => {})
 });
 
+router.post('/updatestats', function(req,res){
+
+    //et sql = "update " bla bla bla wheat = wheat and everything else where playerid = playerid
+    //res.send(true);
+});
 
 module.exports = router; 
