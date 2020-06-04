@@ -29,7 +29,7 @@ create table Building(
     Type varchar(16),
     PosX int,
     PosY int,
-    PlayerID_FK_Buiding int,
+    PlayerID_FK_Building int,
     primary key (BuildingID),
     constraint foreign key (PlayerID_FK_Building) references Player(PlayerID)
 );
