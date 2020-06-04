@@ -109,7 +109,6 @@ router.get("/getPlayer", function(req,res){
 	pool.query(sql, (err,result)=>{
 	if(err) throw err;
 	res.send(result);	
-	
 	});	
 	});
 });
@@ -124,7 +123,6 @@ router.get("/getCastle/:playerLoged", function(req,res){
 	if(err) throw err;
 	
 	res.send(result);
-	
 	});
 });
 
@@ -132,14 +130,30 @@ router.get("/getFarmPos/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT posX,posY FROM posicao WHERE player_id="+playerlogedID;
+	let sql = "SELECT posX,posY FROM posicao WHERE availability = true AND player_id="+playerlogedID;
 	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-    
-    res.send([result[0].posX, result[1].posX, result[2].posX, result[3].posX, result[4].posX, result[5].posX, result[6].posX, result[7].posX, result[0].posY, result[1].posY, result[2].posY, result[3].posY, result[4].posY, result[5].posY, result[6].posY, result[7].posY]);
+	pool.query(sql, (err, result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result[0].posX, result[1].posX, result[2].posX, result[3].posX, result[4].posX, result[5].posX, result[6].posX, result[7].posX, );
 
 	});
+});
+
+router.post("/FarmDB", function(req,res){
+
+    let playerlogedID = req.body.player_id;
+    let name = req.body.name;
+    let posX = req.body.posX;
+    let posY = req.body.posY;
+
+    
+    let sql = "INSERT INTO belivers.farms(name, posX, posY, player_id) VALUES('"+name+"', '"+posX+"', '"+posY+"', '"+playerlogedID+"' )";
+
+    //let remove = "DELETE FROM belivers.posicao WHERE posX = '"+posX+"' AND posY = '"+posY+"'; "
+	
+    pool.query(sql, (err)=>{if(err) throw err;});
+    //pool.query(remove, () => {})
 });
 
 

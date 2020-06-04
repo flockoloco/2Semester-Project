@@ -2,8 +2,9 @@ let Settlement = [];
 let arrSettlement = [];
 
 let playerLoged;
-let farmX;
-let farmY;
+let farmX; 
+
+let value = 0;
 
 let pao;
 let money;
@@ -18,7 +19,7 @@ function preload(){
   faith = loadImage('../images/biblia.png');
 }
 
-function setup() {
+function setup(callback) {
   createCanvas(windowWidth, windowHeight);
   background(250, 218, 94);
 
@@ -26,6 +27,7 @@ function setup() {
   loadAll();
 
   getFarmPos();
+
   noLoop();
 };
 
@@ -51,7 +53,7 @@ function loadAll(){
 function getFarmPos(){
   loadJSON('/getFarmPos/'+playerLoged.id, function(data){
   parseFarmPos(data);
-});
+  });
 }
 
 /*
@@ -115,7 +117,7 @@ const createBars = () => {
 }
 
 function mousePressed(){
-};
+}
 
 function parsePlayer(data){
     playerLoged = new Player(data[0].id,data[0].username);
@@ -129,11 +131,14 @@ function parseSettlement(data){
 }
 
 function parseFarmPos(data){
-  console.log(data[0].posX);
-  console.log(data[0].posX1);
-  console.log(data[0].posx);
-  console.log(data[0].posx1);
+  farmX = ([data[0].posX, data[1].posX, data[2].posX, data[3].posX, data[4].posX, data[5].posX, data[6].posX, data[7].posX, data[0].posY, data[1].posY, data[2].posY, data[3].posY, data[4].posY, data[5].posY, data[6].posY, data[7].posY]);
+}
 
-  farmX = new farmPos([data[0].posX, data[1].posX2, data[2].posX3, data[3].posX4, data[4].posX5, data[5].posX6, data[6].posX7, data[7].posX8]);
-  farmY = new farmPos([data[0].posY1, data[1].posY2, data[2].posY3, data[3].posY4, data[4].posY5, data[5].posY6, data[6].posY7, data[7].posY8]);
+function chooseDeleteFarm(){
+  //let farmX = farm.posX[Math.floor(Math.random() * farm.posX.length)]
+  // search the position based on the value chosen
+  //let positionX = (farm.posX).indexOf(farmX);
+  // if the result >= 0 get this value and remove from DB
+  //if (positionX > 0){ farm.posX.splice(positionX, 1);
+
 }
