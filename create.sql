@@ -2,16 +2,16 @@ create database belivers;
 use belivers;
 
 create table User(
-	UserID int auto_increment not null,
-	UserPassword varchar(32) not null, 
-	UserName varchar(32) not null, 
-  Email varchar(64), 
-	primary key (UserID)
+    UserID int auto_increment not null,
+    UserName varchar(32) not null, 
+    UserPassword varchar(100) not null,
+    Email varchar(64), 
+    primary key (UserID)
 );
 
 create table Player(
-	PlayerID int auto_increment not null,
-	UserID_FK_Player int,
+    PlayerID int auto_increment not null,
+    UserID_FK_Player int,
     Concluded tinyint,
     Wheat int,
     Swords int,
@@ -25,7 +25,7 @@ create table Player(
 );
 
 create table Building(
-	BuildingID int,
+    BuildingID int AUTO_INCREMENT,
     Type varchar(16),
     PosX int,
     PosY int,
@@ -35,10 +35,10 @@ create table Building(
 );
 
 create table Tile(
-	TileID int,
+    TileID int AUTO_INCREMENT,
     Type varchar(20),
     Availability tinyint,
-	PosX int,
+    PosX int,
     PosY int,
     PlayerID_FK_Tile int,
     primary key (TileID),
@@ -46,7 +46,7 @@ create table Tile(
 );
 
 create table Leaderboard(
-	LeaderboardID int,
+    LeaderboardID int AUTO_INCREMENT,
     PlayerID_FK_Leaderboard int,
     Score int,
     primary key (LeaderboardID),
@@ -54,7 +54,7 @@ create table Leaderboard(
 );
 
 create table Answer(
-	AnswerID int,
+    AnswerID int AUTO_INCREMENT,
     Wheat int,
     Swords int,
     Money int,
@@ -63,14 +63,14 @@ create table Answer(
 );
 
 create table Question(
-	QuestionID int,
+    QuestionID int AUTO_INCREMENT,
     PlayerID_FK_Question int,
     Concluded tinyint,
     Answer1ID_FK_Question int,
     Answer2ID_FK_Question int,
     Answer3ID_FK_Question int,
     primary key(QuestionID),
-	  constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
+    constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
 );

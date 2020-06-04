@@ -1,18 +1,26 @@
 
 class settlement {
-    constructor(name, posX, posY, player_id, id) {
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
-        this.player_id = player_id;
-        this.id = id
+    constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+      this.id = id
+      this.Type = Type;
+      this.PosX = PosX;
+      this.PosY = PosY;
+      this.PlayerID_FK_Building = PlayerID_FK_Building
     };   
 };
 
 class Player{
-  constructor(id,name){
-  this.id=id;
-  this.name=name;
+  constructor(Id, UserID, Concluded, Wheat, Swords, Money, Faith, Score, KingdomName, PlayerName){
+  this.Id = Id;
+  this.UserID = UserID
+  this.Concluded = Concluded;
+  this.Wheat = Wheat;
+  this.Swords = Swords;
+  this.Money = Money;
+  this.Faith = Faith;
+  this.Score = Score;
+  this.KingdomName = KingdomName;
+  this.PlayerName = PlayerName;
   };
 };
 
@@ -66,13 +74,6 @@ class tile {
 	  this.c = c;
   };
 };
-
-class farmPos{
-  constructor([posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8, posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]){
-    this.posX = [posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8];
-    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7]
-  }
-}
 
 //unfinished objects falta ir buscar os buttoes
 class QuestionCreator{
