@@ -1,61 +1,76 @@
-CREATE SCHEMA `belivers` ;
+create database belivers;
+use belivers;
 
-USE `belivers`;
+create table User(
+	UserID int auto_increment not null,
+	UserPassword varchar(32) not null, 
+	UserName varchar(32) not null, 
+  Email varchar(64), 
+	primary key (UserID)
+);
 
-CREATE TABLE `belivers`.`bank` (
-  `idbank` INT NOT NULL,
-  PRIMARY KEY (`idbank`));
+create table Player(
+	PlayerID int auto_increment not null,
+	UserID_FK_Player int,
+    Concluded tinyint,
+    Wheat int,
+    Swords int,
+    Money int,
+    Faith int,
+    Score int,
+    KingdomName varchar(32),
+    PlayerName varchar(32),
+    primary key (PlayerID),
+    constraint foreign key (UserID_FK_Player) references User(UserID)
+);
 
-CREATE TABLE `belivers`.`barracks` (
-  `idbarracks` INT NOT NULL,
-  PRIMARY KEY (`idbarracks`));
+create table Building(
+	BuildingID int,
+    Type varchar(16),
+    PosX int,
+    PosY int,
+    PlayerID_FK_Buiding int,
+    primary key (BuildingID),
+    constraint foreign key (PlayerID_FK_Building) references Player(PlayerID)
+);
 
-CREATE TABLE `belivers`.`church` (
-  `idchurch` INT NOT NULL,
-  PRIMARY KEY (`idchurch`));
+create table Tile(
+	TileID int,
+    Type varchar(20),
+    Availability tinyint,
+	PosX int,
+    PosY int,
+    PlayerID_FK_Tile int,
+    primary key (TileID),
+    constraint foreign key(PlayerID_FK_Tile) references Player(PlayerID)
+);
 
-CREATE TABLE `belivers`.`farms` (
-  `idfarms` INT NOT NULL,
-  PRIMARY KEY (`idfarms`));
+create table Leaderboard(
+	LeaderboardID int,
+    PlayerID_FK_Leaderboard int,
+    Score int,
+    primary key (LeaderboardID),
+    constraint foreign key(PlayerID_FK_Leaderboard) references Player(PlayerID)
+);
 
-CREATE TABLE `belivers`.`friend_list` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `player_id` INT NOT NULL,
-  `friend_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `player_id`, `friend_id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+create table Answer(
+	AnswerID int,
+    Wheat int,
+    Swords int,
+    Money int,
+    Faith int,
+    primary key (AnswerID)
+);
 
-CREATE TABLE `belivers`.`questions` (
-  `idquestions` INT NOT NULL,
-  PRIMARY KEY (`idquestions`));
-  
-CREATE TABLE `belivers`.`castle` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `posX` INT NOT NULL,
-  `posY` INT NOT NULL,
-  `player_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`, `player_id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
-
-CREATE TABLE `belivers`.`users` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  `player_id` INT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE);
-
-CREATE TABLE `belivers`.`player` (
-  `id` INT NOT NULL,
-  PRIMARY KEY (`id`));
-  
-  CREATE TABLE `belivers`.`posicao` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `posX` INT NOT NULL,
-  `posY` INT NOT NULL,
-  `player_id` INT UNSIGNED NOT NULL,
-  `availability` TINYINT NOT NULL,
-  PRIMARY KEY (`id`, `player_id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+create table Question(
+	QuestionID int,
+    PlayerID_FK_Question int,
+    Concluded tinyint,
+    Answer1ID_FK_Question int,
+    Answer2ID_FK_Question int,
+    Answer3ID_FK_Question int,
+    primary key(QuestionID),
+	  constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
+    constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
+    constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
+);
