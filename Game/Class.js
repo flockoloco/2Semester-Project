@@ -70,7 +70,7 @@ class tile {
 class farmPos{
   constructor([posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8, posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]){
     this.posX = [posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8];
-    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]
+    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7]
   }
 }
 
