@@ -1,4 +1,4 @@
-import { Pool } from "mysql2";
+
 
 class settlement {
     constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
