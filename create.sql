@@ -70,7 +70,8 @@ create table Question(
     Answer2ID_FK_Question int,
     Answer3ID_FK_Question int,
     primary key(QuestionID),
-	  constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
+    constraint foreign key(PlayerID_FK_Question) references Player(PlayerID),
+	constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
 );

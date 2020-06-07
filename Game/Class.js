@@ -1,3 +1,4 @@
+import { Pool } from "mysql2";
 
 class settlement {
     constructor(name, posX, posY, player_id, id) {
@@ -10,9 +11,14 @@ class settlement {
 };
 
 class Player{
-  constructor(id,name){
+  constructor(id,name,wheat,swords,gold,faith){
   this.id=id;
   this.name=name;
+  this.wheat = wheat;
+  this.swords = swords;
+  this.gold = gold;
+  this.faith = faith
+  
   };
 };
 
@@ -25,7 +31,7 @@ class tile {
     this.st = st;
     this.t = t;
     this.id = id;
-    this.settlement = settlement;
+    this.settlement = settlement
   };
 
   draw_tile() {
@@ -74,8 +80,7 @@ class farmPos{
   }
 }
 
-//unfinished objects falta ir buscar os buttoes
-class QuestionCreator{
+/*class QuestionCreator{
   constructor(id,text,concluded,resets,o1,o2,o3){
     this.id = id; 
     this.text = text;
@@ -98,15 +103,24 @@ class QuestionCreator{
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
-    ChangeStats(this.option[optionPicked].wheat,this.option[optionPicked].swords,this.option[optionPicked].gold,this.option[optionPicked].faith)
+
+    let playerID = playerLoged.PlayerID; //change to the correct ID
+    let statsToSend = {
+    "PlayerID":playerID,
+    "wheat":this.option[optionPicked].wheat,
+    "swords":this.option[optionPicked].swords,
+    "gold":this.option[optionPicked].gold,
+    "faith":this.option[optionPicked].faith
+    }
+    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
     UpdateStats();
   }
   DrawMe(){
     //o codigo do draw depende do resto
   }
 }
-
-class OptionCreator{
+*/
+/*class OptionCreator{
   constructor(id,text,wheat,swords,gold,faith){
     this.id = id;
     this.text = text;
@@ -116,7 +130,7 @@ class OptionCreator{
     this.faith = faith;
   }
 }
-
+*/
 
 
 
@@ -179,12 +193,12 @@ class ButtonCreator{
     }
     pop();
   }
-  ClickMe(){ //Might remove one of these gates in the future. probably onetime
+  ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
         if (this.oneTime == true){
           this.oneTime = false;
-          questionArray[this.questionAssigned].PickOption(this.optionAssigned);
+          question.PickOption(this.optionAssigned);
         } 
       }
     }
@@ -196,5 +210,7 @@ class ButtonCreator{
   	this.disable = false;
   };
 };
+
+
 
 

@@ -31,8 +31,17 @@ function setup(callback) {
   initTile();
   loadAll();
 
-  //filling questions and buttons arrays with everything they need
-  //LoadQuestions();
+  //this way we start up the whole loop ------
+    let statsToSend = {
+    "PlayerID":playerLoged.PlayerID,
+    "wheat":0,
+    "swords":0,
+    "gold":0,
+    "faith":0
+    }
+  httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
+ //----
+
 
   getFarmPos();
 
@@ -43,25 +52,17 @@ function draw() {
   drawTile();
   createBars();
   
- //all commented so it doesnt crash for now :P
-  /*picks a new question. THIS CANT BE IN DRAW OR IT SPAMS NEW QUESTIONS
-  if (getNewQuestion == true){
-    getNewQuestion == false;
-    PickRandomQuestion(questionArray)
-  }
-  //making buttonsarray work XD
   for (let i = 0; buttonArray.length; i++){
     buttonsArray[i].CheckHover(mouseX,mouseY);
     buttonsArray[i].DrawMe();
   }
 
-  if (mouseIsPressed) {
+  if (mouseIsReleased) {
 
     for (let i = 0; buttonArray.length; i++){
       buttonsArray[i].ClickMe();
     }
   }
-  */
 };
 
   //Get player info
@@ -83,31 +84,6 @@ function getFarmPos(){
   parseFarmPos(data);
   });
 }
-
-/*
-  //Maybe we can use this to call for a random question?
-function chooseFunction(){
-
-  //random call between 1 to 4
-  var randomCall = Math.floor(Math.random() * 4) + 1;
-
-  if(randomCall == 1){
-  //oi
-  }
-  if(randomCall == 2){
-  //oi
-  }
-  if(randomCall == 3){
-  //oi
-  }
-  if(randomCall == 4){
-  //oi
-  }
-  //random value between 500-600
-  var random1 = Math.floor(Math.random() * 100) + 500;
-
-}
-*/
 
 const createBars = () => {
 
@@ -173,4 +149,7 @@ function chooseDeleteFarm(){
   farmY = new farmPos([data[0].posY1, data[1].posY2, data[2].posY3, data[3].posY4, data[4].posY5, data[5].posY6, data[6].posY7, data[7].posY8]);
   
 }
+
+
+
 

@@ -4,6 +4,8 @@ const pool = require('../core/database');
 const router = express.Router();
 const user = new User();
 
+const sq = require('./serverquestion')
+
 // 1 - Get index page
 router.get('/', (req, res, next) => {
     
@@ -155,13 +157,14 @@ router.post("/FarmDB", function(req,res){
     pool.query(sql, (err)=>{if(err) throw err;});
     //pool.query(remove, () => {})
 });
+router.post('/getNewQuestion',sq.PickRandomQuestion);
 
-router.post('/updatestats', function(req,res){
 
-    
+router.post('/changeStats',sq.ChangeStatsFunction);
 
-    //et sql = "update " bla bla bla wheat = wheat and everything else where playerid = playerid
-    //res.send(true);
-});
+
+
+
+
 
 module.exports = router; 
