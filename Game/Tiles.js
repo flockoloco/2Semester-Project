@@ -48,7 +48,7 @@ for (let i = 0; i < Settlement.length; i++) {
     for(let k=0;k<arrSettlement.length;k++){
     let px=i+1;
     let py=j+1;
-    if(px==arrSettlement[k].posX & py==arrSettlement[k].posY){
+    if(px==arrSettlement[k].PosX & py==arrSettlement[k].PosY){
     Settlement[i][j].set_settlement(arrSettlement[k]);
     Settlement[i][j].set_color("LightGray");
     }}

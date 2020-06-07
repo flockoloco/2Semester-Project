@@ -98,32 +98,23 @@ router.get('/logout', (req, res, next) => {
 router.get("/getPlayer", function(req,res){
 
     let user = req.session.user
-    let playerusername = user.username
-    let sql = 'SELECT * FROM belivers.users WHERE username = "'+playerusername+'" ';
+    let username = user.UserName
+    let sql = 'SELECT * FROM player WHERE PlayerID = (SELECT UserID FROM user WHERE UserName = "'+username+'" LIMIT 1);';
 		
 	pool.query(sql, (err,result)=>{
-    if(err) throw err;
-    
-    let playerid = result[0].id;
-
-	let sql = "SELECT * FROM belivers.users WHERE id="+playerid;
-		
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);	
-	});	
+	    if(err) throw err;
+        res.send(result);	
 	});
 });
 
 router.get("/getCastle/:playerLoged", function(req,res){
 
-	let playerlogedID = req.params.playerLoged;
+    let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT * FROM castle WHERE player_id="+playerlogedID;
+	let sql = "SELECT * FROM building WHERE Type = 'Castle' AND PlayerID_FK_Building="+playerlogedID;
 	
 	pool.query(sql, (err,result)=>{
 	if(err) throw err;
-	
 	res.send(result);
 	});
 });
@@ -132,12 +123,12 @@ router.get("/getFarmPos/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT posX,posY FROM posicao WHERE availability = true AND player_id="+playerlogedID;
+	let sql = "SELECT posX,posY FROM tile WHERE Availability = true AND PlayerID_FK_Tile="+playerlogedID;
 	
 	pool.query(sql, (err, result)=>{
     if(err) throw err;
-    console.log(result)
-    res.send(result[0].posX, result[1].posX, result[2].posX, result[3].posX, result[4].posX, result[5].posX, result[6].posX, result[7].posX, );
+    //console.log([result])
+    res.send([result]);
 
 	});
 });
@@ -150,7 +141,7 @@ router.post("/FarmDB", function(req,res){
     let posY = req.body.posY;
 
     
-    let sql = "INSERT INTO belivers.farms(name, posX, posY, player_id) VALUES('"+name+"', '"+posX+"', '"+posY+"', '"+playerlogedID+"' )";
+    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+name+"', '"+posX+"', '"+posY+"', '"+playerlogedID+"' )";
 
     //let remove = "DELETE FROM belivers.posicao WHERE posX = '"+posX+"' AND posY = '"+posY+"'; "
 	

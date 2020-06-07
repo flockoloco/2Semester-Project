@@ -24,7 +24,7 @@ function preload(){
   faith = loadImage('../images/biblia.png');
 }
 
-function setup(callback) {
+function setup() {
   createCanvas(windowWidth, windowHeight);
   background(250, 218, 94);
 
@@ -43,7 +43,7 @@ function setup(callback) {
  //----
 
 
-  getFarmPos();
+  //getFarmPos();
 
   noLoop();
 };
@@ -74,13 +74,14 @@ function getPlayer(){
 
   //Get settlements info
 function loadAll(){
-  loadJSON('/getCastle/'+playerLoged.id, function(data){
+  loadJSON('/getCastle/'+playerLoged.Id, function(data){
+  console.log(playerLoged.Id)
   parseSettlement(data);
   });
 }
 
 function getFarmPos(){
-  loadJSON('/getFarmPos/'+playerLoged.id, function(data){
+  loadJSON('/getFarmPos/'+playerLoged.Id, function(data){
   parseFarmPos(data);
   });
 }
@@ -124,18 +125,19 @@ function mousePressed(){
 }
 
 function parsePlayer(data){
-    playerLoged = new Player(data[0].id,data[0].username);
+    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Money, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
   }
 
 function parseSettlement(data){
   for(let i=0;i<data.length;i++){
-  arrSettlement[i] = new settlement(data[i].name, data[i].posX, data[i].posY, data[i].player_id, data[i].id);
+  arrSettlement[i] = new settlement(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
   }
   updateSettlement();
 }
 
 function parseFarmPos(data){
-  farmX = ([data[0].posX, data[1].posX, data[2].posX, data[3].posX, data[4].posX, data[5].posX, data[6].posX, data[7].posX, data[0].posY, data[1].posY, data[2].posY, data[3].posY, data[4].posY, data[5].posY, data[6].posY, data[7].posY]);
+  FarmX = ([data.PosX]);
+  FarmX = ([data.PosY]);
 }
 
 function chooseDeleteFarm(){
@@ -144,9 +146,6 @@ function chooseDeleteFarm(){
   //let positionX = (farm.posX).indexOf(farmX);
   // if the result >= 0 get this value and remove from DB
   //if (positionX > 0){ farm.posX.splice(positionX, 1);
-
-  farmX = new farmPos([data[0].posX, data[1].posX2, data[2].posX3, data[3].posX4, data[4].posX5, data[5].posX6, data[6].posX7, data[7].posX8]);
-  farmY = new farmPos([data[0].posY1, data[1].posY2, data[2].posY3, data[3].posY4, data[4].posY5, data[5].posY6, data[6].posY7, data[7].posY8]);
   
 }
 

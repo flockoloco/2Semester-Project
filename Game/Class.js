@@ -1,24 +1,27 @@
 import { Pool } from "mysql2";
 
 class settlement {
-    constructor(name, posX, posY, player_id, id) {
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
-        this.player_id = player_id;
-        this.id = id
+    constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+      this.id = id
+      this.Type = Type;
+      this.PosX = PosX;
+      this.PosY = PosY;
+      this.PlayerID_FK_Building = PlayerID_FK_Building
     };   
 };
 
 class Player{
-  constructor(id,name,wheat,swords,gold,faith){
-  this.id=id;
-  this.name=name;
-  this.wheat = wheat;
-  this.swords = swords;
-  this.gold = gold;
-  this.faith = faith
-  
+  constructor(Id, UserID, Concluded, Wheat, Swords, Gold, Faith, Score, KingdomName, PlayerName){
+  this.Id = Id;
+  this.UserID = UserID
+  this.Concluded = Concluded;
+  this.Wheat = Wheat;
+  this.Swords = Swords;
+  this.Gold = Gold;
+  this.Faith = Faith;
+  this.Score = Score;
+  this.KingdomName = KingdomName;
+  this.PlayerName = PlayerName;
   };
 };
 
@@ -81,6 +84,8 @@ class farmPos{
 }
 
 /*class QuestionCreator{
+//unfinished objects falta ir buscar os buttoes
+class QuestionCreator{
   constructor(id,text,concluded,resets,o1,o2,o3){
     this.id = id; 
     this.text = text;
