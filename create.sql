@@ -55,9 +55,10 @@ create table Leaderboard(
 
 create table Answer(
     AnswerID int AUTO_INCREMENT,
+    Text varchar(256),
     Wheat int,
     Swords int,
-    Money int,
+    Gold int,
     Faith int,
     primary key (AnswerID)
 );
@@ -66,6 +67,8 @@ create table Question(
     QuestionID int AUTO_INCREMENT,
     PlayerID_FK_Question int,
     Concluded tinyint,
+    Reset tinyint,
+    Text varchar(512),
     Answer1ID_FK_Question int,
     Answer2ID_FK_Question int,
     Answer3ID_FK_Question int,
