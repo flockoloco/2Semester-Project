@@ -29,20 +29,20 @@ function ChangeStats(id,wheat,swords,gold,faith){
     pool.query(sql, (err, result)=>{
         if(err) throw err;
 
-        result[0].wheat = result[0].wheat + wheat;
-        result[0].swords = result[0].swords + swords;
-        result[0].gold = result[0].gold + gold;
-        result[0].faith = result[0].faith + faith;
+        result[0].Wheat = result[0].Wheat + wheat;
+        result[0].Swords = result[0].Swords + swords;
+        result[0].Gold = result[0].Gold + gold;
+        result[0].Faith = result[0].Faith + faith;
 
-        let sql1 = "update player set Wheat = '"+result[0].wheat +"', Swords = '"+result[0].swords+"', Gold = '"+result[0].gold+"', Faith = '"+result[0].faith+"' where PlayerID = '"+id+"'"
+        let sql1 = "update player set Wheat = '"+result[0].Wheat +"', Swords = '"+result[0].Swords+"', Gold = '"+result[0].Gold+"', Faith = '"+result[0].Faith+"' where PlayerID = '"+id+"'"
         pool.query(sql1, (err1, result1)=>{
             if(err1) throw err1;
         });
         let objectToSend = {
-            "wheat": result[0].wheat,
-            "swords":result[0].swords,
-            "gold":result[0].gold,
-            "faith":result[0].faith
+            "wheat": result[0].Wheat,
+            "swords":result[0].Swords,
+            "gold":result[0].Gold,
+            "faith":result[0].Faith
         }
         return(objectToSend);
     });
