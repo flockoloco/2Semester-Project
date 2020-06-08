@@ -1,4 +1,5 @@
 
+
 class settlement {
     constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
       this.id = id
@@ -16,7 +17,7 @@ class Player{
   this.Concluded = Concluded;
   this.Wheat = Wheat;
   this.Swords = Swords;
-  this.Money = Money;
+  this.Gold = Gold;
   this.Faith = Faith;
   this.Score = Score;
   this.KingdomName = KingdomName;
@@ -33,7 +34,7 @@ class tile {
     this.st = st;
     this.t = t;
     this.id = id;
-    this.settlement = settlement;
+    this.settlement = settlement
   };
 
   draw_tile() {
@@ -75,6 +76,14 @@ class tile {
   };
 };
 
+class farmPos{
+  constructor([posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8, posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]){
+    this.posX = [posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8];
+    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7]
+  }
+}
+
+/*class QuestionCreator{
 //unfinished objects falta ir buscar os buttoes
 class QuestionCreator{
   constructor(id,text,concluded,resets,o1,o2,o3){
@@ -99,15 +108,24 @@ class QuestionCreator{
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
-    ChangeStats(this.option[optionPicked].wheat,this.option[optionPicked].swords,this.option[optionPicked].gold,this.option[optionPicked].faith)
+
+    let playerID = playerLoged.PlayerID; //change to the correct ID
+    let statsToSend = {
+    "PlayerID":playerID,
+    "wheat":this.option[optionPicked].wheat,
+    "swords":this.option[optionPicked].swords,
+    "gold":this.option[optionPicked].gold,
+    "faith":this.option[optionPicked].faith
+    }
+    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
     UpdateStats();
   }
   DrawMe(){
     //o codigo do draw depende do resto
   }
 }
-
-class OptionCreator{
+*/
+/*class OptionCreator{
   constructor(id,text,wheat,swords,gold,faith){
     this.id = id;
     this.text = text;
@@ -117,7 +135,7 @@ class OptionCreator{
     this.faith = faith;
   }
 }
-
+*/
 
 
 
@@ -180,12 +198,12 @@ class ButtonCreator{
     }
     pop();
   }
-  ClickMe(){ //Might remove one of these gates in the future. probably onetime
+  ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
         if (this.oneTime == true){
           this.oneTime = false;
-          questionArray[this.questionAssigned].PickOption(this.optionAssigned);
+          question.PickOption(this.optionAssigned);
         } 
       }
     }
@@ -197,5 +215,7 @@ class ButtonCreator{
   	this.disable = false;
   };
 };
+
+
 
 

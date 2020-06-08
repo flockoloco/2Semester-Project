@@ -55,9 +55,10 @@ create table Leaderboard(
 
 create table Answer(
     AnswerID int AUTO_INCREMENT,
+    Text varchar(256),
     Wheat int,
     Swords int,
-    Money int,
+    Gold int,
     Faith int,
     primary key (AnswerID)
 );
@@ -66,11 +67,14 @@ create table Question(
     QuestionID int AUTO_INCREMENT,
     PlayerID_FK_Question int,
     Concluded tinyint,
+    Reset tinyint,
+    Text varchar(512),
     Answer1ID_FK_Question int,
     Answer2ID_FK_Question int,
     Answer3ID_FK_Question int,
     primary key(QuestionID),
-    constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
+    constraint foreign key(PlayerID_FK_Question) references Player(PlayerID),
+	constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
 );
