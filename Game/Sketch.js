@@ -2,7 +2,8 @@ let Settlement = [];
 let arrSettlement = [];
 
 let playerLoged;
-let farmX; 
+let FarmX = []; 
+let FarmY = [];
 
 let value = 0;
 
@@ -34,7 +35,7 @@ function setup() {
   //filling questions and buttons arrays with everything they need
   //LoadQuestions();
 
-  //getFarmPos();
+  getFarmPos();
 
   noLoop();
 };
@@ -73,14 +74,13 @@ function getPlayer(){
 
   //Get settlements info
 function loadAll(){
-  loadJSON('/getCastle/'+playerLoged.Id, function(data){
-  console.log(playerLoged.Id)
+  loadJSON('/getCastle/'+playerLoged.PlayerID, function(data){
   parseSettlement(data);
   });
 }
 
 function getFarmPos(){
-  loadJSON('/getFarmPos/'+playerLoged.Id, function(data){
+  loadJSON('/getFarmPos/'+playerLoged.PlayerID, function(data){
   parseFarmPos(data);
   });
 }
@@ -146,6 +146,7 @@ const createBars = () => {
 }
 
 function mousePressed(){
+  chooseDeleteFarm();
 }
 
 function parsePlayer(data){
@@ -160,16 +161,22 @@ function parseSettlement(data){
 }
 
 function parseFarmPos(data){
-  FarmX = ([data.PosX]);
-  FarmX = ([data.PosY]);
+  for(i = 0; i < data.length; i++){
+  FarmX.push(data[i].PosX)
+  }
+  for(i = 0; i < data.length; i++){
+  FarmY.push(data[i].PosY)
+  }
 }
 
 function chooseDeleteFarm(){
-  //let farmX = farm.posX[Math.floor(Math.random() * farm.posX.length)]
-  // search the position based on the value chosen
-  //let positionX = (farm.posX).indexOf(farmX);
+  let FarmIndexX = FarmX[Math.floor(Math.random() * FarmX.length)]
+  let FarmIndexY = FarmY[Math.floor(Math.random() * FarmY.length)]
+  // search the position based on the value chosen (useless for now)
+  //let PositionX = FarmX.indexOf(FarmIndexX);
+  //let PositionY = FarmY.indexOf(FarmIndexY);
   // if the result >= 0 get this value and remove from DB
-  //if (positionX > 0){ farm.posX.splice(positionX, 1);
-  
-}
-
+  debugger
+  if (~FarmIndexX & ~FarmIndexY){
+    httpPost('/UpdateTile/'+playerLoged.PlayerID, "json", {"TileX": FarmIndexX, "TileY": FarmIndexY, "playerID": playerLoged.PlayerID}, function(){});
+} }

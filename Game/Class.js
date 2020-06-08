@@ -10,8 +10,8 @@ class settlement {
 };
 
 class Player{
-  constructor(Id, UserID, Concluded, Wheat, Swords, Money, Faith, Score, KingdomName, PlayerName){
-  this.Id = Id;
+  constructor(PlayerID, UserID, Concluded, Wheat, Swords, Money, Faith, Score, KingdomName, PlayerName){
+  this.PlayerID = PlayerID;
   this.UserID = UserID
   this.Concluded = Concluded;
   this.Wheat = Wheat;

@@ -2,10 +2,13 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const pageRouter = require('./routes/pages')
 
 const app = express();
+
+app.use(bodyParser.json())
 
 // for body parser
 app.use(express.urlencoded({ extended: false }));

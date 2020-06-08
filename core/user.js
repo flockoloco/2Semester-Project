@@ -51,11 +51,11 @@ User.prototype = {
             if(err) throw err;
             // return the last inserted id. if there is no error
             callback(result.insertId);
-
+         
             let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Money, Faith, Score) VALUES('"+result.insertId+"', FALSE, '50', '50', '50', '50', 0) "
         
         pool.query(player, function() {});
-
+        setTimeout(function(){ 
 			let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+result.insertId+"') ";
 			let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+result.insertId+"') ";
 			let CastleSO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '3', '"+result.insertId+"') ";
@@ -83,6 +83,7 @@ User.prototype = {
         pool.query(farmpos6, function() {});
         pool.query(farmpos7, function() {});
         pool.query(farmpos8, function() {});
+        }, 3);
         })
     },
 

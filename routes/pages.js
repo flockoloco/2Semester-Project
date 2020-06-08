@@ -101,7 +101,7 @@ router.get("/getPlayer", function(req,res){
 		
 	pool.query(sql, (err,result)=>{
 	    if(err) throw err;
-        res.send(result);	
+        res.send(result);
 	});
 });
 
@@ -121,13 +121,11 @@ router.get("/getFarmPos/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT posX,posY FROM tile WHERE Availability = true AND PlayerID_FK_Tile="+playerlogedID;
+	let sql = "SELECT PosX, PosY FROM tile WHERE Availability = true AND PlayerID_FK_Tile="+playerlogedID;
 	
 	pool.query(sql, (err, result)=>{
     if(err) throw err;
-    //console.log([result])
-    res.send([result]);
-
+    res.send(result)
 	});
 });
 
@@ -141,10 +139,7 @@ router.post("/FarmDB", function(req,res){
     
     let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+name+"', '"+posX+"', '"+posY+"', '"+playerlogedID+"' )";
 
-    //let remove = "DELETE FROM belivers.posicao WHERE posX = '"+posX+"' AND posY = '"+posY+"'; "
-	
     pool.query(sql, (err)=>{if(err) throw err;});
-    //pool.query(remove, () => {})
 });
 
 router.post('/updatestats', function(req,res){
@@ -153,6 +148,20 @@ router.post('/updatestats', function(req,res){
 
     //et sql = "update " bla bla bla wheat = wheat and everything else where playerid = playerid
     //res.send(true);
+});
+
+router.post("/UpdateTile/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+    let RemoveX = req.body.TileX;
+    let RemoveY = req.body.TileY;
+
+    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
+    
+    pool.query(sql, (err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    });
 });
 
 module.exports = router; 
