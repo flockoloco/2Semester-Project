@@ -31,12 +31,12 @@ function LoadQuestions(){
 }
 function GetNewQuestion(){
   playerID = playerLoged.PlayerID;
-  console.log("right before getnewQuestion post");
-  httpPost('/getNewQuestion','json',playerID,QuestionReceiver);
+  httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);
 
 }
 function QuestionReceiver(question){
-  console.log("IM HERE!");
+  console.log("the OH SHIT MOMENT")
+  console.log(question.PickMe) //well shit, gotta fix a ton of things.
   question.PickMe(buttonArray);
   console.log(question);
   activeQuestion = question;
