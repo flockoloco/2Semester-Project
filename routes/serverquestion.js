@@ -20,11 +20,12 @@ const pool = require('../core/database');
 }*/
 function ChangeStatsFunction(req,res){
 
-    let statsToSend = ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith);
-    res.send(statsToSend);
+    ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,res);
+    
 }
 
-function ChangeStats(id,wheat,swords,gold,faith){
+function ChangeStats(id,wheat,swords,gold,faith,res){
+
     let sql = "select * from player where PlayerID = '"+id+"' ;";
     pool.query(sql, (err, result)=>{
         if(err) throw err;
@@ -44,7 +45,8 @@ function ChangeStats(id,wheat,swords,gold,faith){
             "gold":result[0].Gold,
             "faith":result[0].Faith
         }
-        return(objectToSend);
+        res.send(objectToSend);
+
     });
 }  
 
@@ -63,17 +65,24 @@ function CheckAnyLeft(questionArray){
 }
 
 function PickRandomQuestion(req,res){ //this is the picks every single one before it refreshes the ones that should be refreshed
-    do {
+  console.log("inside of pickraNDOM QUESTIONS")
+  let result;  
+  do {
         let sql = "select * from Question where PlayerID_FK_Question = '"+req.body.playerID+"'order by QuestionID asc;";
         pool.query(sql, (err, result)=>{
             if(err) throw err;
+            console.log("inside of the query");
+            console.log(result)
             if (CheckAnyLeft(result) == true){
+              console.log("insode of theif checkanyleft");
                 let foundAPick = false;
                 for (let i = 0;foundAPick == true; i++){
                     let randompick = int(Math.random(0,result.length));
                     if (result[randompick].Concluded == false){
                         let questionToSend = FullQuestionCreator(result[0]);
                         foundAPick = true;
+                        console.log("heres the question to send")
+                        console.log(questionToSend);
                         res.send(questionToSend);
                     }
                 }

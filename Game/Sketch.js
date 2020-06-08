@@ -77,6 +77,7 @@ function getPlayer(){
 }
 function mouseReleased() {
   console.log(buttonArray)
+  console.log(buttonArray[0])
   buttonArray[0].ClickMe(activeQuestion);
   buttonArray[1].ClickMe(activeQuestion);
   if (activeQuestion.option[2]){
