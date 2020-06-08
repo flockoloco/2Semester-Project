@@ -64,17 +64,27 @@ create table Answer(
 );
 
 create table Question(
-    QuestionID int AUTO_INCREMENT,
+	TrueID int auto_increment,
+    QuestionID int,
+    
     PlayerID_FK_Question int,
     Concluded tinyint,
     Reset tinyint,
     Text varchar(512),
-    Answer1ID_FK_Question int,
-    Answer2ID_FK_Question int,
-    Answer3ID_FK_Question int,
-    primary key(QuestionID),
+    Answer1ID_FK_Question int null,
+    Answer2ID_FK_Question int null,
+    Answer3ID_FK_Question int null,
+    primary key(TrueID),
     constraint foreign key(PlayerID_FK_Question) references Player(PlayerID),
 	constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
 );
+
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Pray for the resources! lmao','-15','0','0','+20');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Go to war!','-20','-20','+40','+10');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Stay defensive!','+10','+10','-20','-10');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Propose trading!','+15','0','+20','-25');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Side with the priests!','0','0','-10','+10');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Side with the traders!','0','0','+10','-10');
