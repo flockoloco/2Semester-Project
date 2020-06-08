@@ -13,9 +13,8 @@ let war;
 let faith;
 
 //initializing questions and buttons for filling the in the future
-let questionArray = [];
+let activeQuestion;
 let buttonArray = [];
-let getNewQuestion = true;
 
 function preload(){
   getPlayer();
@@ -23,17 +22,18 @@ function preload(){
   money = loadImage('../images/dinheiro.png');
   war = loadImage('../images/guerra.png');
   faith = loadImage('../images/biblia.png');
-}
 
+  
+}
 function setup() {
+  noLoop();
+  
   createCanvas(windowWidth, windowHeight);
   background(250, 218, 94);
 
   initTile();
   loadAll();
-
-  //this way we start up the whole loop ------
-    let statsToSend = {
+  let statsToSend = {
     "PlayerID":playerLoged.PlayerID,
     "wheat":0,
     "swords":0,
@@ -41,29 +41,32 @@ function setup() {
     "faith":0
     }
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
- //----
+  buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",1,false,"option1");
+  buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",2,false,"option2");
+  buttonArray[2] = new ButtonCreator(300,100,50,50,"blue","",3,false,"option3");
 
+
+  console.log(activeQuestion);
 
   getFarmPos();
 
-  noLoop();
+  loop();
 };
 
 function draw() {
   drawTile();
   createBars();
-  
-  for (let i = 0; buttonArray.length; i++){
-    buttonsArray[i].CheckHover(mouseX,mouseY);
-    buttonsArray[i].DrawMe();
-  }
+  buttonArray[0].CheckHover(mouseX,mouseY);
+  buttonArray[1].CheckHover(mouseX,mouseY);
+  buttonArray[2].CheckHover(mouseX,mouseY);
+  buttonArray[0].DrawMe();
+  buttonArray[1].DrawMe();
+  buttonArray[2].DrawMe();
 
-  if (mouseIsReleased) {
-
-    for (let i = 0; buttonArray.length; i++){
-      buttonsArray[i].ClickMe();
-    }
-  }
+  /*for (let i = 0; buttonArray.length; i++){
+    buttonArray[i].CheckHover(mouseX,mouseY);
+    buttonArray[i].DrawMe();
+  }*/
 };
 
   //Get player info
@@ -71,6 +74,14 @@ function getPlayer(){
   loadJSON('/getPlayer', function(data){
   parsePlayer(data);
   });
+}
+function mouseReleased() {
+  console.log(buttonArray)
+  buttonArray[0].ClickMe(activeQuestion);
+  buttonArray[1].ClickMe(activeQuestion);
+  if (activeQuestion.option[2]){
+    buttonArray[2].ClickMe(activeQuestion);
+  }
 }
 
   //Get settlements info

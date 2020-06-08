@@ -29,9 +29,7 @@ User.prototype = {
 
     // This function will insert data into the database. (create a new user)
     // body is an object 
-    create : function(body, callback) 
-    {
-
+    create : function(body, callback){
         var pwd = body.password;
 
         // Hash the password before insert it into the database.
@@ -44,18 +42,23 @@ User.prototype = {
             bind.push(body[prop]);
         }
         // prepare the sql query
-        let sql = `INSERT INTO user(UserName, UserPassword) VALUES (?, ?)`;
+        let userSql = `INSERT INTO user(UserName, UserPassword) VALUES (?, ?)`;
         
         // call the query give it the sql string and the values (bind array)
-        pool.query(sql, bind, function(err, result) {
+        pool.query(userSql, bind, function(err, result) {
             if(err) throw err;
             // return the last inserted id. if there is no error
+            console.log("heres the result");
+            console.log(result[0]);
+            console.log(result);
             callback(result.insertId);
 
             let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+result.insertId+"', FALSE, '50', '50', '50', '50', 0); "
         
-        pool.query(player, function() {});
-        setTimeout(function(){
+            
+            pool.query(player, function() {});
+            setTimeout(() => {}, 200);
+            setTimeout(function(){
 /*
             let A1 = "insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5')";
             let A2 = "insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Pray for the resources! lmao','-15','0','0','+20')";
@@ -94,21 +97,21 @@ User.prototype = {
         pool.query(Q1, function() {});
         pool.query(Q2, function() {});
         pool.query(Q3, function() {});*/
-        pool.query(CastleNO, function() {});
-		pool.query(CastleNE, function() {});
-		pool.query(CastleSO, function() {});
-        pool.query(CastleSE, function() {});
+            pool.query(CastleNO, function() {});
+            pool.query(CastleNE, function() {});
+            pool.query(CastleSO, function() {});
+            pool.query(CastleSE, function() {});
 
-        pool.query(farmpos1, function() {});
-        pool.query(farmpos2, function() {});
-        pool.query(farmpos3, function() {});
-        pool.query(farmpos4, function() {});
-        pool.query(farmpos5, function() {});
-        pool.query(farmpos6, function() {});
-        pool.query(farmpos7, function() {});
-        pool.query(farmpos8, function() {});
+            pool.query(farmpos1, function() {});
+            pool.query(farmpos2, function() {});
+            pool.query(farmpos3, function() {});
+            pool.query(farmpos4, function() {});
+            pool.query(farmpos5, function() {});
+            pool.query(farmpos6, function() {});
+            pool.query(farmpos7, function() {});
+            pool.query(farmpos8, function() {});
 
-        }, 300);
+            }, 300);
         })
     },
 

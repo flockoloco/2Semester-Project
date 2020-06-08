@@ -12,12 +12,8 @@ function DisableButtons(buttonsArray,action){
     }
   }
 }
-
-
-
-
-
 function ChangeStatsReceiver(stats){
+  console.log("in change stats receiver");
   playerLoged.wheat = stats.wheat;
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
@@ -27,8 +23,6 @@ function ChangeStatsReceiver(stats){
   GetNewQuestion();
   //maybe start loop again
 }
-
-
 function LoadQuestions(){
     buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",1,false,"option1")
     buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",2,false,"option2")
@@ -36,10 +30,14 @@ function LoadQuestions(){
  //this is probably the best way to initialize the object i think desta maneira nao temos de os chamar em separado
 }
 function GetNewQuestion(){
-  playerID = playerLoged.playerID
+  playerID = playerLoged.PlayerID;
+  console.log("right before getnewQuestion post");
   httpPost('/getNewQuestion','json',playerID,QuestionReceiver);
 
 }
 function QuestionReceiver(question){
+  console.log("IM HERE!");
   question.PickMe(buttonArray);
+  console.log(question);
+  activeQuestion = question;
 }

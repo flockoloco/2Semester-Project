@@ -159,6 +159,8 @@ router.post("/UpdateTile/:playerLoged", function(req,res){
     let RemoveX = req.body.TileX;
     let RemoveY = req.body.TileY;
 
+    console.log(RemoveX);
+    console.log(RemoveY);
     let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
     
     pool.query(sql, (err,result)=>{
