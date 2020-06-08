@@ -126,7 +126,7 @@ function mousePressed(){
 }
 
 function parsePlayer(data){
-    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Money, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
+    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Gold, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
   }
 
 function parseSettlement(data){

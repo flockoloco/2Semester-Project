@@ -52,10 +52,11 @@ User.prototype = {
             // return the last inserted id. if there is no error
             callback(result.insertId);
 
-            let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+result.insertId+"', FALSE, '50', '50', '50', '50', 0) "
+            let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+result.insertId+"', FALSE, '50', '50', '50', '50', 0); "
         
         pool.query(player, function() {});
         setTimeout(function(){
+/*
             let A1 = "insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5')";
             let A2 = "insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Pray for the resources! lmao','-15','0','0','+20')";
             let A3 = "insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Go to war!','-20','-20','+40','+10')";
@@ -67,20 +68,7 @@ User.prototype = {
             let Q1 = "insert into belivers.Question(PlayerID_FK_Question,Concluded,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Answer3ID_FK_Question) values('"+result.insertId+"',false,true,'This years production was really low :( People are hungry but the priests claim god will provide in time of need.','1','2','')";
             let Q2 = "insert into belivers.Question(PlayerID_FK_Question,Concluded,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Answer3ID_FK_Question) values('"+result.insertId+"',false,true,'Tension between the kingdoms is rising! You have to decide your stance on the future wars.','3','4','5')";
             let Q3 = "insert into belivers.Question(PlayerID_FK_Question,Concluded,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Answer3ID_FK_Question) values('"+result.insertId+"',false,true,'Theres a big fight between the traders and the priests in the court, you need to side with one of them.','6','7','')";
-
-        
-            pool.query(A1, function() {});
-            pool.query(A2, function() {});
-            pool.query(A3, function() {});
-            pool.query(A4, function() {});
-            pool.query(A5, function() {});
-            pool.query(A6, function() {});
-            pool.query(A7, function() {});
-
-            pool.query(Q1, function() {});
-            pool.query(Q2, function() {});
-            pool.query(Q3, function() {});
-
+*/
 			let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+result.insertId+"') ";
 			let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+result.insertId+"') ";
 			let CastleSO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '3', '"+result.insertId+"') ";
@@ -94,7 +82,18 @@ User.prototype = {
             let farmpos6 = "INSERT INTO belivers.tile(Type, Availability, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', 1, '2', '3', '"+result.insertId+"') ";
             let farmpos7 = "INSERT INTO belivers.tile(Type, Availability, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', 1, '3', '1', '"+result.insertId+"') ";
             let farmpos8 = "INSERT INTO belivers.tile(Type, Availability, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', 1, '3', '2', '"+result.insertId+"') ";
+/*
+        pool.query(A1, function() {});
+        pool.query(A2, function() {});
+        pool.query(A3, function() {});
+        pool.query(A4, function() {});
+        pool.query(A5, function() {});
+        pool.query(A6, function() {});
+        pool.query(A7, function() {});
 
+        pool.query(Q1, function() {});
+        pool.query(Q2, function() {});
+        pool.query(Q3, function() {});*/
         pool.query(CastleNO, function() {});
 		pool.query(CastleNE, function() {});
 		pool.query(CastleSO, function() {});
@@ -108,7 +107,8 @@ User.prototype = {
         pool.query(farmpos6, function() {});
         pool.query(farmpos7, function() {});
         pool.query(farmpos8, function() {});
-        }, 3);
+
+        }, 300);
         })
     },
 

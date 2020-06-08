@@ -15,7 +15,7 @@ create table Player(
     Concluded tinyint,
     Wheat int,
     Swords int,
-    Money int,
+    Gold int,
     Faith int,
     Score int,
     KingdomName varchar(32),
