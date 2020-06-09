@@ -136,56 +136,9 @@ class QuestionCreator{
   }
 }
 */
-class OptionCreator{
-  constructor(id,text,wheat,swords,gold,faith){
-    this.id = id;
-    this.text = text;
-    this.wheat = wheat;
-    this.swords = swords;
-    this.gold = gold;
-    this.faith = faith;
-  }
-}
 
-class QuestionCreator{
-  constructor(values  ){
-    this.option = [];
-    this.id = values.id; 
-    this.text = values.text;
-    this.concluded = values.concluded;
-    this.resets = values.resets;
-    this.option[0] = new OptionCreator(values.option[0].id,values.option[0].text,values.option[0].wheat,values.option[0].swords,values.option[0].gold,values.option[0].faith);
-    this.option[1] = new OptionCreator(values.option[1].id,values.option[1].text,values.option[1].wheat,values.option[1].swords,values.option[1].gold,values.option[1].faith);
-    if (values.option[2]) {
-      this.option[2] = new OptionCreator(values.option[2].id,values.option[2].text,values.option[2].wheat,values.option[2].swords,values.option[2].gold,values.option[2].faith);
-    }
-  }
-  PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-    buttonArray[0].AssignQuestion(this.id);
-    buttonArray[1].AssignQuestion(this.id);
-    if (this.option[2]){
-      buttonArray[2].AssignQuestion(this.id);
-        }else {
-      buttonArray[2].DisableMe();
-    }
-  }
-  PickOption(optionPicked){ //after PickMe()
-    //disable all buttons with the disablebuttons function either here or in the buttons click me function
-    let playerID = playerLoged.PlayerID; //change to the correct ID
-    debugger
-    let statsToSend = {
-      "PlayerID":playerID,
-      "wheat":this.option[optionPicked].wheat,
-      "swords":this.option[optionPicked].swords,
-      "gold":this.option[optionPicked].gold,
-      "faith":this.option[optionPicked].faith
-    }
-    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
-  }
-  DrawMe(){
-    //o codigo do draw depende do resto
-  }
-}
+
+
 
 class ButtonCreator{
   constructor(x,y,width,height,color,questionAssinged,optionAssigned,disable,text){
@@ -198,11 +151,12 @@ class ButtonCreator{
   this.optionAssigned = optionAssigned,
 	this.hovered = false,
 	this.disable = disable,
+  this.oneTime = true,
   this.objectToSend = 0,
   this.text = text
   };
   AssignQuestion(questionNumber){
-
+    this.oneTime = true;
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 
@@ -244,13 +198,13 @@ class ButtonCreator{
     }
     pop();
   }
-  ClickMe(question){ //  WEMIGHT NEED TO CHANGE THIS PART (question)
+  ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
-        
-          
+        if (this.oneTime == true){
+          this.oneTime = false;
           question.PickOption(this.optionAssigned);
-        
+        } 
       }
     }
   }
