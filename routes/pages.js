@@ -85,7 +85,7 @@ router.post('/register', (req, res, next) => {
 
 });
 
-// ## LOGOUT
+// ## LOGOUT OPTION 
 router.get('/logout', (req, res, next) => {
     if(req.session.user)
     {
@@ -94,6 +94,8 @@ router.get('/logout', (req, res, next) => {
         });
     }
 });
+
+        //GET PLAYER INFORMATION FROM THE DATABASE
 
 router.get("/getPlayer", function(req,res){
 
@@ -107,6 +109,10 @@ router.get("/getPlayer", function(req,res){
 	});
 });
 
+                                                            //GET THE BUILDINGS
+
+        //GET THE CASTLE FROM THE DATABSE
+
 router.get("/getCastle/:playerLoged", function(req,res){
 
     let playerlogedID = req.params.playerLoged;
@@ -119,11 +125,71 @@ router.get("/getCastle/:playerLoged", function(req,res){
 	});
 });
 
+        //GET THE FARM FROM THE DATABSE
+
+router.get("/getFarm/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT * FROM building WHERE Type = 'Farm' AND PlayerID_FK_Building="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	res.send(result);
+	});
+});
+
+        //GET THE BARRACKS FROM THE DATABSE
+
+router.get("/getBarrack/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT * FROM building WHERE Type = 'Barrack' AND PlayerID_FK_Building="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	res.send(result);
+	});
+});
+
+        //GET THE BANK FROM THE DATABSE
+
+router.get("/getBank/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT * FROM building WHERE Type = 'Bank' AND PlayerID_FK_Building="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	res.send(result);
+	});
+});
+
+        //GET THE CHURCH FROM THE DATABSE
+
+router.get("/getChurch/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT * FROM building WHERE Type = 'Church' AND PlayerID_FK_Building="+playerlogedID;
+	
+	pool.query(sql, (err,result)=>{
+	if(err) throw err;
+	res.send(result);
+	});
+});
+
+                                                            //GET THE REMAINING BUILDING'S POSITION AVAILABLE
+
+        //GET FARM FREE SLOT POSITION
+
 router.get("/getFarmPos/:playerLoged", function(req,res){
 
 	let playerlogedID = req.params.playerLoged;
 	
-	let sql = "SELECT PosX, PosY FROM tile WHERE Availability = true AND PlayerID_FK_Tile="+playerlogedID;
+	let sql = "SELECT PosX, PosY FROM tile WHERE Type = 'Farm' AND PlayerID_FK_Tile="+playerlogedID;
 	
 	pool.query(sql, (err, result)=>{
     if(err) throw err;
@@ -131,40 +197,184 @@ router.get("/getFarmPos/:playerLoged", function(req,res){
 	});
 });
 
-router.post("/FarmDB", function(req,res){
+        //GET BARRACK FREE SLOT POSITION
 
-    let playerlogedID = req.body.player_id;
-    let name = req.body.name;
-    let posX = req.body.posX;
-    let posY = req.body.posY;
+router.get("/getBarrackPos/:playerLoged", function(req,res){
+
+    let playerlogedID = req.params.playerLoged;
+    
+    let sql = "SELECT PosX, PosY FROM tile WHERE Type = 'Barrack' AND PlayerID_FK_Tile="+playerlogedID;
+    
+    pool.query(sql, (err, result)=>{
+    if(err) throw err;
+    res.send(result)
+    });
+});
+
+        //GET BANK FREE SLOT POSITION
+
+router.get("/getBankPos/:playerLoged", function(req,res){
+
+	let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT PosX, PosY FROM tile WHERE Type = 'Bank' AND PlayerID_FK_Tile="+playerlogedID;
+	
+	pool.query(sql, (err, result)=>{
+    if(err) throw err;
+    res.send(result)
+	});
+});
+
+        //GET CHURCH FREE SLOT POSITION
+
+router.get("/getChurchPos/:playerLoged", function(req,res){
+
+	let playerlogedID = req.params.playerLoged;
+	
+	let sql = "SELECT PosX, PosY FROM tile WHERE Type = 'Church' AND PlayerID_FK_Tile="+playerlogedID;
+	
+	pool.query(sql, (err, result)=>{
+    if(err) throw err;
+    res.send(result)
+	});
+});
+
+
+                                                            //INSERT BUILDING IN THE TILE
+
+        //INSERT A FARM IN THE DATABASE
+
+router.post("/farmDB", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let Type = "Farm"
+    let PosX = req.body.TileX;
+    let PosY = req.body.TileY;
 
     
-    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+name+"', '"+posX+"', '"+posY+"', '"+playerlogedID+"' )";
+    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+Type+"', '"+PosX+"', '"+PosY+"', '"+playerlogedID+"' )";
 
-    pool.query(sql, (err)=>{if(err) throw err;});
+    pool.query(sql, ()=>{res.send(true)});
 });
+
+        //INSERT A BARRACK IN THE DATABASE
+
+router.post("/barrackDB", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let Type = "Barrack"
+    let PosX = req.body.TileX;
+    let PosY = req.body.TileY;
+
+    
+    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+Type+"', '"+PosX+"', '"+PosY+"', '"+playerlogedID+"' )";
+
+    pool.query(sql, ()=>{res.send(true)});
+});
+
+        //INSERT A BANK IN THE DATABASE
+
+router.post("/bankDB", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let Type = "Bank"
+    let PosX = req.body.TileX;
+    let PosY = req.body.TileY;
+
+    
+    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+Type+"', '"+PosX+"', '"+PosY+"', '"+playerlogedID+"' )";
+
+    pool.query(sql, ()=>{res.send(true)});
+});
+
+        //INSERT A CHURCH IN THE DATABASE
+
+router.post("/churchDB", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let Type = "Church"
+    let PosX = req.body.TileX;
+    let PosY = req.body.TileY;
+
+    
+    let sql = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+Type+"', '"+PosX+"', '"+PosY+"', '"+playerlogedID+"' )";
+
+    pool.query(sql, ()=>{res.send(true)});
+});
+
+
 router.post('/getNewQuestion',sq.PickRandomQuestion);
 
 
 router.post('/changeStats',sq.ChangeStatsFunction);
 
 
+                                                            //REMOVE THIS TILE POSITION FROM THE DATABASE
 
+        //REMOVE THE TILE AVAILABLE FOR THE FARM
 
+router.post("/removeFarm", function(req,res){
 
-
-router.post("/UpdateTile/:playerLoged", function(req,res){
-
-    let playerlogedID = req.params.playerLoged;
+    let playerlogedID = req.body.playerID;
     let RemoveX = req.body.TileX;
     let RemoveY = req.body.TileY;
 
-    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
+    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND Type = 'Farm' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
     
     pool.query(sql, (err,result)=>{
         if(err) throw err;
         res.send(result);
     });
 });
+
+        //REMOVE THE TILE AVAILABLE FOR THE BARRACK
+
+router.post("/removeBarrack", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let RemoveX = req.body.TileX;
+    let RemoveY = req.body.TileY;
+
+    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND Type = 'Barrack' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
+    
+    pool.query(sql, (err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    });
+});
+
+        //REMOVE THE TILE AVAILABLE FOR THE BANK
+
+router.post("/removeBank", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let RemoveX = req.body.TileX;
+    let RemoveY = req.body.TileY;
+
+    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND Type = 'Bank' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
+    
+    pool.query(sql, (err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    });
+});
+
+        //REMOVE THE TILE AVAILABLE FOR THE FARM
+
+router.post("/removeChurch", function(req,res){
+
+    let playerlogedID = req.body.playerID;
+    let RemoveX = req.body.TileX;
+    let RemoveY = req.body.TileY;
+
+    let sql = "DELETE FROM belivers.tile WHERE PosX = '"+RemoveX+"' AND PosY = '"+RemoveY+"' AND Type = 'Church' AND PlayerID_FK_Tile = '"+playerlogedID+"'; "
+    
+    pool.query(sql, (err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    });
+});
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-
 
 module.exports = router; 

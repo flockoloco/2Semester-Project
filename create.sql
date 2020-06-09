@@ -37,7 +37,6 @@ create table Building(
 create table Tile(
     TileID int AUTO_INCREMENT,
     Type varchar(20),
-    Availability tinyint,
     PosX int,
     PosY int,
     PlayerID_FK_Tile int,

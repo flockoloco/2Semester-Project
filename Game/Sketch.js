@@ -1,30 +1,40 @@
-let Settlement = []; 
-let arrSettlement = [];
+let tiles = []; 
+
+let arrCastle = [];
+let arrFarm = [];
+let arrBarrack = [];
+let arrBank = [];
+let arrChurch = [];
+
+let farmTile = [];
+let barrackTile = [];
+let bankTile = [];
+let churchTile = [];
+
+let wheatImage;
+let goldImage;
+let swordImage;
+let faithImage;
 
 let playerLoged;
-let FarmX = []; 
-let FarmY = [];
 
 let value = 0;
 
-let pao;
-let money;
-let war;
-let faith;
+    //initializing questions and buttons for filling the in the future
 
-//initializing questions and buttons for filling the in the future
 let activeQuestion;
 let buttonArray = [];
 
 function preload(){
-  getPlayer();
-  pao = loadImage('../images/pao.png');
-  money = loadImage('../images/dinheiro.png');
-  war = loadImage('../images/guerra.png');
-  faith = loadImage('../images/biblia.png');
 
-  
+  getPlayer();
+
+  wheatImage = loadImage('../images/wheat.png');
+  goldImage = loadImage('../images/gold.png');
+  swordImage = loadImage('../images/sword.png');
+  faithImage = loadImage('../images/faith.png');
 }
+
 function setup() {
   noLoop();
   
@@ -44,11 +54,11 @@ function setup() {
   buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",1,false,"option1");
   buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",2,false,"option2");
   buttonArray[2] = new ButtonCreator(300,100,50,50,"blue","",3,false,"option3");
-
-
-  console.log(activeQuestion);
-
+  
   getFarmPos();
+  getBarrackPos();
+  getBankPos();
+  getChurchPos();
 
   loop();
 };
@@ -69,15 +79,16 @@ function draw() {
   }*/
 };
 
-  //Get player info
+    //Get player info
+
 function getPlayer(){
   loadJSON('/getPlayer', function(data){
   parsePlayer(data);
   });
 }
+
+
 function mouseReleased() {
-  console.log(buttonArray)
-  console.log(buttonArray[0])
   buttonArray[0].ClickMe(activeQuestion);
   buttonArray[1].ClickMe(activeQuestion);
   if (activeQuestion.option[2]){
@@ -85,85 +96,224 @@ function mouseReleased() {
   }
 }
 
-  //Get settlements info
+    //GET THE BUILDINGS' INFORMATION
 function loadAll(){
+
   loadJSON('/getCastle/'+playerLoged.PlayerID, function(data){
-  parseSettlement(data);
+  parseTile(data);
   });
+
+  loadJSON('/getFarm/'+playerLoged.PlayerID, function(data){
+  parseTile(data);
+  });
+
+  loadJSON('/getBarrack/'+playerLoged.PlayerID, function(data){
+  parseTile(data);
+  });
+
+  loadJSON('/getBank/'+playerLoged.PlayerID, function(data){
+  parseTile(data);
+  });
+
+  loadJSON('/getChurch/'+playerLoged.PlayerID, function(data){
+  parseTile(data);
+  });
+  
 }
+
+    //LOAD THE FARM'S POSITION TO BE STORED
 
 function getFarmPos(){
   loadJSON('/getFarmPos/'+playerLoged.PlayerID, function(data){
-  parseFarmPos(data);
+  parseFarm(data);
   });
 }
 
+    //LOAD THE BARRACK'S POSITION TO BE STORED
+
+function getBarrackPos(){
+  loadJSON('/getBarrackPos/'+playerLoged.PlayerID, function(data){
+  parseBarrack(data);
+  });
+}
+
+    //LOAD THE BANK'S POSITION TO BE STORED
+
+function getBankPos(){
+  loadJSON('/getBankPos/'+playerLoged.PlayerID, function(data){
+  parseBank(data);
+  });
+}
+
+    //LOAD THE FARM'S POSITION TO BE STORED
+
+function getChurchPos(){
+  loadJSON('/getChurchPos/'+playerLoged.PlayerID, function(data){
+  parseChurch(data);
+  });
+}
+
+    //BARS FOR THE RESOURCES
+
 const createBars = () => {
 
-  //food Bar
+    //WHEAT BAR
   let foodBar = 50
   fill(255);
   rect(1275, 75, 50, 150);
   fill("Green");
   rect(1275, 225, 50, -(foodBar*1.5))
-  image(pao, 1280, 25);
+  image(wheatImage, 1280, 25);
 
-  //money Bar
-  let moneyBar = 50
+    //GOLD BAR
+  let goldBar = 50
   fill(255);
   rect(1375, 75, 50, 150);
   fill("Green");
-  rect(1375, 225, 50, -(moneyBar*1.5))
-  image(money, 1380, 25);
+  rect(1375, 225, 50, -(goldBar*1.5))
+  image(goldImage, 1380, 25);
 
-  //war Bar
+    //SWORD BAR
   let warBar = 50
   fill(255);
   rect(1475, 75, 50, 150);
   fill("Green");
   rect(1475, 225, 50, -(warBar*1.5))
-  image(war, 1480, 25);
+  image(swordImage, 1480, 25);
 
-  //faith Bar
+   //FAITH BAR
   let faithBar = 50
   fill(255);
   rect(1575, 75, 50, 150);
   fill("Green");
   rect(1575, 225, 50, -(faithBar*1.5))
-  image(faith, 1580, 25);
+  image(faithImage, 1580, 25);
 }
 
 function mousePressed(){
-  chooseDeleteFarm();
 }
+
+    //STORE THE PLAYER'S INFORMATION
 
 function parsePlayer(data){
     playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Gold, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
   }
 
-function parseSettlement(data){
+    //STORE THE TILE'S INFORMATION
+
+function parseTile(data){
   for(let i=0;i<data.length;i++){
-  arrSettlement[i] = new settlement(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  if(data[i].Type == "Castle"){
+  arrCastle[i] = new castle(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  updateTile();
   }
-  updateSettlement();
+  if(data[i].Type == "Farm"){
+  arrFarm[i] = new farm(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  updateTile();
+  }
+  if(data[i].Type == "Barrack"){
+  arrBarrack[i] = new barrack(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  updateTile();
+  }
+  if(data[i].Type == "Bank"){
+  arrBank[i] = new bank(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  updateTile();
+  }
+  if(data[i].Type == "Church"){
+  arrChurch[i] = new church(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+  updateTile();
+  }
+  }
 }
 
-function parseFarmPos(data){
+    //STORE THE FARM'S INFORMATION
+
+function parseFarm(data){
+  farmTile = [];
   for(i = 0; i < data.length; i++){
-  FarmX.push(data[i].PosX)
-  }
-  for(i = 0; i < data.length; i++){
-  FarmY.push(data[i].PosY)
+    farmTile.push(data[i])
   }
 }
 
-function chooseDeleteFarm(){
-  let FarmIndexX = FarmX[Math.floor(Math.random() * FarmX.length)]
-  let FarmIndexY = FarmY[Math.floor(Math.random() * FarmY.length)]
-  // search the position based on the value chosen (useless for now)
-  //let PositionX = FarmX.indexOf(FarmIndexX);
-  //let PositionY = FarmY.indexOf(FarmIndexY);
-  // if the result >= 0 get this value and remove from DB
-  if (~FarmIndexX & ~FarmIndexY){
-    httpPost('/UpdateTile/'+playerLoged.PlayerID, "json", {"TileX": FarmIndexX, "TileY": FarmIndexY, "playerID": playerLoged.PlayerID}, function(){});
-} }
+    //STORE THE BARRACK'S INFORMATION
+
+function parseBarrack(data){
+  barrackTile = [];
+  for(i = 0; i < data.length; i++){
+    barrackTile.push(data[i])
+  }
+}
+
+    //STORE THE BANK'S INFORMATION
+
+function parseBank(data){
+  bankTile = [];
+  for(i = 0; i < data.length; i++){
+  bankTile.push(data[i])
+  }
+}
+
+    //STORE THE CHURCH'S INFORMATION
+
+function parseChurch(data){
+  churchTile = [];
+  for(i = 0; i < data.length; i++){
+  churchTile.push(data[i])
+  }
+}
+
+    //FROM THE PREVIOUS FARM INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
+
+function farmPost(){
+
+  let FarmIndex = farmTile[Math.floor(Math.random() * farmTile.length)]
+
+  if (FarmIndex){
+    httpPost('/removeFarm', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/farmDB', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+  }
+loadAll(); 
+getFarmPos();
+}
+
+    //FROM THE PREVIOUS BARRACK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
+
+function barrackPost(){
+
+  let barrackIndex = barrackTile[Math.floor(Math.random() * barrackTile.length)]
+
+  if (barrackIndex){
+    httpPost('/removeBarrack', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/barrackDB', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+  }
+loadAll(); 
+getBarrackPos();
+}
+
+    //FROM THE PREVIOUS BANK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
+
+function bankPost(){
+
+  let BankIndex = bankTile[Math.floor(Math.random() * bankTile.length)]
+
+  if (BankIndex){
+    httpPost('/removeBank', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/bankDB', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+  }
+loadAll(); 
+getBankPos();
+}
+
+    //FROM THE PREVIOUS CHURCH INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
+
+function churchPost(){
+
+  let churchIndex = churchTile[Math.floor(Math.random() * churchTile.length)]
+
+  if (churchIndex){
+    httpPost('/removeChurch', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/churchDB', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+  }
+loadAll(); 
+getChurchPos();
+}

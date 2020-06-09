@@ -1,13 +1,13 @@
-//draw the tiles
+        //DRAW THE TILES
 function drawTile() {
-for (let i = 0; i < Settlement.length; i++) {
-    for (let j = 0; j < Settlement.length; j++) {
-    Settlement[i][j].draw_tile();
+for (let i = 0; i < tiles.length; i++) {
+    for (let j = 0; j < tiles.length; j++) {
+        tiles[i][j].draw_tile();
     }
 }
 }
 
-//Tile Info
+//CREATE THE TILE INFORMATION AND POSITION
 function initTile() {
 
 let numberOfCols = 6;
@@ -21,8 +21,7 @@ let initialY = height / 1.7 - GBH / 2;
 let initialX = width / 1.3 - GBW / 2;
 
 for (let i = 0; i < numberOfCols; i++) {
-//every colum is also an array
-Settlement[i] = [];
+    tiles[i] = [];
 if (i == 0) {
 y = initialY;
 } else {
@@ -35,22 +34,50 @@ y = y + GBH / numberOfCols;
     x = x + GBW / numberOfCols;
     }
     countID++;
-    Settlement[i][j] = new tile(x, y, sizeOfTile, 'lightgreen', 25, '', countID);
+    tiles[i][j] = new tile(x, y, sizeOfTile, 'lightgreen', 25, '', countID);
     }
 }
 }
 
-//update the tile info 
-function updateSettlement(){
+        //UPDATE THE TILE INFORMATION
+function updateTile(){
 
-for (let i = 0; i < Settlement.length; i++) {
-    for (let j = 0; j < Settlement.length; j++) {
-    for(let k=0;k<arrSettlement.length;k++){
+for (let i = 0; i < tiles.length; i++) {
+    for (let j = 0; j < tiles.length; j++) {
+    for(let k=0;k<arrCastle.length;k++){
     let px=i+1;
     let py=j+1;
-    if(px==arrSettlement[k].PosX & py==arrSettlement[k].PosY){
-    Settlement[i][j].set_settlement(arrSettlement[k]);
-    Settlement[i][j].set_color("LightGray");
+    if(px==arrCastle[k].PosX & py==arrCastle[k].PosY){
+    tiles[i][j].set_Castle(arrCastle[k]);
+    tiles[i][j].set_color("LightGray");
+    }}
+    for(let k=0;k<arrFarm.length;k++){
+    let px=i+1;
+    let py=j+1;
+    if(px==arrFarm[k].PosX & py==arrFarm[k].PosY){
+    tiles[i][j].set_Farm(arrFarm[k]);
+    tiles[i][j].set_color("saddlebrown");
+    }}
+    for(let k=0;k<arrBarrack.length;k++){
+    let px=i+1;
+    let py=j+1;
+    if(px==arrBarrack[k].PosX & py==arrBarrack[k].PosY){
+    tiles[i][j].set_Barrack(arrBarrack[k]);
+    tiles[i][j].set_color("#E1A95F");
+    }}
+    for(let k=0;k<arrBank.length;k++){
+    let px=i+1;
+    let py=j+1;
+    if(px==arrBank[k].PosX & py==arrBank[k].PosY){
+    tiles[i][j].set_Bank(arrBank[k]);
+    tiles[i][j].set_color("gold");
+    }}
+    for(let k=0;k<arrChurch.length;k++){
+    let px=i+1;
+    let py=j+1;
+    if(px==arrChurch[k].PosX & py==arrChurch[k].PosY){
+    tiles[i][j].set_Church(arrChurch[k]);
+    tiles[i][j].set_color("AQUA");
     }}
     }
 }

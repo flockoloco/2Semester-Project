@@ -1,6 +1,4 @@
-
-
-class settlement {
+class castle {
     constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
       this.id = id
       this.Type = Type;
@@ -8,6 +6,46 @@ class settlement {
       this.PosY = PosY;
       this.PlayerID_FK_Building = PlayerID_FK_Building
     };   
+};
+
+class farm {
+  constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+    this.id = id
+    this.Type = Type;
+    this.PosX = PosX;
+    this.PosY = PosY;
+    this.PlayerID_FK_Building = PlayerID_FK_Building
+  };   
+};
+
+class barrack {
+  constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+    this.id = id
+    this.Type = Type;
+    this.PosX = PosX;
+    this.PosY = PosY;
+    this.PlayerID_FK_Building = PlayerID_FK_Building
+  };   
+};
+
+class bank {
+  constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+    this.id = id
+    this.Type = Type;
+    this.PosX = PosX;
+    this.PosY = PosY;
+    this.PlayerID_FK_Building = PlayerID_FK_Building
+  };   
+};
+
+class church {
+  constructor(id, Type, PosX, PosY, PlayerID_FK_Building) {
+    this.id = id
+    this.Type = Type;
+    this.PosX = PosX;
+    this.PosY = PosY;
+    this.PlayerID_FK_Building = PlayerID_FK_Building
+  };   
 };
 
 class Player{
@@ -26,7 +64,7 @@ class Player{
 };
 
 class tile {
-  constructor(x, y, s, c, st, t, id, settlement) {
+  constructor(x, y, s, c, st, t, id, castle, farm, barrack, bank, church) {
     this.x = x;
     this.y = y;
     this.s = s;
@@ -34,7 +72,11 @@ class tile {
     this.st = st;
     this.t = t;
     this.id = id;
-    this.settlement = settlement
+    this.castle = castle;
+    this.farm = farm;
+    this.barrack = barrack;
+    this.bank = bank;
+    this.church = church;
   };
 
   draw_tile() {
@@ -46,42 +88,30 @@ class tile {
     pop();
   };
 
-  click_tile(posx, posy) {
-    if ((posx > this.x & posx < this.x + this.s) & (posy > this.y & posy < this.y + this.s)) {
-      return true;
-    }
+  set_Castle(castle){
+    this.castle = castle;
+  };
+
+  set_Farm(farm){
+    this.farm = farm;
   }
 
-  set_settlement(settlement){
-    this.settlement = settlement;
-  };
-
-  set_Deposit(Deposit){
-    this.Deposit = Deposit;
-  };
-
-  set_rail(rail){
-    this.rail = rail;
-  };
-
-  get_x(){
-    return this.x;
+  set_Barrack(barrack){
+    this.barrack = barrack;
   }
-  get_y(){
-    return this.y;
+
+  set_Bank(bank){
+    this.bank = bank;
+  }
+
+  set_Church(church){
+    this.church = church;
   }
 
   set_color(c){
 	  this.c = c;
   };
 };
-
-class farmPos{
-  constructor([posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8, posY1, posY2, posY3, posY4, posY5, posY6, posY7, posY8]){
-    this.posX = [posX1, posX2, posX3, posX4, posX5, posX6, posX7, posX8];
-    this.posY = [posY1, posY2, posY3, posY4, posY5, posY6, posY7]
-  }
-}
 
 /*class QuestionCreator{
 //unfinished objects falta ir buscar os buttoes

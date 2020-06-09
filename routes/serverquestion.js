@@ -58,28 +58,22 @@ function CheckAnyLeft(questionArray){
         }
     }
     if (checkCounter > 0){
-        console.log("this is the checkCounter value:"+checkCounter);
         return true;
     }else{
-        console.log("this is the checkCounter value:"+checkCounter);
         return false;
     }
 }
 
 function PickRandomQuestion(req,res){ //this is the picks every single one before it refreshes the ones that should be refreshed
   let infinityLoop = false;  //fix loop
-  console.log("start of loop");
   do {
     infinityLoop = true;
     let sql = "select * from Question where PlayerID_FK_Question = '"+req.body.playerID+"'order by QuestionID asc;";
     pool.query(sql, (err, result)=>{
       if(err) throw err;
-      console.log("inside of the query");
       if (CheckAnyLeft(result) == true){
-        console.log("insode of theif checkanyleft");
         let foundAPick = false;
         do{
-          console.log("so far so good");
           let randompick = Math.floor(Math.random()*result.length);
           if (result[randompick].Concluded == 0){
             foundAPick = true;
@@ -88,7 +82,6 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
           }
         }while(foundAPick == false);
       }else if(CheckAnyLeft(result) == false){
-        console.log("no way its here");
         let sqlUpdate = "update Question set Concluded = false where PlayerID_FK_Question = '"+req.body.playerID+"' and Reset = true";
         pool.query(sqlUpdate, (err2, result2)=>{
           if (err2) throw err2;
@@ -96,7 +89,6 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
       }
     });
   }while(infinityLoop == false);
-  console.log("out of the while");
 }
 function FullQuestionCreator(unprocessedQuestion,res){
     let question;
@@ -113,12 +105,9 @@ function FullQuestionCreator(unprocessedQuestion,res){
         question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
         
         question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
-        console.log(question);
         if(unprocessedQuestion.Answer3ID_FK_Question){
             question.option[2] = new OptionCreator(result[2].AnswerID,result[2].Text,result[2].Wheat,result[2].Swords,result[2].gold,result[2].Faith);
         }
-        console.log("here coemsthe biggest meme")
-        console.log(question.PickMe)
       res.send(question);
     });
 }
