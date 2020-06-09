@@ -35,9 +35,9 @@ function GetNewQuestion(){
 
 }
 function QuestionReceiver(question){
-  console.log("the OH SHIT MOMENT")
-  console.log(question.PickMe) //well shit, gotta fix a ton of things.
-  question.PickMe(buttonArray);
-  console.log(question);
-  activeQuestion = question;
+  console.log("the OH SHIT MOMENT");
+  
+  activeQuestion = new QuestionCreator(question);
+  console.log(activeQuestion);
+  activeQuestion.PickMe(buttonArray);
 }

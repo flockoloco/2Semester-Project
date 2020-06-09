@@ -124,43 +124,43 @@ function FullQuestionCreator(unprocessedQuestion,res){
 }
 
 class QuestionCreator{
-    constructor(id,text,concluded,resets,o1,o2,o3){
-      this.option = [];
-      this.id = id; 
-      this.text = text;
-      this.concluded = concluded;
-      this.resets = resets;
-      this.option[0] = o1;
-      this.option[1] = o2;
-      if (o3) {
-        this.option[2] = o3;
-      }
-    }
-    PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-      buttonArray[0].AssignQuestion(this.id)
-      buttonArray[1].AssignQuestion(this.id)
-      if (this.option[2]){
-        buttonArray[2].AssignQuestion(this.id)
-      }else {
-        buttonArray[2].DisableMe();
-      }
-    }
-    PickOption(optionPicked){ //after PickMe()
-      //disable all buttons with the disablebuttons function either here or in the buttons click me function
-      let playerID = playerLoged.PlayerID; //change to the correct ID
-    let statsToSend = {
-    "PlayerID":playerID,
-    "wheat":this.option[optionPicked].wheat,
-    "swords":this.option[optionPicked].swords,
-    "gold":this.option[optionPicked].gold,
-    "faith":this.option[optionPicked].faith
-    }
-    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);UpdateStats();
-    }
-    DrawMe(){
-      //o codigo do draw depende do resto
+  constructor(id,text,concluded,resets,o1,o2,o3){
+    this.option = [];
+    this.id = id; 
+    this.text = text;
+    this.concluded = concluded;
+    this.resets = resets;
+    this.option[0] = o1;
+    this.option[1] = o2;
+    if (o3) {
+      this.option[2] = o3;
     }
   }
+  PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
+    buttonArray[0].AssignQuestion(this.id);
+    buttonArray[1].AssignQuestion(this.id);
+    if (this.option[2]){
+      buttonArray[2].AssignQuestion(this.id);
+        }else {
+      buttonArray[2].DisableMe();
+    }
+  }
+  PickOption(optionPicked){ //after PickMe()
+    //disable all buttons with the disablebuttons function either here or in the buttons click me function
+    let playerID = playerLoged.PlayerID; //change to the correct ID
+    let statsToSend = {
+      "PlayerID":playerID,
+      "wheat":this.option[optionPicked].wheat,
+      "swords":this.option[optionPicked].swords,
+      "gold":this.option[optionPicked].gold,
+      "faith":this.option[optionPicked].faith
+    }
+    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);UpdateStats();
+  }
+  DrawMe(){
+    //o codigo do draw depende do resto
+  }
+}
   
   class OptionCreator{
     constructor(id,text,wheat,swords,gold,faith){
