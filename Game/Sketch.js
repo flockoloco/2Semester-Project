@@ -53,7 +53,6 @@ function setup() {
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",1,false,"option1");
   buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",2,false,"option2");
-  buttonArray[2] = new ButtonCreator(300,100,50,50,"blue","",3,false,"option3");
   
   getFarmPos();
   getBarrackPos();
@@ -68,10 +67,8 @@ function draw() {
   createBars();
   buttonArray[0].CheckHover(mouseX,mouseY);
   buttonArray[1].CheckHover(mouseX,mouseY);
-  buttonArray[2].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
-  buttonArray[2].DrawMe();
 
   /*for (let i = 0; buttonArray.length; i++){
     buttonArray[i].CheckHover(mouseX,mouseY);
@@ -83,7 +80,7 @@ function draw() {
 
 function getPlayer(){
   loadJSON('/getPlayer', function(data){
-  parsePlayer(data);
+    parsePlayer(data);
   });
 }
 
@@ -91,9 +88,7 @@ function getPlayer(){
 function mouseReleased() {
   buttonArray[0].ClickMe(activeQuestion);
   buttonArray[1].ClickMe(activeQuestion);
-  if (activeQuestion.option[2]){
-    buttonArray[2].ClickMe(activeQuestion);
-  }
+
 }
 
     //GET THE BUILDINGS' INFORMATION
@@ -191,6 +186,7 @@ const createBars = () => {
 }
 
 function mousePressed(){
+
 }
 
     //STORE THE PLAYER'S INFORMATION
@@ -203,26 +199,26 @@ function parsePlayer(data){
 
 function parseTile(data){
   for(let i=0;i<data.length;i++){
-  if(data[i].Type == "Castle"){
-  arrCastle[i] = new castle(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-  updateTile();
-  }
-  if(data[i].Type == "Farm"){
-  arrFarm[i] = new farm(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-  updateTile();
-  }
-  if(data[i].Type == "Barrack"){
-  arrBarrack[i] = new barrack(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-  updateTile();
-  }
-  if(data[i].Type == "Bank"){
-  arrBank[i] = new bank(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-  updateTile();
-  }
-  if(data[i].Type == "Church"){
-  arrChurch[i] = new church(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-  updateTile();
-  }
+    if(data[i].Type == "Castle"){
+      arrCastle[i] = new castle(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+      updateTile();
+    }
+    if(data[i].Type == "Farm"){
+      arrFarm[i] = new farm(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+      updateTile();
+    }
+    if(data[i].Type == "Barrack"){
+      arrBarrack[i] = new barrack(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+      updateTile();
+    }
+    if(data[i].Type == "Bank"){
+      arrBank[i] = new bank(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+      updateTile();
+    }
+    if(data[i].Type == "Church"){
+      arrChurch[i] = new church(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
+      updateTile();
+    }
   }
 }
 
@@ -249,7 +245,7 @@ function parseBarrack(data){
 function parseBank(data){
   bankTile = [];
   for(i = 0; i < data.length; i++){
-  bankTile.push(data[i])
+    bankTile.push(data[i])
   }
 }
 
@@ -258,7 +254,7 @@ function parseBank(data){
 function parseChurch(data){
   churchTile = [];
   for(i = 0; i < data.length; i++){
-  churchTile.push(data[i])
+    churchTile.push(data[i])
   }
 }
 
@@ -272,8 +268,8 @@ function farmPost(){
     httpPost('/removeFarm', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/farmDB', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
-loadAll(); 
-getFarmPos();
+  loadAll(); 
+  getFarmPos();
 }
 
     //FROM THE PREVIOUS BARRACK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
@@ -286,8 +282,8 @@ function barrackPost(){
     httpPost('/removeBarrack', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/barrackDB', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
-loadAll(); 
-getBarrackPos();
+  loadAll(); 
+  getBarrackPos();
 }
 
     //FROM THE PREVIOUS BANK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
@@ -300,8 +296,8 @@ function bankPost(){
     httpPost('/removeBank', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/bankDB', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
-loadAll(); 
-getBankPos();
+  loadAll(); 
+  getBankPos();
 }
 
     //FROM THE PREVIOUS CHURCH INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
@@ -314,6 +310,6 @@ function churchPost(){
     httpPost('/removeChurch', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/churchDB', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
-loadAll(); 
-getChurchPos();
+  loadAll(); 
+  getChurchPos();
 }
