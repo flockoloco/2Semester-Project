@@ -23,11 +23,11 @@ function ChangeStatsReceiver(stats){
   GetNewQuestion();
   //maybe start loop again
 }
-function LoadQuestions(){
+/*function LoadQuestions(){
     buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1")
     buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2")
  //this is probably the best way to initialize the object i think desta maneira nao temos de os chamar em separado
-}
+}*/
 function GetNewQuestion(){
   playerID = playerLoged.PlayerID;
   httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);

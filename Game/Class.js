@@ -130,6 +130,9 @@ class QuestionCreator{
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
     let playerID = playerLoged.PlayerID; //change to the correct ID
+    console.log("here comes all the prints")
+    console.log(optionPicked)
+    console.log(this.option[optionPicked]);
     let statsToSend = {
       "PlayerID":playerID,
       "wheat":this.option[optionPicked].wheat,
@@ -158,12 +161,11 @@ class ButtonCreator{
   this.optionAssigned = optionAssigned,
 	this.hovered = false,
 	this.disable = disable,
-  this.oneTime = true,
+
   this.objectToSend = 0,
   this.text = text
   };
   AssignQuestion(questionNumber){
-    this.oneTime = true;
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 
@@ -208,10 +210,8 @@ class ButtonCreator{
   ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
-        if (this.oneTime == true){
-          this.oneTime = false;
-          question.PickOption(this.optionAssigned);
-        } 
+        debugger;
+        question.PickOption(this.optionAssigned);
       }
     }
   }

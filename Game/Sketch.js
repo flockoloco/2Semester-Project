@@ -51,8 +51,8 @@ function setup() {
     "faith":0
     }
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
-  buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",1,false,"option1");
-  buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",2,false,"option2");
+  buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1");
+  buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2");
   
   getFarmPos();
   getBarrackPos();
