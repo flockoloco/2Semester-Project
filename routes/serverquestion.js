@@ -60,7 +60,7 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
           if (result[randompick].Concluded == 0){
             foundAPick = true;
             infinityLoop = true;
-            FullQuestionCreator(result[0],res);
+            FullQuestionCreator(result[randompick],res);
           }
         }while(foundAPick == false);
       }else if(CheckAnyLeft(result) == false){
@@ -73,6 +73,7 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
   }while(infinityLoop == false);
 }
 function FullQuestionCreator(unprocessedQuestion,res){
+  console.log(unprocessedQuestion)
   let question;
   let sql;
   sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' order by AnswerID asc;";
@@ -81,7 +82,8 @@ function FullQuestionCreator(unprocessedQuestion,res){
     if(err) throw err;
       question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
       question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
-    res.send(question);
+      console.log(question.text)
+      res.send(question);
   });
 }
 

@@ -117,15 +117,15 @@ class QuestionCreator{
   constructor(values){
     this.option = [];
     this.id = values.id; 
-    this.text = values.id;
+    this.text = values.text;
     this.concluded = values.concluded;
     this.resets = values.resets;
     this.option[0] = values.option[0];
     this.option[1] = values.option[1];
   }
   PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-    buttonArray[0].AssignQuestion(this.id);
-    buttonArray[1].AssignQuestion(this.id);
+    buttonArray[0].AssignQuestion(this.id,this.option[0].text);
+    buttonArray[1].AssignQuestion(this.id,this.option[1].text);
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
@@ -143,7 +143,14 @@ class QuestionCreator{
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
-    //o codigo do draw depende do resto
+    push();
+  		fill("orange");
+  	  rect(50, 50, 800, 500, 10);
+      textAlign(CENTER);
+      textSize(20);
+      fill("black");
+      text(this.text,80,80);
+    pop();
   }
 }
 
@@ -165,7 +172,8 @@ class ButtonCreator{
   this.objectToSend = 0,
   this.text = text
   };
-  AssignQuestion(questionNumber){
+  AssignQuestion(questionNumber,text){
+    this.text = text
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 
