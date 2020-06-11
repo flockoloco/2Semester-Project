@@ -76,8 +76,7 @@ create table Question(
     primary key(TrueID),
     constraint foreign key(PlayerID_FK_Question) references Player(PlayerID),
 	constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
-    constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID),
-    constraint foreign key(Answer3ID_FK_Question) references Answer(AnswerID)
+    constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID)
 );
 
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5');

@@ -113,59 +113,39 @@ class tile {
   };
 };
 
-/*class QuestionCreator{
-//unfinished objects falta ir buscar os buttoes
 class QuestionCreator{
-  constructor(id,text,concluded,resets,o1,o2,o3){
-    this.id = id; 
-    this.text = text;
-    this.concluded = concluded;
-    this.resets = resets;
-    this.option[0] = o1;
-    this.option[1] = o2;
-    if (o3) {
-      this.option[2] = o3;
-    }
+  constructor(values){
+    this.option = [];
+    this.id = values.id; 
+    this.text = values.id;
+    this.concluded = values.concluded;
+    this.resets = values.resets;
+    this.option[0] = values.option[0];
+    this.option[1] = values.option[1];
   }
-  PickMe(){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-    buttonArray[0].AssignQuestion(this.id)
-    buttonArray[1].AssignQuestion(this.id)
-    if (this.option[2]){
-      buttonArray[2].AssignQuestion(this.id)
-    }else {
-      buttonArray[2].DisableMe();
-    }
+  PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
+    buttonArray[0].AssignQuestion(this.id);
+    buttonArray[1].AssignQuestion(this.id);
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
-
     let playerID = playerLoged.PlayerID; //change to the correct ID
+    console.log("here comes all the prints")
+    console.log(optionPicked)
+    console.log(this.option[optionPicked]);
     let statsToSend = {
-    "PlayerID":playerID,
-    "wheat":this.option[optionPicked].wheat,
-    "swords":this.option[optionPicked].swords,
-    "gold":this.option[optionPicked].gold,
-    "faith":this.option[optionPicked].faith
-    }
-    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
-    UpdateStats();
+      "PlayerID":playerID,
+      "wheat":this.option[optionPicked].wheat,
+      "swords":this.option[optionPicked].swords,
+      "gold":this.option[optionPicked].gold,
+      "faith":this.option[optionPicked].faith
+  }
+  httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
     //o codigo do draw depende do resto
   }
 }
-*/
-/*class OptionCreator{
-  constructor(id,text,wheat,swords,gold,faith){
-    this.id = id;
-    this.text = text;
-    this.wheat = wheat;
-    this.swords = swords;
-    this.gold = gold;
-    this.faith = faith;
-  }
-}
-*/
 
 
 
@@ -181,12 +161,11 @@ class ButtonCreator{
   this.optionAssigned = optionAssigned,
 	this.hovered = false,
 	this.disable = disable,
-  this.oneTime = true,
+
   this.objectToSend = 0,
   this.text = text
   };
   AssignQuestion(questionNumber){
-    this.oneTime = true;
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 
@@ -231,10 +210,8 @@ class ButtonCreator{
   ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
-        if (this.oneTime == true){
-          this.oneTime = false;
-          question.PickOption(this.optionAssigned);
-        } 
+        debugger;
+        question.PickOption(this.optionAssigned);
       }
     }
   }

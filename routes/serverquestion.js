@@ -1,23 +1,5 @@
 const pool = require('../core/database');
 
-
-//Serverside
-
-/*function optionchosen(questionID,OptionID){
-    let sql;
-    if (optionpicked == 1){
-      sql = "select * from Answer inner join Question on Question.Answer1ID_FK_Question = Answer.ID where QuestionID = '"+questionID+"' and where AnswerID = '"+optionID+"';";
-    }else if (optionpicked == 2){
-      sql = "select * from Answer inner join Question on Question.Answer2ID_FK_Question = Answer.ID where QuestionID = '"+questionID+"' and where AnswerID = '"+optionID+"';";
-    }else if (optionPicked = 3){
-      sql = "select * from Answer inner join Question on Question.Answer3ID_FK_Question = Answer.ID where QuestionID = '"+questionID+"' and where AnswerID = '"+optionID+"';";
-    }
-    pool.query(sql, (err, result)=>{
-      if(err) throw err;
-      ChangeStats(result[0].Wheat,result[0].Swords,result[0].gold,result[0].Faith);
-  
-    });
-}*/
 function ChangeStatsFunction(req,res){
 
     ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,res);
@@ -91,29 +73,20 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
   }while(infinityLoop == false);
 }
 function FullQuestionCreator(unprocessedQuestion,res){
-    let question;
-    let sql;
-    if(unprocessedQuestion.Answer3ID_FK_Question){
-        sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer3ID_FK_Question+"' order by AnswerID asc;";
-        question = new QuestionCreator(unprocessedQuestion.QuestionID,unprocessedQuestion.Text,unprocessedQuestion.Concluded,unprocessedQuestion.Reset,0,0,0);
-    }else{
-        sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' order by AnswerID asc;";
-        question = new QuestionCreator(unprocessedQuestion.QuestionID,unprocessedQuestion.Text,unprocessedQuestion.Concluded,unprocessedQuestion.Reset,0,0);
-    }
-    pool.query(sql, (err, result)=>{
-      if(err) throw err;
-        question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
-        
-        question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
-        if(unprocessedQuestion.Answer3ID_FK_Question){
-            question.option[2] = new OptionCreator(result[2].AnswerID,result[2].Text,result[2].Wheat,result[2].Swords,result[2].gold,result[2].Faith);
-        }
-      res.send(question);
-    });
+  let question;
+  let sql;
+  sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' order by AnswerID asc;";
+  question = new QuestionCreator(unprocessedQuestion.QuestionID,unprocessedQuestion.Text,unprocessedQuestion.Concluded,unprocessedQuestion.Reset,0,0);
+  pool.query(sql, (err, result)=>{
+    if(err) throw err;
+      question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
+      question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
+    res.send(question);
+  });
 }
 
 class QuestionCreator{
-    constructor(id,text,concluded,resets,o1,o2,o3){
+    constructor(id,text,concluded,resets,o1,o2){
       this.option = [];
       this.id = id; 
       this.text = text;
@@ -121,33 +94,6 @@ class QuestionCreator{
       this.resets = resets;
       this.option[0] = o1;
       this.option[1] = o2;
-      if (o3) {
-        this.option[2] = o3;
-      }
-    }
-    PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-      buttonArray[0].AssignQuestion(this.id)
-      buttonArray[1].AssignQuestion(this.id)
-      if (this.option[2]){
-        buttonArray[2].AssignQuestion(this.id)
-      }else {
-        buttonArray[2].DisableMe();
-      }
-    }
-    PickOption(optionPicked){ //after PickMe()
-      //disable all buttons with the disablebuttons function either here or in the buttons click me function
-      let playerID = playerLoged.PlayerID; //change to the correct ID
-    let statsToSend = {
-    "PlayerID":playerID,
-    "wheat":this.option[optionPicked].wheat,
-    "swords":this.option[optionPicked].swords,
-    "gold":this.option[optionPicked].gold,
-    "faith":this.option[optionPicked].faith
-    }
-    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);UpdateStats();
-    }
-    DrawMe(){
-      //o codigo do draw depende do resto
     }
   }
   
