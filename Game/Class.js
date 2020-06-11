@@ -49,14 +49,14 @@ class church {
 };
 
 class Player{
-  constructor(PlayerID, UserID, Concluded, Wheat, Swords, Gold, Faith, Score, KingdomName, PlayerName){
+  constructor(PlayerID, UserID, Concluded, wheat, swords, gold, faith, Score, KingdomName, PlayerName){
   this.PlayerID = PlayerID;
   this.UserID = UserID
   this.Concluded = Concluded;
-  this.Wheat = Wheat;
-  this.Swords = Swords;
-  this.Gold = Gold;
-  this.Faith = Faith;
+  this.wheat = wheat;
+  this.swords = swords;
+  this.gold = gold;
+  this.faith = faith;
   this.Score = Score;
   this.KingdomName = KingdomName;
   this.PlayerName = PlayerName;

@@ -196,7 +196,7 @@ function mousePressed(){
     //STORE THE PLAYER'S INFORMATION
 
 function parsePlayer(data){
-    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Gold, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
+    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].wheat, data[0].swords, data[0].gold, data[0].faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
   }
 
     //STORE THE TILE'S INFORMATION
