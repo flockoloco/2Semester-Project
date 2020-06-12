@@ -33,9 +33,9 @@ function GetNewQuestion(){
   httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);
 
 }
-function QuestionReceiver(question){
+function QuestionReceiver(questionParts){
   console.log("the OH SHIT MOMENT");
-  activeQuestion = new QuestionCreator(question);
+  activeQuestion = new QuestionCreator(questionParts);
   activeQuestion.PickMe(buttonArray);
   console.log(activeQuestion);
 }
