@@ -268,7 +268,7 @@ function farmPost(){
   let FarmIndex = farmTile[Math.floor(Math.random() * farmTile.length)]
 
   if (FarmIndex){
-    httpPost('/removeFarm', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/removeTileFarm', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/farmDB', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
   loadAll(); 
@@ -282,7 +282,7 @@ function barrackPost(){
   let barrackIndex = barrackTile[Math.floor(Math.random() * barrackTile.length)]
 
   if (barrackIndex){
-    httpPost('/removeBarrack', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/removeTileBarrack', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/barrackDB', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
   loadAll(); 
@@ -296,7 +296,7 @@ function bankPost(){
   let BankIndex = bankTile[Math.floor(Math.random() * bankTile.length)]
 
   if (BankIndex){
-    httpPost('/removeBank', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/removeTileBank', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/bankDB', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
   loadAll(); 
@@ -310,7 +310,7 @@ function churchPost(){
   let churchIndex = churchTile[Math.floor(Math.random() * churchTile.length)]
 
   if (churchIndex){
-    httpPost('/removeChurch', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
+    httpPost('/removeTileChurch', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
     httpPost('/churchDB', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
   }
   loadAll(); 

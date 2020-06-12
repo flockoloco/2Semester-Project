@@ -70,8 +70,18 @@ router.post('/register', (req, res, next) => {
         confirmPassword: req.body.confirmPassword,
     };
 
-    if(newUser.password == newUser.confirmPassword){
-    user.create(newUser, function(lastId){
+    let sql = "SELECT * FROM belivers.user WHERE UserName='"+newUser.username+"' ";
+
+    pool.query(sql, (err, result) => {
+        if(err) throw err;
+        if(result[0]){
+            res.send("Sorry, Username already exist!")
+    }
+
+    else if(newUser.password != newUser.confirmPassword){
+        res.send('The Password and Confirm Password must match!')
+    }else{
+        user.create(newUser, function(lastId){
         if(lastId)
         {
             // MAKE A SESSION
@@ -81,8 +91,8 @@ router.post('/register', (req, res, next) => {
                 res.redirect('/home');
             });
         }
-    })}else{res.send('The Password and Confirm Password must match!')}
-
+    })}
+    })
 });
 
 // ## LOGOUT OPTION 
@@ -313,7 +323,7 @@ router.post('/changeStats',sq.ChangeStatsFunction);
 
         //REMOVE THE TILE AVAILABLE FOR THE FARM
 
-router.post("/removeFarm", function(req,res){
+router.post("/removeTileFarm", function(req,res){
 
     let playerlogedID = req.body.playerID;
     let RemoveX = req.body.TileX;
@@ -329,7 +339,7 @@ router.post("/removeFarm", function(req,res){
 
         //REMOVE THE TILE AVAILABLE FOR THE BARRACK
 
-router.post("/removeBarrack", function(req,res){
+router.post("/removeTileBarrack", function(req,res){
 
     let playerlogedID = req.body.playerID;
     let RemoveX = req.body.TileX;
@@ -345,7 +355,7 @@ router.post("/removeBarrack", function(req,res){
 
         //REMOVE THE TILE AVAILABLE FOR THE BANK
 
-router.post("/removeBank", function(req,res){
+router.post("/removeTileBank", function(req,res){
 
     let playerlogedID = req.body.playerID;
     let RemoveX = req.body.TileX;
@@ -361,7 +371,7 @@ router.post("/removeBank", function(req,res){
 
         //REMOVE THE TILE AVAILABLE FOR THE FARM
 
-router.post("/removeChurch", function(req,res){
+router.post("/removeTileChurch", function(req,res){
 
     let playerlogedID = req.body.playerID;
     let RemoveX = req.body.TileX;
@@ -374,6 +384,8 @@ router.post("/removeChurch", function(req,res){
         res.send(result);
     });
 });
+
+
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-
 
