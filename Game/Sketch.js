@@ -72,11 +72,6 @@ function draw() {
   if (activeQuestion){
     activeQuestion.DrawMe();
   }
-
-  /*for (let i = 0; buttonArray.length; i++){
-    buttonArray[i].CheckHover(mouseX,mouseY);
-    buttonArray[i].DrawMe();
-  }*/
 };
 
     //Get player info
@@ -186,10 +181,6 @@ const createBars = () => {
   fill("Green");
   rect(1575, 225, 50, -(faithBar*1.5))
   image(faithImage, 1580, 25);
-}
-
-function mousePressed(){
-
 }
 
     //STORE THE PLAYER'S INFORMATION

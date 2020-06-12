@@ -116,12 +116,12 @@ class tile {
 class QuestionCreator{
   constructor(values){
     this.option = [];
-    this.id = values.id; 
-    this.text = values.text;
-    this.concluded = values.concluded;
-    this.resets = values.resets;
-    this.option[0] = values.option[0];
-    this.option[1] = values.option[1];
+    this.id = values.question.id; 
+    this.text = values.question.text;
+    this.concluded = values.question.concluded;
+    this.resets = values.question.resets;
+    this.option[0] = values.option0;
+    this.option[1] = values.option1;
   }
   PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
     buttonArray[0].AssignQuestion(this.id,this.option[0].text);
@@ -139,8 +139,8 @@ class QuestionCreator{
       "swords":this.option[optionPicked].swords,
       "gold":this.option[optionPicked].gold,
       "faith":this.option[optionPicked].faith
-  }
-  httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
+    }
+    httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
     push();
@@ -153,9 +153,6 @@ class QuestionCreator{
     pop();
   }
 }
-
-
-
 
 class ButtonCreator{
   constructor(x,y,width,height,color,questionAssinged,optionAssigned,disable,text){
@@ -218,7 +215,6 @@ class ButtonCreator{
   ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
-        debugger;
         question.PickOption(this.optionAssigned);
       }
     }

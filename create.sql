@@ -13,6 +13,7 @@ create table Player(
     PlayerID int auto_increment not null,
     UserID_FK_Player int,
     Concluded tinyint,
+    CurrentQuestion int null,
     Wheat int,
     Swords int,
     Gold int,
@@ -59,25 +60,35 @@ create table Answer(
     Swords int,
     Gold int,
     Faith int,
+    BuildingWheat int,
+    BuildingSwords int,
+    BuildingGold int,
+    BuildingFaith int,
     primary key (AnswerID)
 );
 
 create table Question(
-	TrueID int auto_increment,
-    QuestionID int,
-    
-    PlayerID_FK_Question int,
-    Concluded tinyint,
+    QuestionID int auto_increment,
     Reset tinyint,
     Text varchar(512),
     Answer1ID_FK_Question int null,
     Answer2ID_FK_Question int null,
     Answer3ID_FK_Question int null,
-    primary key(TrueID),
-    constraint foreign key(PlayerID_FK_Question) references Player(PlayerID),
+    primary key(QuestionID),
 	constraint foreign key(Answer1ID_FK_Question) references Answer(AnswerID),
     constraint foreign key(Answer2ID_FK_Question) references Answer(AnswerID)
 );
+
+create table Player_Question(
+	PlayerID_FK_Player_Question int,
+    Concluded tinyint,
+    QuestionID_FK_Player_Question int,
+    constraint foreign key(PlayerID_FK_Player_Question) references Player(PlayerID),
+    constraint foreign key(QuestionID_FK_Player_Question) references Question(QuestionID)
+
+);
+
+ALTER TABLE Player add constraint foreign key (CurrentQuestion) references Question(QuestionID);
 
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5');
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Pray for the resources! lmao','-15','0','0','+20');

@@ -77,13 +77,33 @@ function FullQuestionCreator(unprocessedQuestion,res){
   let question;
   let sql;
   sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' order by AnswerID asc;";
-  question = new QuestionCreator(unprocessedQuestion.QuestionID,unprocessedQuestion.Text,unprocessedQuestion.Concluded,unprocessedQuestion.Reset,0,0);
   pool.query(sql, (err, result)=>{
     if(err) throw err;
-      question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
-      question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
-      console.log(question.text)
-      res.send(question);
+      let questionParts = {
+        "question":question = {
+          "id":unprocessedQuestion.QuestionID,
+          "text":unprocessedQuestion.Text,
+          "concluded":unprocessedQuestion.Concluded,
+          "resets":unprocessedQuestion.Reset
+        },
+        "option0":option0 = {
+          "id":result[0].AnswerID,
+          "text":result[0].Text,
+          "wheat":result[0].Wheat,
+          "swords":result[0].Swords,
+          "gold":result[0].Gold,
+          "faith":result[0].Faith
+        },
+        "option1":option1 = {
+          "id":result[1].AnswerID,
+          "text":result[1].Text,
+          "wheat":result[1].Wheat,
+          "swords":result[1].Swords,
+          "gold":result[1].Gold,
+          "faith":result[1].Faith
+        }
+      }
+      res.send(questionParts);
   });
 }
 
@@ -97,6 +117,7 @@ class QuestionCreator{
       this.option[0] = o1;
       this.option[1] = o2;
     }
+
   }
   
   class OptionCreator{
@@ -107,6 +128,13 @@ class QuestionCreator{
       this.swords = swords;
       this.gold = gold;
       this.faith = faith;
+
+
+
+      this.building[0] = +1;
+      this.building[1] = -1;
+      this.building[2] = 0;
+      this.building[3] = -1;
     }
 }
 //"ChangeStats" : ChangeStats,
