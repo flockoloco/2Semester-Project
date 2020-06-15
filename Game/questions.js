@@ -13,7 +13,6 @@ function DisableButtons(buttonsArray,action){
   }
 }
 function ChangeStatsReceiver(stats){
-  console.log("in change stats receiver");
   playerLoged.wheat = stats.wheat;
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;

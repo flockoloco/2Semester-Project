@@ -1,15 +1,8 @@
-let tiles = []; 
-
 let arrCastle = [];
 let arrFarm = [];
 let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
-
-let farmTile = [];
-let barrackTile = [];
-let bankTile = [];
-let churchTile = [];
 
 let wheatImage;
 let goldImage;
@@ -52,11 +45,6 @@ function setup() {
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
   buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
-  
-  getFarmPos();
-  getBarrackPos();
-  getBankPos();
-  getChurchPos();
 
   loop();
 };
@@ -86,7 +74,6 @@ function getPlayer(){
 function mouseReleased() {
   buttonArray[0].ClickMe(activeQuestion);
   buttonArray[1].ClickMe(activeQuestion);
-
 }
 
     //GET THE BUILDINGS' INFORMATION
@@ -112,38 +99,6 @@ function loadAll(){
   parseTile(data);
   });
   
-}
-
-    //LOAD THE FARM'S POSITION TO BE STORED
-
-function getFarmPos(){
-  loadJSON('/getFarmPos/'+playerLoged.PlayerID, function(data){
-  parseFarm(data);
-  });
-}
-
-    //LOAD THE BARRACK'S POSITION TO BE STORED
-
-function getBarrackPos(){
-  loadJSON('/getBarrackPos/'+playerLoged.PlayerID, function(data){
-  parseBarrack(data);
-  });
-}
-
-    //LOAD THE BANK'S POSITION TO BE STORED
-
-function getBankPos(){
-  loadJSON('/getBankPos/'+playerLoged.PlayerID, function(data){
-  parseBank(data);
-  });
-}
-
-    //LOAD THE FARM'S POSITION TO BE STORED
-
-function getChurchPos(){
-  loadJSON('/getChurchPos/'+playerLoged.PlayerID, function(data){
-  parseChurch(data);
-  });
 }
 
     //BARS FOR THE RESOURCES
@@ -214,96 +169,4 @@ function parseTile(data){
       updateTile();
     }
   }
-}
-
-    //STORE THE FARM'S INFORMATION
-
-function parseFarm(data){
-  farmTile = [];
-  for(i = 0; i < data.length; i++){
-    farmTile.push(data[i])
-  }
-}
-
-    //STORE THE BARRACK'S INFORMATION
-
-function parseBarrack(data){
-  barrackTile = [];
-  for(i = 0; i < data.length; i++){
-    barrackTile.push(data[i])
-  }
-}
-
-    //STORE THE BANK'S INFORMATION
-
-function parseBank(data){
-  bankTile = [];
-  for(i = 0; i < data.length; i++){
-    bankTile.push(data[i])
-  }
-}
-
-    //STORE THE CHURCH'S INFORMATION
-
-function parseChurch(data){
-  churchTile = [];
-  for(i = 0; i < data.length; i++){
-    churchTile.push(data[i])
-  }
-}
-
-    //FROM THE PREVIOUS FARM INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
-
-function farmPost(){
-
-  let FarmIndex = farmTile[Math.floor(Math.random() * farmTile.length)]
-
-  if (FarmIndex){
-    httpPost('/removeTileFarm', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-    httpPost('/farmDB', "json", {"TileX": FarmIndex.PosX, "TileY": FarmIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-  }
-  loadAll(); 
-  getFarmPos();
-}
-
-    //FROM THE PREVIOUS BARRACK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
-
-function barrackPost(){
-
-  let barrackIndex = barrackTile[Math.floor(Math.random() * barrackTile.length)]
-
-  if (barrackIndex){
-    httpPost('/removeTileBarrack', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-    httpPost('/barrackDB', "json", {"TileX": barrackIndex.PosX, "TileY": barrackIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-  }
-  loadAll(); 
-  getBarrackPos();
-}
-
-    //FROM THE PREVIOUS BANK INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
-
-function bankPost(){
-
-  let BankIndex = bankTile[Math.floor(Math.random() * bankTile.length)]
-
-  if (BankIndex){
-    httpPost('/removeTileBank', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-    httpPost('/bankDB', "json", {"TileX": BankIndex.PosX, "TileY": BankIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-  }
-  loadAll(); 
-  getBankPos();
-}
-
-    //FROM THE PREVIOUS CHURCH INFORMATION GET A RANDOM POSITION AND REMOVE/INSERT FROM/IN THE DATABASE 
-
-function churchPost(){
-
-  let churchIndex = churchTile[Math.floor(Math.random() * churchTile.length)]
-
-  if (churchIndex){
-    httpPost('/removeTileChurch', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-    httpPost('/churchDB', "json", {"TileX": churchIndex.PosX, "TileY": churchIndex.PosY, "playerID": playerLoged.PlayerID}, function(){});
-  }
-  loadAll(); 
-  getChurchPos();
 }

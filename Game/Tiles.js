@@ -1,4 +1,6 @@
-        //DRAW THE TILES
+let tiles = []; 
+
+//DRAW THE TILES
 function drawTile() {
 for (let i = 0; i < tiles.length; i++) {
     for (let j = 0; j < tiles.length; j++) {
