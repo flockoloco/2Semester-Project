@@ -69,23 +69,17 @@ function draw() {
   buttonArray[1].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   if (activeQuestion){
     activeQuestion.DrawMe();
   }
-=======
-=======
->>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
-=======
->>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
+
 
   /*for (let i = 0; buttonArray.length; i++){
     buttonArray[i].CheckHover(mouseX,mouseY);
     buttonArray[i].DrawMe();
   }*/
->>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
+
 };
 
     //Get player info
