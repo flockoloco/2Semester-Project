@@ -57,9 +57,17 @@ function draw() {
   buttonArray[1].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
-  if (activeQuestion){
+
+  if (activeQuestion){  
     activeQuestion.DrawMe();
   }
+
+
+  /*for (let i = 0; buttonArray.length; i++){
+    buttonArray[i].CheckHover(mouseX,mouseY);
+    buttonArray[i].DrawMe();
+  }*/
+
 };
 
     //Get player info

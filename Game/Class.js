@@ -170,7 +170,7 @@ class ButtonCreator{
   this.text = text
   };
   AssignQuestion(questionNumber,text){
-    this.text = text
+    this.text = text;
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 
