@@ -45,14 +45,6 @@ create table Tile(
     constraint foreign key(PlayerID_FK_Tile) references Player(PlayerID)
 );
 
-create table Leaderboard(
-    LeaderboardID int AUTO_INCREMENT,
-    PlayerID_FK_Leaderboard int,
-    Score int,
-    primary key (LeaderboardID),
-    constraint foreign key(PlayerID_FK_Leaderboard) references Player(PlayerID)
-);
-
 create table Answer(
     AnswerID int AUTO_INCREMENT,
     Text varchar(256),
@@ -88,7 +80,7 @@ create table Player_Question(
 
 );
 
-ALTER TABLE Player add constraint foreign key (CurrentQuestion) references Question(QuestionID);
+ALTER TABLE Player add constraint foreign key (CurrentQuestion) references Player_Question(QuestionID_fk_Player_Question);
 
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Build a farm!','+20','0','-10','-5');
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith) values('Pray for the resources! lmao','-15','0','0','+20');

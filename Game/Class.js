@@ -116,16 +116,25 @@ class tile {
 class QuestionCreator{
   constructor(values){
     this.option = [];
+<<<<<<< HEAD
     this.id = values.question.id; 
     this.text = values.question.text;
     this.concluded = values.question.concluded;
     this.resets = values.question.resets;
     this.option[0] = values.option0;
     this.option[1] = values.option1;
+=======
+    this.id = values.id; 
+    this.text = values.id;
+    this.concluded = values.concluded;
+    this.resets = values.resets;
+    this.option[0] = values.option[0];
+    this.option[1] = values.option[1];
+>>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
   }
   PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-    buttonArray[0].AssignQuestion(this.id,this.option[0].text);
-    buttonArray[1].AssignQuestion(this.id,this.option[1].text);
+    buttonArray[0].AssignQuestion(this.id);
+    buttonArray[1].AssignQuestion(this.id);
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
@@ -143,14 +152,7 @@ class QuestionCreator{
     httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
-    push();
-  		fill("orange");
-  	  rect(50, 50, 800, 500, 10);
-      textAlign(CENTER);
-      textSize(20);
-      fill("black");
-      text(this.text,80,80);
-    pop();
+    //o codigo do draw depende do resto
   }
 }
 
@@ -169,8 +171,7 @@ class ButtonCreator{
   this.objectToSend = 0,
   this.text = text
   };
-  AssignQuestion(questionNumber,text){
-    this.text = text
+  AssignQuestion(questionNumber){
     this.questionAssigned = questionNumber;
   }
   CheckHover(x1, y1) { 

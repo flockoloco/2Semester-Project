@@ -39,6 +39,7 @@ function setup() {
   noLoop();
   
   createCanvas(windowWidth, windowHeight);
+  background(250, 218, 94);
 
   initTile();
   loadAll();
@@ -50,8 +51,8 @@ function setup() {
     "faith":0
     }
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
-  buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
-  buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
+  buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1");
+  buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2");
   
   getFarmPos();
   getBarrackPos();
@@ -62,16 +63,23 @@ function setup() {
 };
 
 function draw() {
-  background(250, 218, 94);
   drawTile();
   createBars();
   buttonArray[0].CheckHover(mouseX,mouseY);
   buttonArray[1].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
+<<<<<<< HEAD
   if (activeQuestion){
     activeQuestion.DrawMe();
   }
+=======
+
+  /*for (let i = 0; buttonArray.length; i++){
+    buttonArray[i].CheckHover(mouseX,mouseY);
+    buttonArray[i].DrawMe();
+  }*/
+>>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
 };
 
     //Get player info
@@ -151,7 +159,7 @@ function getChurchPos(){
 const createBars = () => {
 
     //WHEAT BAR
-  let foodBar = playerLoged.wheat
+  let foodBar = 50
   fill(255);
   rect(1275, 75, 50, 150);
   fill("Green");
@@ -159,7 +167,7 @@ const createBars = () => {
   image(wheatImage, 1280, 25);
 
     //GOLD BAR
-  let goldBar = playerLoged.gold
+  let goldBar = 50
   fill(255);
   rect(1375, 75, 50, 150);
   fill("Green");
@@ -167,7 +175,7 @@ const createBars = () => {
   image(goldImage, 1380, 25);
 
     //SWORD BAR
-  let warBar = playerLoged.swords
+  let warBar = 50
   fill(255);
   rect(1475, 75, 50, 150);
   fill("Green");
@@ -175,7 +183,7 @@ const createBars = () => {
   image(swordImage, 1480, 25);
 
    //FAITH BAR
-  let faithBar = playerLoged.faith
+  let faithBar = 50
   fill(255);
   rect(1575, 75, 50, 150);
   fill("Green");
