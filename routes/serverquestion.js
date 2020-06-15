@@ -78,7 +78,7 @@ function FullQuestionCreator(unprocessedQuestion,res){
   sql = "select * from Answer where AnswerID = '"+unprocessedQuestion.Answer1ID_FK_Question+"' or AnswerID = '"+unprocessedQuestion.Answer2ID_FK_Question+"' order by AnswerID asc;";
   pool.query(sql, (err, result)=>{
     if(err) throw err;
-<<<<<<< HEAD
+
       let questionParts = {
         "question":question = {
           "id":unprocessedQuestion.QuestionID,
@@ -104,14 +104,10 @@ function FullQuestionCreator(unprocessedQuestion,res){
         }
       }
       res.send(questionParts);
-=======
+
       question.option[0] = new OptionCreator(result[0].AnswerID,result[0].Text,result[0].Wheat,result[0].Swords,result[0].Gold,result[0].Faith);
       question.option[1] = new OptionCreator(result[1].AnswerID,result[1].Text,result[1].Wheat,result[1].Swords,result[1].Gold,result[1].Faith);
     res.send(question);
-<<<<<<< HEAD
->>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
-=======
->>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
   });
 }
 
