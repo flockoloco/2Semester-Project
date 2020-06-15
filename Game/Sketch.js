@@ -69,7 +69,6 @@ function draw() {
   buttonArray[1].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
-<<<<<<< HEAD
 
   if (activeQuestion){  
     activeQuestion.DrawMe();
@@ -81,11 +80,6 @@ function draw() {
     buttonArray[i].DrawMe();
   }*/
 
-=======
-  if (activeQuestion){
-    activeQuestion.DrawMe();
-  }
->>>>>>> parent of 129b020... ewfwefwfwefwe
 };
 
     //Get player info
