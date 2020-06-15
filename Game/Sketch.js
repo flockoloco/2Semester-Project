@@ -71,10 +71,13 @@ function draw() {
   buttonArray[1].DrawMe();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   if (activeQuestion){
     activeQuestion.DrawMe();
   }
 =======
+=======
+>>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
 =======
 >>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
 
