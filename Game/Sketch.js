@@ -70,7 +70,7 @@ function draw() {
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
 
-  if (activeQuestion){
+  if (activeQuestion){  
     activeQuestion.DrawMe();
   }
 
