@@ -13,6 +13,7 @@ function DisableButtons(buttonsArray,action){
   }
 }
 function ChangeStatsReceiver(stats){
+  console.log("oh hello!")
   playerLoged.wheat = stats.wheat;
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
@@ -22,6 +23,21 @@ function ChangeStatsReceiver(stats){
   GetNewQuestion();
   //maybe start loop again
 }
+
+function CheckAlive(){
+//finish dedfunction
+  if (playerLoged.wheat){
+
+  }else if (playerLoged.swords){
+
+  }else if (playerLoged.gold){
+
+  }else if (playerLoged.faith){
+
+  }
+
+}
+
 /*function LoadQuestions(){
     buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1")
     buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2")
@@ -29,11 +45,13 @@ function ChangeStatsReceiver(stats){
 }*/
 function GetNewQuestion(){
   playerID = playerLoged.PlayerID;
+  console.log("going into the second post")
   httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);
 
 }
 function QuestionReceiver(questionParts){
   console.log("the OH SHIT MOMENT");
+  debugger;
   activeQuestion = new QuestionCreator(questionParts);
   activeQuestion.PickMe(buttonArray);
   console.log(activeQuestion);

@@ -138,7 +138,11 @@ class QuestionCreator{
       "wheat":this.option[optionPicked].wheat,
       "swords":this.option[optionPicked].swords,
       "gold":this.option[optionPicked].gold,
-      "faith":this.option[optionPicked].faith
+      "faith":this.option[optionPicked].faith,
+      "bwheat":this.option[optionPicked].bwheat,
+      "bswords":this.option[optionPicked].bswords,
+      "bgold":this.option[optionPicked].bgold,
+      "bfaith":this.option[optionPicked].bfaith
     }
     httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
@@ -215,6 +219,7 @@ class ButtonCreator{
   ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
+        debugger;
         question.PickOption(this.optionAssigned);
       }
     }
