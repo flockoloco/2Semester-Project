@@ -70,10 +70,13 @@ function draw() {
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
 <<<<<<< HEAD
+<<<<<<< HEAD
   if (activeQuestion){
     activeQuestion.DrawMe();
   }
 =======
+=======
+>>>>>>> parent of e6bf6e2... YEY ITS WORKING :DDDDD
 
   /*for (let i = 0; buttonArray.length; i++){
     buttonArray[i].CheckHover(mouseX,mouseY);
