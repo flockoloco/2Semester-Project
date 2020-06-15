@@ -105,6 +105,26 @@ router.get('/logout', (req, res, next) => {
     }
 });
 
+router.get('/leaderBoard', (req, res, next) => {
+
+    let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"
+
+    let Username1, Score1;
+
+    
+    
+    pool.query(sql, (err, result) => {
+
+        for(i = 0; i < 10; i++){
+            if(result[i]){}else{result.push({
+                PlayerName: null, 
+                Score: null
+            })}
+        }
+        res.render('leaderBoard', {result});
+    })
+})
+
         //GET PLAYER INFORMATION FROM THE DATABASE
 
 router.get("/getPlayer", function(req,res){
