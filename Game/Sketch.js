@@ -39,7 +39,6 @@ function setup() {
   noLoop();
   
   createCanvas(windowWidth, windowHeight);
-  background(250, 218, 94);
 
   initTile();
   loadAll();
@@ -51,8 +50,8 @@ function setup() {
     "faith":0
     }
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
-  buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1");
-  buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2");
+  buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
+  buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
   
   getFarmPos();
   getBarrackPos();
@@ -63,12 +62,14 @@ function setup() {
 };
 
 function draw() {
+  background(250, 218, 94);
   drawTile();
   createBars();
   buttonArray[0].CheckHover(mouseX,mouseY);
   buttonArray[1].CheckHover(mouseX,mouseY);
   buttonArray[0].DrawMe();
   buttonArray[1].DrawMe();
+<<<<<<< HEAD
 
   if (activeQuestion){  
     activeQuestion.DrawMe();
@@ -80,6 +81,11 @@ function draw() {
     buttonArray[i].DrawMe();
   }*/
 
+=======
+  if (activeQuestion){
+    activeQuestion.DrawMe();
+  }
+>>>>>>> parent of 129b020... ewfwefwfwefwe
 };
 
     //Get player info
@@ -159,7 +165,7 @@ function getChurchPos(){
 const createBars = () => {
 
     //WHEAT BAR
-  let foodBar = 50
+  let foodBar = playerLoged.wheat
   fill(255);
   rect(1275, 75, 50, 150);
   fill("Green");
@@ -167,7 +173,7 @@ const createBars = () => {
   image(wheatImage, 1280, 25);
 
     //GOLD BAR
-  let goldBar = 50
+  let goldBar = playerLoged.gold
   fill(255);
   rect(1375, 75, 50, 150);
   fill("Green");
@@ -175,7 +181,7 @@ const createBars = () => {
   image(goldImage, 1380, 25);
 
     //SWORD BAR
-  let warBar = 50
+  let warBar = playerLoged.swords
   fill(255);
   rect(1475, 75, 50, 150);
   fill("Green");
@@ -183,7 +189,7 @@ const createBars = () => {
   image(swordImage, 1480, 25);
 
    //FAITH BAR
-  let faithBar = 50
+  let faithBar = playerLoged.faith
   fill(255);
   rect(1575, 75, 50, 150);
   fill("Green");
