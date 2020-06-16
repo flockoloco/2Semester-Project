@@ -46,7 +46,6 @@ function setup() {
     "bgold":0,
     "bfaith":0
     }
-    print("going into the post")
   httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
   buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");

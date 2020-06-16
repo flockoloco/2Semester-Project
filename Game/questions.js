@@ -13,7 +13,6 @@ function DisableButtons(buttonsArray,action){
   }
 }
 function ChangeStatsReceiver(stats){
-  console.log("oh hello!")
   playerLoged.wheat = stats.wheat;
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
@@ -45,14 +44,11 @@ function CheckAlive(){
 }*/
 function GetNewQuestion(){
   playerID = playerLoged.PlayerID;
-  console.log("going into the second post")
   httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);
 
 }
 function QuestionReceiver(questionParts){
-  console.log("the OH SHIT MOMENT");
   debugger;
   activeQuestion = new QuestionCreator(questionParts);
   activeQuestion.PickMe(buttonArray);
-  console.log(activeQuestion);
 }

@@ -1,7 +1,6 @@
 const pool = require('../core/database');
 
 function ChangeStatsFunction(req,res){
-console.log("change stats funcion")
     ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,req.body.bwheat,req.body.bswords,req.body.bgold,req.body.bfaith,res);
     
 }
@@ -27,7 +26,6 @@ function ChangeStats(id,wheat,swords,gold,faith,bwheat,bswords,bgold,bfaith,res)
             "gold":result[0].Gold,
             "faith":result[0].Faith
         }
-        console.log(objectToSend)
         res.send(objectToSend);
 
     });
@@ -48,15 +46,11 @@ function CheckAnyLeft(questionArray){
 }
 
 function PickRandomQuestion(req,res){ //this is the picks every single one before it refreshes the ones that should be refreshed
-  console.log("inside of the pickrandomquestion")
   let infinityLoop = false;
   do {
     infinityLoop = true;
     let sql = "select * from Player_Question where PlayerID_FK_Player_Question = '"+req.body.playerID+"' order by QuestionID_FK_Player_Question asc;";
-    console.log(sql)
-    console.log("result print")
     pool.query(sql, (err, result)=>{
-      console.log(result)
       if(err) throw err;
       if (CheckAnyLeft(result) == true){
         let foundAPick = false;
@@ -83,16 +77,12 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
 
 function FullQuestionCreator(unprocessedQuestion,res){
 
-  console.log(unprocessedQuestion)
   let sql0 = "select * from Question where QuestionID = '"+unprocessedQuestion.QuestionID_FK_Player_Question+"';";
   pool.query(sql0, (err, result1)=>{
     if(err) throw err;
 
     let sql = "select * from Answer where AnswerID = '"+result1[0].Answer1ID_FK_Question+"' or AnswerID = '"+result1[0].Answer2ID_FK_Question+"' order by AnswerID asc;";
-    console.log(sql)
     pool.query(sql, (err, result)=>{
-      console.log("heres the result from the Answer log")
-      console.log(result)
       if(err) throw err;
       let questionParts = {
         "question":question = {

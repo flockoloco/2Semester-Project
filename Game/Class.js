@@ -130,9 +130,6 @@ class QuestionCreator{
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
     let playerID = playerLoged.PlayerID; //change to the correct ID
-    console.log("here comes all the prints")
-    console.log(optionPicked)
-    console.log(this.option[optionPicked]);
     let statsToSend = {
       "PlayerID":playerID,
       "wheat":this.option[optionPicked].wheat,
