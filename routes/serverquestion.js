@@ -1,5 +1,5 @@
 const pool = require('../core/database');
-
+const ex = require('./buildingCall');
 function ChangeStatsFunction(req,res){
 console.log("change stats funcion")
     ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,req.body.bwheat,req.body.bswords,req.body.bgold,req.body.bfaith,res);
@@ -7,7 +7,7 @@ console.log("change stats funcion")
 }
 
 function ChangeStats(id,wheat,swords,gold,faith,bwheat,bswords,bgold,bfaith,res){
-//BuildingUpdate(bwheat,bswords,bgold,bfaith) ou wtv que seja o nome da funcao
+  ex.buildingCall(bwheat,bswords,bgold,bfaith)
     let sql = "select * from player where PlayerID = '"+id+"' ;";
     pool.query(sql, (err, result)=>{
         if(err) throw err;
