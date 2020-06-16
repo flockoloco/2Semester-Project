@@ -14,14 +14,17 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
     };
 
 
-    if(bWheat == 1){insert.Type = "Farm"};
-    if(bWheat == -1){remove.Type = "Farm"};
-    if(bSword == 1){insert.Type = "Barrack"};
-    if(bSword == -1){remove.Type = "Barrack"};
-    if(bGold == 1){insert.Type = "Bank"};
-    if(bGold == -1){remove.Type = "Bank"};
-    if(bFaith == 1){insert.Type = "Church"};
-    if(bFaith == -1){remove.Type = "Church"};
+    if(bWheat == 1){insert.Type = "Farm"}else{insert.Type = ""}
+    if(bWheat == -1){remove.Type = "Farm"}else{remove.Type = ""}
+    if(bSword == 1){insert.Type = "Barrack"}else{insert.Type = ""}
+    if(bSword == -1){remove.Type = "Barrack"}else{remove.Type = ""}
+    if(bGold == 1){insert.Type = "Bank"}else{insert.Type = ""}
+    if(bGold == -1){remove.Type = "Bank"}else{remove.Type = ""}
+    if(bFaith == 1){insert.Type = "Church"}else{insert.Type = ""}
+    if(bFaith == -1){remove.Type = "Church"}else{remove.Type = ""}
+
+    console.log(insert.Type)
+    console.log(playerID)
 
     //----------------------------------INSERT PART---------------------------------
 
