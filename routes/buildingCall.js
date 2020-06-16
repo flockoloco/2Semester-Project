@@ -25,9 +25,9 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
 
     //----------------------------------INSERT PART---------------------------------
 
-    let sql = "SELECT PosX, PosY FROM tile WHERE Type = '"+insert.Type+"' AND PlayerID_FK_Tile="+playerID;
+    let sql2 = "SELECT PosX, PosY FROM tile WHERE Type = '"+insert.Type+"' AND PlayerID_FK_Tile="+playerID;
 
-    pool.query(sql, (err, result)=>{
+    pool.query(sql2, (err, result)=>{
         if(err) throw err;
         insert.Building = [];
         for(i = 0; i < result.length; i++){
@@ -45,9 +45,9 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
 
     //------------------------------------REMOVE PART--------------------------
 
-    let sql = "SELECT PosX, PosY FROM tile WHERE Type = '"+remove.Type+"' AND PlayerID_FK_Tile="+playerID;
+    let sql3 = "SELECT PosX, PosY FROM tile WHERE Type = '"+remove.Type+"' AND PlayerID_FK_Tile="+playerID;
 
-    pool.query(sql, (err, result)=>{
+    pool.query(sql3, (err, result)=>{
         if(err) throw err;
         remove.Building = [];
         for(i = 0; i < result.length; i++){
@@ -63,3 +63,8 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
         pool.query(insert, deleter, ()=>{res.send(true)});
     }
 }
+
+let ex = {
+    "buildingCall" : buildingCall
+}
+module.exports = ex;
