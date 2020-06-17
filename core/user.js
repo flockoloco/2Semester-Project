@@ -55,10 +55,17 @@ User.prototype = {
         
             
             pool.query(player, function() {
-
-                let Q1 = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+result.insertId+"',false,'1');";
-                let Q2 = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+result.insertId+"',false,'2');";
-                let Q3 = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+result.insertId+"',false,'3');";
+                let sql2 = "select * from Question;";
+                pool.query(sql2,(err1,result1)=>{
+                    if (err1) throw err1;
+                    for (let i = 0;i < result1.length ;i++) {
+                        let b = i +1
+                        let QuestionToInsert = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+result.insertId+"',false,'"+b+"');";
+                        pool.query(QuestionToInsert,(err2,result2)=>{
+                            if (err2) throw err2;
+                        });
+                    }
+                })
 
                 let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+result.insertId+"') ";
                 let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+result.insertId+"') ";
@@ -100,13 +107,6 @@ User.prototype = {
                 let church6 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', '"+result.insertId+"') ";
                 let church7 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', '"+result.insertId+"') ";
                 let church8 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', '"+result.insertId+"') ";
-
-                pool.query(Q1, (err, result)=>{
-                    if (err) throw err;
-                });
-                //pool.query(Q1, function() {});
-                pool.query(Q2, function() {});
-                pool.query(Q3, function() {});
                 
                 pool.query(CastleNO, function() {});
                 pool.query(CastleNE, function() {});

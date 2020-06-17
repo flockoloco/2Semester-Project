@@ -149,8 +149,9 @@ class QuestionCreator{
   	  rect(50, 50, 800, 500, 10);
       textAlign(CENTER);
       textSize(20);
+      
       fill("black");
-      text(this.text,80,80);
+      text(this.text,425,200);
     pop();
   }
 }
