@@ -19,6 +19,8 @@ function ChangeStatsReceiver(stats){
   playerLoged.faith = stats.faith;
   //CheckAlive()
 
+  loadAll();
+
   GetNewQuestion();
   //maybe start loop again
 }
@@ -48,7 +50,6 @@ function GetNewQuestion(){
 
 }
 function QuestionReceiver(questionParts){
-  debugger;
   activeQuestion = new QuestionCreator(questionParts);
   activeQuestion.PickMe(buttonArray);
 }

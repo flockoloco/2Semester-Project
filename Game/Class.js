@@ -216,7 +216,6 @@ class ButtonCreator{
   ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
     if (this.hovered == true){
       if (this.disable == false){
-        debugger;
         question.PickOption(this.optionAssigned);
       }
     }
