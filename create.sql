@@ -87,20 +87,20 @@ insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingS
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Stay defensive!','+10','+10','-20','-10',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the priests!','0','0','-10','+10',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the traders!','0','0','+10','-10',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Who cares? Work more.','0','+10','-10','0',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a barrack and raise more soldiers.','0','-15','+20','0',0,1,0,0);
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Who cares? Work more.','0','-10','+10','0',0,0,0,0);
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a barrack and raise more soldiers.','0','+20','-15','0',0,1,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Farms!','0','0','-15','0',0,0,'-1',0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Banks!','-15','0','0','0','-1',0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The army knows right! Off with his head!','-10','+10','0','0',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The people’s heart knows the truth! Let him live!','+10','0','-10','0',0,0,0,0);
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The people’s heart knows the truth! Let him live!','+10','-10','0','0',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Give a portion to everyone!','+5','+5','+5','+5',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Store for a time of need!','0','0','+20','0',0,0,'+1',0);
 
 
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('1',true,'This years production was really low :( People are hungry but the priests claim god will provide in time of need.','1','2');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('2',true,'Tension between the kingdoms is rising! You have to decide your stance on the future wars.','3','4');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('3',true,'Theres a big fight between the traders and the priests in the court, you need to side with one of them.','5','6');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('4',true,'Your army grows tired, long shifts on the castle walls and few pay isn’t worth the effort.','7','8');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('5',true,'The ground is shaking! Are these the God’s? Either way half of your castle broke down, you need to secure the resources!','9','10');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('6',true,'A robber is being convicted but the people believe he was justified, you need to take a stance!','11','12');
-insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('7',true,'The profits from the last raid were incredibly good! Where do you plan on investing?','13','14');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('1',true,'This years production was really low :( \nPeople are hungry but the priests claim God will provide in time of need.','1','2');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('2',true,'Tension between the kingdoms is rising! \nYou have to decide your stance on the future wars.','3','4');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('3',true,'Theres a big fight between the traders and the priests in the court.\nYou need to side with one of them.','5','6');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('4',true,'Your army grows angry and tired. \nLong shifts on the castle walls and few pay isn’t worth the effort.','7','8');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('5',true,'The ground is shaking! Are these the God’s? \nEither way half of your castle broke down, you need to secure the resources!','9','10');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('6',true,'A robber is being convicted but the people believe he was justified. \nYour people want you to take a stance!','11','12');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question) values('7',true,'The profits from the last raid were incredibly good! \nWhere do you plan on investing?','13','14');
