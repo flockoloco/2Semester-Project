@@ -35,7 +35,8 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
         if (insertIndex){
             let inserter = "INSERT INTO building(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+insert.Type+"', '"+insertIndex.PosX+"', '"+insertIndex.PosY+"', '"+playerID+"' )";
             let deleterer = "DELETE FROM tile WHERE PosX = '"+insertIndex.PosX+"' AND PosY = '"+insertIndex.PosY+"' AND Type = '"+insert.Type+"' AND PlayerID_FK_Tile = '"+playerID+"' ";
-            pool.query(inserter, deleterer);
+            pool.query(inserter, function(){});
+            pool.query(deleterer, function(){});
         }
     });
 
