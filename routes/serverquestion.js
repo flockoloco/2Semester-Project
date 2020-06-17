@@ -1,12 +1,12 @@
 const pool = require('../core/database');
-const ex = require('./buildingCall');
+const bc = require('./buildingCall');
 function ChangeStatsFunction(req,res){
     ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,req.body.bwheat,req.body.bswords,req.body.bgold,req.body.bfaith,res);
     
 }
 
 function ChangeStats(id,wheat,swords,gold,faith,bwheat,bswords,bgold,bfaith,res){
-  ex.buildingCall(bwheat,bswords,bgold,bfaith)
+  bc.buildingCall(bwheat,bswords,bgold,bfaith,id)
     let sql = "select * from player where PlayerID = '"+id+"' ;";
     pool.query(sql, (err, result)=>{
         if(err) throw err;

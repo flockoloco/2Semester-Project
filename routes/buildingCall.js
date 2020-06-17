@@ -2,8 +2,6 @@ const pool = require('../core/database');
 
 function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
 
-
-
     let insert = {
         "Type": '',
         "Building": []
@@ -13,7 +11,6 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
         "Building": []
     };
 
-
     if(bWheat == 1){insert.Type = "Farm"}else{insert.Type = ""}
     if(bWheat == -1){remove.Type = "Farm"}else{remove.Type = ""}
     if(bSword == 1){insert.Type = "Barrack"}else{insert.Type = ""}
@@ -21,7 +18,7 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
     if(bGold == 1){insert.Type = "Bank"}else{insert.Type = ""}
     if(bGold == -1){remove.Type = "Bank"}else{remove.Type = ""}
     if(bFaith == 1){insert.Type = "Church"}else{insert.Type = ""}
-    if(bFaith == -1){remove.Type = "Church"}else{remove.Type = ""}
+    if(bFaith == -1){remove.Type = "Church"}else{remove.Type = ""}//erro com estes ifs pq tao seguidos a mudar a mesma variavel
 
     console.log(insert.Type)
     console.log(playerID)
@@ -67,7 +64,7 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
     }
 }
 
-let ex = {
+let bc = {
     "buildingCall" : buildingCall
 }
-module.exports = ex;
+module.exports = bc;
