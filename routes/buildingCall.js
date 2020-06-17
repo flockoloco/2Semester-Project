@@ -42,7 +42,7 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
 
     //------------------------------------REMOVE PART--------------------------
 
-    let sql3 = "SELECT PosX, PosY FROM tile WHERE Type = '"+remove.Type+"' AND PlayerID_FK_Tile="+playerID;
+    let sql3 = "SELECT PosX, PosY FROM building WHERE Type = '"+remove.Type+"' AND PlayerID_FK_Building="+playerID;
 
     pool.query(sql3, (err, result)=>{
         if(err) throw err;
@@ -52,11 +52,11 @@ function buildingCall(bWheat, bSword, bGold, bFaith, playerID){
         }
 
         let removeIndex = remove.Building[Math.floor(Math.random() * (remove.Building).length)]
-
         if (removeIndex){
-            let inserter = "INSERT INTO tile(Type, PosX, PosY, PlayerID_FK_Building) VALUES('"+remove.Type+"', '"+removeIndex.PosX+"', '"+removeIndex.PosY+"', '"+playerID+"' )";
-            let deleterer = "DELETE FROM building WHERE PosX = '"+removeIndex.PosX+"' AND PosY = '"+removeIndex.PosY+"' AND Type = '"+remove.Type+"' AND PlayerID_FK_Tile = '"+playerID+"' ";
-            pool.query(inserter, deleterer, ()=>{});
+            let inserter = "INSERT INTO tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES('"+remove.Type+"', '"+removeIndex.PosX+"', '"+removeIndex.PosY+"', '"+playerID+"' )";
+            let deleterer = "DELETE FROM building WHERE PosX = '"+removeIndex.PosX+"' AND PosY = '"+removeIndex.PosY+"' AND Type = '"+remove.Type+"' AND PlayerID_FK_Building = '"+playerID+"' ";
+            pool.query(inserter, function(err){if (err) throw err});
+            pool.query(deleterer, function(err){if (err) throw err});
         }
     });
 }
