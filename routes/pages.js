@@ -107,11 +107,7 @@ router.get('/logout', (req, res, next) => {
 
 router.get('/leaderBoard', (req, res, next) => {
 
-    let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"
-
-    let Username1, Score1;
-
-    
+    let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"    
     
     pool.query(sql, (err, result) => {
 
