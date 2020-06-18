@@ -35,18 +35,7 @@ function setup() {
 
   initTile();
   loadAll();
-  let statsToSend = {
-    "PlayerID":playerLoged.PlayerID,
-    "wheat":0,
-    "swords":0,
-    "gold":0,
-    "faith":0,
-    "bwheat":0,
-    "bswords":0,
-    "bgold":0,
-    "bfaith":0
-    }
-  httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
+   GetNewQuestion();
   buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
   buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
 

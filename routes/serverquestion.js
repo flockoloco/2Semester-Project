@@ -1,34 +1,42 @@
 const pool = require('../core/database');
 const bc = require('./buildingCall');
 function ChangeStatsFunction(req,res){
-    ChangeStats(req.body.PlayerID,req.body.wheat,req.body.swords,req.body.gold,req.body.faith,req.body.bwheat,req.body.bswords,req.body.bgold,req.body.bfaith,res);
+  
+  console.log("ehres the req")
+  console.log(req.body)
+    ChangeStats(req.body.PlayerID,res,req.body.AnswerID);
     
 }
 
-function ChangeStats(id,wheat,swords,gold,faith,bwheat,bswords,bgold,bfaith,res){
-  bc.buildingCall(bwheat,bswords,bgold,bfaith,id)
+function ChangeStats(id,res,AnswerID){
+  let answerQuery = "select * from Answer where AnswerID = '"+AnswerID+"';";
+  console.log(answerQuery)
+  pool.query(answerQuery,(err0,answerStats)=>{
+    console.log(answerStats)
+    if (err0) throw err0;
+    bc.buildingCall(answerStats[0].BuildingWheat,answerStats[0].Buildingswords,answerStats[0].BuildingGold,answerStats[0].BuildingFaith,id)
     let sql = "select * from player where PlayerID = '"+id+"' ;";
     pool.query(sql, (err, result)=>{
-        if(err) throw err;
+      if(err) throw err;
 
-        result[0].Wheat = result[0].Wheat + wheat;
-        result[0].Swords = result[0].Swords + swords;
-        result[0].Gold = result[0].Gold + gold;
-        result[0].Faith = result[0].Faith + faith;
-
-        let sql1 = "update player set Wheat = '"+result[0].Wheat +"', Swords = '"+result[0].Swords+"', Gold = '"+result[0].Gold+"', Faith = '"+result[0].Faith+"' where PlayerID = '"+id+"'"
-        pool.query(sql1, (err1, result1)=>{
-            if(err1) throw err1;
-        });
-        let objectToSend = {
-            "wheat": result[0].Wheat,
-            "swords":result[0].Swords,
-            "gold":result[0].Gold,
-            "faith":result[0].Faith
-        }
-        res.send(objectToSend);
-
+      result[0].Wheat = result[0].Wheat + answerStats[0].Wheat;
+      result[0].Swords = result[0].Swords + answerStats[0].Swords;
+      result[0].Gold = result[0].Gold + answerStats[0].Gold;
+      result[0].Faith = result[0].Faith + answerStats[0].Faith;
+        
+      let sql1 = "update player set Wheat = '"+result[0].Wheat +"', Swords = '"+result[0].Swords+"', Gold = '"+result[0].Gold+"', Faith = '"+result[0].Faith+"' where PlayerID = '"+id+"'"
+      pool.query(sql1, (err1, result1)=>{
+        if(err1) throw err1;
+      });
+      let objectToSend = {
+        "wheat": result[0].Wheat,
+        "swords":result[0].Swords,
+        "gold":result[0].Gold,
+        "faith":result[0].Faith
+      }
+      res.send(objectToSend);
     });
+  });
 }  
 
 function CheckAnyLeft(questionArray){
@@ -92,26 +100,10 @@ function FullQuestionCreator(unprocessedQuestion,res){
         "option0":option0 = {
           "id":result[0].AnswerID,
           "text":result[0].Text,
-          "wheat":result[0].Wheat,
-          "swords":result[0].Swords,
-          "gold":result[0].Gold,
-          "faith":result[0].Faith,
-          "bwheat":result[0].BuildingWheat,
-          "bswords":result[0].BuildingSwords,
-          "bgold":result[0].BuildingGold,
-          "bfaith":result[0].BuildingFaith
         },
         "option1":option1 = {
           "id":result[1].AnswerID,
           "text":result[1].Text,
-          "wheat":result[1].Wheat,
-          "swords":result[1].Swords,
-          "gold":result[1].Gold,
-          "faith":result[1].Faith,
-          "bwheat":result[1].BuildingWheat,
-          "bswords":result[1].BuildingSwords,
-          "bgold":result[1].BuildingGold,
-          "bfaith":result[1].BuildingFaith
         }
       }
       res.send(questionParts);

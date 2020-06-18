@@ -118,8 +118,6 @@ class QuestionCreator{
     this.option = [];
     this.id = values.question.id; 
     this.text = values.question.text;
-    this.concluded = values.question.concluded;
-    this.resets = values.question.resets;
     this.option[0] = values.option0;
     this.option[1] = values.option1;
   }
@@ -130,17 +128,14 @@ class QuestionCreator{
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
     let playerID = playerLoged.PlayerID; //change to the correct ID
+
     let statsToSend = {
       "PlayerID":playerID,
-      "wheat":this.option[optionPicked].wheat,
-      "swords":this.option[optionPicked].swords,
-      "gold":this.option[optionPicked].gold,
-      "faith":this.option[optionPicked].faith,
-      "bwheat":this.option[optionPicked].bwheat,
-      "bswords":this.option[optionPicked].bswords,
-      "bgold":this.option[optionPicked].bgold,
-      "bfaith":this.option[optionPicked].bfaith
+      "AnswerID":this.option[optionPicked].id
     }
+    console.log("yo wtf heres the id")
+    console.log(statsToSend);
+    console.log(this.option)
     httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
