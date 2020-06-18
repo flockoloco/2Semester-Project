@@ -17,13 +17,14 @@ function ChangeStatsReceiver(stats){
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
   playerLoged.faith = stats.faith;
-  //CheckAlive()
+  
 
   loadAll();
 
-  GetNewQuestion();
+  GetNewQuestion(false);
   //maybe start loop again
 }
+
 
 function CheckAlive(){
 //finish dedfunction
@@ -44,9 +45,12 @@ function CheckAlive(){
     buttonArray[1] = new ButtonCreator(200,100,50,50,"blue","",1,false,"option2")
  //this is probably the best way to initialize the object i think desta maneira nao temos de os chamar em separado
 }*/
-function GetNewQuestion(){
-  playerID = playerLoged.PlayerID;
-  httpPost('/getNewQuestion','json',{playerID},QuestionReceiver);
+function GetNewQuestion(firstQuestionCheck){
+  let objectToSend = {
+    "playerID" : playerLoged.PlayerID,
+    "firstTimeCheck" : firstQuestionCheck
+  }
+  httpPost('/getNewQuestion','json',objectToSend,QuestionReceiver);
 
 }
 function QuestionReceiver(questionParts){

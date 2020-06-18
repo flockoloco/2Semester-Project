@@ -35,7 +35,9 @@ function setup() {
 
   initTile();
   loadAll();
-   GetNewQuestion();
+
+  
+   GetNewQuestion(true);
   buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
   buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
 

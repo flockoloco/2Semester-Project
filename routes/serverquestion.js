@@ -2,17 +2,14 @@ const pool = require('../core/database');
 const bc = require('./buildingCall');
 function ChangeStatsFunction(req,res){
   
-  console.log("ehres the req")
-  console.log(req.body)
+  
     ChangeStats(req.body.PlayerID,res,req.body.AnswerID);
     
 }
 
 function ChangeStats(id,res,AnswerID){
   let answerQuery = "select * from Answer where AnswerID = '"+AnswerID+"';";
-  console.log(answerQuery)
   pool.query(answerQuery,(err0,answerStats)=>{
-    console.log(answerStats)
     if (err0) throw err0;
     bc.buildingCall(answerStats[0].BuildingWheat,answerStats[0].Buildingswords,answerStats[0].BuildingGold,answerStats[0].BuildingFaith,id)
     let sql = "select * from player where PlayerID = '"+id+"' ;";
@@ -54,35 +51,65 @@ function CheckAnyLeft(questionArray){
 }
 
 function PickRandomQuestion(req,res){ //this is the picks every single one before it refreshes the ones that should be refreshed
-  let infinityLoop = false;
+  /*let infinityLoop = false;
   do {
-    infinityLoop = true;
-    let sql = "select * from Player_Question where PlayerID_FK_Player_Question = '"+req.body.playerID+"' order by QuestionID_FK_Player_Question asc;";
-    pool.query(sql, (err, result)=>{
-      if(err) throw err;
-      if (CheckAnyLeft(result) == true){
-        let foundAPick = false;
-        do{
-          let randompick = Math.floor(Math.random()*result.length);
-          if (result[randompick].Concluded == 0){
-            /*let update = "update Player_Question set Concluded = true where PlayerID_FK_Player_Question = '"+req.body.playerID+"';";
-            pool.query(update,(err0,result0)=>{
-              if (err0) throw err0;});*/
-            foundAPick = true;
-            infinityLoop = true;
-            FullQuestionCreator(result[randompick],res);
-          }
-        }while(foundAPick == false);
-      }else if(CheckAnyLeft(result) == false){
+  infinityLoop = true;*/
+  let sql = "select * from Player_Question where PlayerID_FK_Player_Question = '"+req.body.playerID+"' order by QuestionID_FK_Player_Question asc;";
+  pool.query(sql, (err, result)=>{
+    if(err) throw err;
+    let yepItsBigQueryTime = "select CurrentQuestion from Player where PlayerID = '"+req.body.playerID+"';";
+    console.log("plz work ffs")
+    console.log(yepItsBigQueryTime)
+
+    pool.query(yepItsBigQueryTime, (err4, currentquestioncheck)=>{ 
+      if (err4) throw err4;
+      console.log(currentquestioncheck)
+      console.log("here are the iffs checks")
+      console.log(currentquestioncheck[0].CurrentQuestion != null , currentquestioncheck[0].CurrentQuestion)
+      console.log(req.body.firstTimeCheck)
+      if ((currentquestioncheck[0].CurrentQuestion != null)&&(req.body.firstTimeCheck == true)) { //this only happens when theres a new player/new run
+        console.log("i went in the if")
+        UpdateCurrentQuestion(currentquestioncheck[0].CurrentQuestion,req.body.playerID);
+        FullQuestionCreator(result[currentquestioncheck[0].CurrentQuestion],res);
+      }else{
+        console.log("i went in the else")
+        //if (CheckAnyLeft(result) == true){
+        //let foundAPick = false;
+        //do{
+        let randompick = Math.floor(Math.random()*result.length);
+        if (result[randompick].Concluded == 0){
+          /*let update = "update Player_Question set Concluded = true where PlayerID_FK_Player_Question = '"+req.body.playerID+"';";
+          pool.query(update,(err0,result0)=>{
+          if (err0) throw err0;});*/
+          foundAPick = true;
+          infinityLoop = true;
+          UpdateCurrentQuestion(randompick,req.body.playerID);
+          FullQuestionCreator(result[randompick],res);
+        }
+        /*}while(foundAPick == false);
+        }else if(CheckAnyLeft(result) == false){
         let sqlUpdate = "update Player_Question set Concluded = false where PlayerID_FK_Player_Question = '"+req.body.playerID+"';";
         pool.query(sqlUpdate, (err2, result2)=>{
-          if (err2) throw err2;
+        if (err2) throw err2;
         });  
+        }*/
       }
     });
-  }while(infinityLoop == false);
+  });
+  //}while(infinityLoop == false);
 }
 
+function UpdateCurrentQuestion(questionID,playerID){
+
+  let zeroBasedTo1Based = questionID + 1;
+ 
+  let updatingQuestion = "update Player set CurrentQuestion = '"+questionID+"' where PlayerID = '"+playerID+"';";
+  console.log("INSIDE OF QUESTION!!!!!",updatingQuestion)
+  pool.query(updatingQuestion, (err, result2)=>{
+    
+    if (err) throw err;
+  });
+}
 function FullQuestionCreator(unprocessedQuestion,res){
 
   let sql0 = "select * from Question where QuestionID = '"+unprocessedQuestion.QuestionID_FK_Player_Question+"';";
