@@ -13,22 +13,22 @@ router.get('/', (req, res, next) => {
     let user = req.session.user;
     if(user)
     {
-        res.redirect('/home');
+        res.redirect('/menu');
         return;
     }
 
-    res.render('login', { title: "All Aboard" });
+    res.render('login', { title: "Fight thy Path [login]" });
 
 });
 
 // ## 2 - HOME ROUTE Get Home Page
-router.get('/home', (req, res, next) => {
+router.get('/game', (req, res, next) => {
 
     // ## USER INFO ON WEBPAGE
     let user = req.session.user;
     if(user) 
     {
-        res.render('script', {opp: req.session.opp, name:user.username});
+        res.render('gameScript', {opp: req.session.opp, name:user.username});
         return;
     }
     // if no section redicrect to index
@@ -46,7 +46,7 @@ router.post('/login', (req, res, next) => {
             // if we log in make a session and save user data
             req.session.user = result;
             req.session.opp = 1; // 1 for login and 0 for register
-            res.redirect('/home');
+            res.redirect('/menu');
         }
         else
         {
@@ -57,7 +57,13 @@ router.post('/login', (req, res, next) => {
 
 router.get('/register', (req, res, next) => {
 
-    res.render('register', { title: "All Aboard" });
+    res.render('register', { title: "Fight thy Path [register]" });
+
+})
+
+router.get('/menu', (req, res, next) => {
+
+    res.render('menuScript', { title: "Fight thy Path [Menu]" });
 
 })
 
@@ -106,20 +112,8 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/leaderBoard', (req, res, next) => {
-
-    let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"    
-    
-    pool.query(sql, (err, result) => {
-
-        for(i = 0; i < 10; i++){
-            if(result[i]){}else{result.push({
-                PlayerName: null, 
-                Score: null
-            })}
-        }
-        res.render('leaderBoard', {result});
+        res.render('leaderBoardScript', { title: "Fight thy Path [leaderboard]" });
     })
-})
 
         //GET PLAYER INFORMATION FROM THE DATABASE
 
