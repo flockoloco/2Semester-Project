@@ -101,7 +101,7 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
 
 function UpdateCurrentQuestion(questionID,playerID){
 
-  let zeroBasedTo1Based = questionID + 1;
+  let zeroBasedTo1Based = questionID;
  
   let updatingQuestion = "update Player set CurrentQuestion = '"+questionID+"' where PlayerID = '"+playerID+"';";
   console.log("INSIDE OF QUESTION!!!!!",updatingQuestion)

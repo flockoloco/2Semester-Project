@@ -79,8 +79,6 @@ create table Player_Question(
 
 );
 
-ALTER TABLE Player add constraint foreign key (CurrentQuestion) references Player_Question(QuestionID_fk_Player_Question);
-
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a farm!','+20','0','-10','-5',1,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a church to pray! lmao','-15','0','0','+20',0,0,0,1);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Go to war!','-20','-20','+40','+10','-1',0,0,0);

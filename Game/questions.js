@@ -21,7 +21,8 @@ function ChangeStatsReceiver(stats){
 
   loadAll();
 
-  GetNewQuestion(false);
+    GetNewQuestion(false);
+
   //maybe start loop again
 }
 
@@ -55,5 +56,5 @@ function GetNewQuestion(firstQuestionCheck){
 }
 function QuestionReceiver(questionParts){
   activeQuestion = new QuestionCreator(questionParts);
-  activeQuestion.PickMe(buttonArray);
+  activeQuestion.PickMe(gameButtonArray);
 }

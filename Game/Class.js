@@ -121,9 +121,9 @@ class QuestionCreator{
     this.option[0] = values.option0;
     this.option[1] = values.option1;
   }
-  PickMe(buttonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
-    buttonArray[0].AssignQuestion(this.id,this.option[0].text);
-    buttonArray[1].AssignQuestion(this.id,this.option[1].text);
+  PickMe(pickedButtonArray){ //assigns each of the 3 buttons to the picked question (the 3rd option only exists for some questions)
+    pickedButtonArray[0].AssignQuestion(this.id,this.option[0].text);
+    pickedButtonArray[1].AssignQuestion(this.id,this.option[1].text);
   }
   PickOption(optionPicked){ //after PickMe()
     //disable all buttons with the disablebuttons function either here or in the buttons click me function
@@ -152,14 +152,25 @@ class QuestionCreator{
 }
 
 class ButtonCreator{
-  constructor(x,y,width,height,color,questionAssinged,optionAssigned,disable,text){
+  constructor(x,y,width,height,color,action,questionAssinged,optionAssigned,disable,text){
 	this.posX = x,
 	this.posY = y,
 	this.width = width,
 	this.height = height,
-	this.color = color,
-  this.questionAssigned = questionAssinged,
-  this.optionAssigned = optionAssigned,
+  this.color = color,
+  this.action = action
+
+  if (this.action == "options"){
+    this.questionAssigned = questionAssinged,
+  this.optionAssigned = optionAssigned
+  }else if(this.action == "menu"){
+
+  }else if(this.action == "settings"){
+
+  }else if(this.action == "create new run")
+
+
+  
 	this.hovered = false,
 	this.disable = disable,
 
@@ -195,6 +206,7 @@ class ButtonCreator{
   };
   DrawMe(){
     push();
+    console.log("insode of the function draw")
   	if (this.disable == false){
   	  if (this.hovered == true) {
   	    fill("white");
@@ -209,10 +221,21 @@ class ButtonCreator{
     }
     pop();
   }
-  ClickMe(question){ //Might remove one of these gates in the future. probably onetime  WEMIGHT NEED TO CHANGE THIS PART (question)
+  ClickMe(question){
     if (this.hovered == true){
       if (this.disable == false){
+        if (this.action == "options"){
         question.PickOption(this.optionAssigned);
+        }else if(this.action == "leaderboard"){
+
+        }else if(this.action == "newRun"){
+
+        }else if(this.action == "continue"){
+        
+        }else if(this.action == "leaderboard"){
+
+        }else if(this.action == "leaderboard"){
+        }
       }
     }
   }
@@ -223,6 +246,43 @@ class ButtonCreator{
   	this.disable = false;
   };
 };
+
+
+
+//change function place
+
+function SceneChanger(currentScene,futureScene){
+  let oldButtonArray;
+  let newButtonArray;
+  if (currentScene){
+    if (currentScene == "Main Menu" ) {
+      oldButtonArray = mainMenuButtonArray;
+    }else if (currentScene == "Game") {
+      oldButtonArray = gameButtonArray;
+    }else if (currentScene == "Leaderboard") {
+      oldButtonArray = leaderboardButtonArray;
+    }else if (currentScene == "fodase") {
+      //...
+    }
+  }
+  if (futureScene == "Main Menu" ) {
+    newButtonArray = mainMenuButtonArray;
+  }else if (currentScene == "Game") {
+    newButtonArray = gameButtonArray;
+  }else if (currentScene == "Leaderboard") {
+    newButtonArray = leaderboardButtonArray;
+  }else if (currentScene == "fodase") {
+    //...
+  }
+  for (let i = 0; i < oldButtonArray.length;i++){
+    oldButtonArray[i].DisableMe();
+  }
+  for (let i = 0; i < newButtonArray.length;i++){
+    newButtonArray[i].EnableMe();
+  }
+
+  Scene = futureScene;
+}
 
 
 

@@ -130,7 +130,9 @@ router.get("/getPlayer", function(req,res){
     let sql = 'SELECT * FROM player WHERE PlayerID = (SELECT UserID FROM user WHERE UserName = "'+username+'" LIMIT 1);';
 		
 	pool.query(sql, (err,result)=>{
-	    if(err) throw err;
+        if(err) throw err;
+        console.log("heres the getplayer result")
+        console.log(result)
         res.send(result);
 	});
 });
@@ -206,10 +208,24 @@ router.get("/getChurch/:playerLoged", function(req,res){
 	res.send(result);
 	});
 });
+router.get('/getPlayerStats/:playerLoged',function (req,res){
+    let sql = "select * from Player where PlayerID = '"+req.params.playerLoged+"';";
+    pool.query(sql, (err,result)=>{
+        if(err) throw err;
+        let objectToSend = {
+            "wheat" : result[0].Wheat,
+            "swords" : result[0].Swords,
+            "gold" : result[0].Gold,
+            "faith" : result[0].Faith
+        }
+	res.send(objectToSend);
+	});
+});
 
 router.post('/getNewQuestion',sq.PickRandomQuestion);
 
 router.post('/changeStats',sq.ChangeStatsFunction);
+
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-
 

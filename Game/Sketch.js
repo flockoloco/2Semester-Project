@@ -4,6 +4,7 @@ let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
 
+
 let wheatImage;
 let goldImage;
 let swordImage;
@@ -16,7 +17,9 @@ let value = 0;
     //initializing questions and buttons for filling the in the future
 
 let activeQuestion;
-let buttonArray = [];
+let gameButtonArray = [];
+let menuButtonArray = [];
+let leaderboardButtonArray = [];
 
 function preload(){
 
@@ -32,14 +35,12 @@ function setup() {
   noLoop();
   
   createCanvas(windowWidth, windowHeight);
-
   initTile();
   loadAll();
-
+  GetNewQuestion(true);
+  gameButtonArray[0] = new ButtonCreator(100,700,200,100,"blue","options","",0,false,"option1");
+  gameButtonArray[1] = new ButtonCreator(500,700,200,100,"blue","options","",1,false,"option2");
   
-   GetNewQuestion(true);
-  buttonArray[0] = new ButtonCreator(100,700,200,100,"blue","",0,false,"option1");
-  buttonArray[1] = new ButtonCreator(500,700,200,100,"blue","",1,false,"option2");
 
   loop();
 };
@@ -48,20 +49,15 @@ function draw() {
   background(250, 218, 94);
   drawTile();
   createBars();
-  buttonArray[0].CheckHover(mouseX,mouseY);
-  buttonArray[1].CheckHover(mouseX,mouseY);
-  buttonArray[0].DrawMe();
-  buttonArray[1].DrawMe();
+  gameButtonArray[0].CheckHover(mouseX,mouseY);
+  gameButtonArray[1].CheckHover(mouseX,mouseY);
+  console.log(gameButtonArray)
+  gameButtonArray[0].DrawMe();
+  gameButtonArray[1].DrawMe();
 
   if (activeQuestion){  
     activeQuestion.DrawMe();
-  }
-
-
-  /*for (let i = 0; buttonArray.length; i++){
-    buttonArray[i].CheckHover(mouseX,mouseY);
-    buttonArray[i].DrawMe();
-  }*/
+  } 
 
 };
 
@@ -75,8 +71,8 @@ function getPlayer(){
 
 
 function mouseReleased() {
-  buttonArray[0].ClickMe(activeQuestion);
-  buttonArray[1].ClickMe(activeQuestion);
+  gameButtonArray[0].ClickMe(activeQuestion);
+  gameButtonArray[1].ClickMe(activeQuestion);
 }
 
     //GET THE BUILDINGS' INFORMATION
@@ -144,7 +140,8 @@ const createBars = () => {
     //STORE THE PLAYER'S INFORMATION
 
 function parsePlayer(data){
-    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].wheat, data[0].swords, data[0].gold, data[0].faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
+    playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Gold, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
+    console.log(playerLoged)
   }
 
     //STORE THE TILE'S INFORMATION
