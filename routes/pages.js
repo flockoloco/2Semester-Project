@@ -94,7 +94,7 @@ router.post('/register', (req, res, next) => {
             user.find(lastId, function(result){
                 req.session.user = result,
                 req.session.opp = 0,
-                res.redirect('/home');
+                res.redirect('/menu');
             });
         }
     })}
@@ -125,82 +125,36 @@ router.get("/getPlayer", function(req,res){
 		
 	pool.query(sql, (err,result)=>{
         if(err) throw err;
-        console.log("heres the getplayer result")
-        console.log(result)
         res.send(result);
 	});
 });
 
                                                             //GET THE BUILDINGS
 
-        //GET THE CASTLE FROM THE DATABSE
-
-router.get("/getCastle/:playerLoged", function(req,res){
+router.get("/getAllBuildings/:playerLoged", function(req,res){
 
     let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM building WHERE Type = 'Castle' AND PlayerID_FK_Building="+playerlogedID;
-	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);
-	});
+
+    let sql = "SELECT * FROM building WHERE PlayerID_FK_Building ="+playerlogedID;
+    
+    pool.query(sql, (err,result)=>{
+    if(err) throw err;
+    res.send(result);
+    });
 });
 
-        //GET THE FARM FROM THE DATABSE
+        //GET ALL BUILDINGS BRO
 
-router.get("/getFarm/:playerLoged", function(req,res){
+router.get("/getAllBuildingsLeaderboard/:playerID", function(req,res){
 
-    let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM building WHERE Type = 'Farm' AND PlayerID_FK_Building="+playerlogedID;
-	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);
-	});
-});
-
-        //GET THE BARRACKS FROM THE DATABSE
-
-router.get("/getBarrack/:playerLoged", function(req,res){
-
-    let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM building WHERE Type = 'Barrack' AND PlayerID_FK_Building="+playerlogedID;
-	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);
-	});
-});
-
-        //GET THE BANK FROM THE DATABSE
-
-router.get("/getBank/:playerLoged", function(req,res){
-
-    let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM building WHERE Type = 'Bank' AND PlayerID_FK_Building="+playerlogedID;
-	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);
-	});
-});
-
-        //GET THE CHURCH FROM THE DATABSE
-
-router.get("/getChurch/:playerLoged", function(req,res){
-
-    let playerlogedID = req.params.playerLoged;
-	
-	let sql = "SELECT * FROM building WHERE Type = 'Church' AND PlayerID_FK_Building="+playerlogedID;
-	
-	pool.query(sql, (err,result)=>{
-	if(err) throw err;
-	res.send(result);
-	});
+    let playerlogedID = req.params.playerID;
+    
+    let sql = "SELECT * FROM building WHERE PlayerID_FK_Building = (select UserID_FK_Player from player where PlayerName ='"+playerlogedID+"') order by Type";
+    
+    pool.query(sql, (err,result)=>{
+    if(err) throw err;
+    res.send(result);
+    });
 });
 router.get('/getPlayerStats/:playerLoged',function (req,res){
     let sql = "select * from Player where PlayerID = '"+req.params.playerLoged+"';";

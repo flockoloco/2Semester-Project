@@ -58,21 +58,13 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
   pool.query(sql, (err, result)=>{
     if(err) throw err;
     let yepItsBigQueryTime = "select CurrentQuestion from Player where PlayerID = '"+req.body.playerID+"';";
-    console.log("plz work ffs")
-    console.log(yepItsBigQueryTime)
 
     pool.query(yepItsBigQueryTime, (err4, currentquestioncheck)=>{ 
       if (err4) throw err4;
-      console.log(currentquestioncheck)
-      console.log("here are the iffs checks")
-      console.log(currentquestioncheck[0].CurrentQuestion != null , currentquestioncheck[0].CurrentQuestion)
-      console.log(req.body.firstTimeCheck)
       if ((currentquestioncheck[0].CurrentQuestion != null)&&(req.body.firstTimeCheck == true)) { //this only happens when theres a new player/new run
-        console.log("i went in the if")
         UpdateCurrentQuestion(currentquestioncheck[0].CurrentQuestion,req.body.playerID);
         FullQuestionCreator(result[currentquestioncheck[0].CurrentQuestion],res);
       }else{
-        console.log("i went in the else")
         //if (CheckAnyLeft(result) == true){
         //let foundAPick = false;
         //do{
@@ -104,7 +96,6 @@ function UpdateCurrentQuestion(questionID,playerID){
   let zeroBasedTo1Based = questionID;
  
   let updatingQuestion = "update Player set CurrentQuestion = '"+questionID+"' where PlayerID = '"+playerID+"';";
-  console.log("INSIDE OF QUESTION!!!!!",updatingQuestion)
   pool.query(updatingQuestion, (err, result2)=>{
     
     if (err) throw err;

@@ -51,7 +51,6 @@ function draw() {
   createBars();
   gameButtonArray[0].CheckHover(mouseX,mouseY);
   gameButtonArray[1].CheckHover(mouseX,mouseY);
-  console.log(gameButtonArray)
   gameButtonArray[0].DrawMe();
   gameButtonArray[1].DrawMe();
 
@@ -77,27 +76,9 @@ function mouseReleased() {
 
     //GET THE BUILDINGS' INFORMATION
 function loadAll(){
-
-  loadJSON('/getCastle/'+playerLoged.PlayerID, function(data){
-  parseTile(data);
+  loadJSON('/getAllBuildings/'+playerLoged.PlayerID,function(data){
+    parseTile(data);
   });
-
-  loadJSON('/getFarm/'+playerLoged.PlayerID, function(data){
-  parseTile(data);
-  });
-
-  loadJSON('/getBarrack/'+playerLoged.PlayerID, function(data){
-  parseTile(data);
-  });
-
-  loadJSON('/getBank/'+playerLoged.PlayerID, function(data){
-  parseTile(data);
-  });
-
-  loadJSON('/getChurch/'+playerLoged.PlayerID, function(data){
-  parseTile(data);
-  });
-  
 }
 
     //BARS FOR THE RESOURCES
@@ -141,32 +122,33 @@ const createBars = () => {
 
 function parsePlayer(data){
     playerLoged = new Player(data[0].PlayerID, data[0].UserID_FK_Player, data[0].Concluded, data[0].Wheat, data[0].Swords, data[0].Gold, data[0].Faith, data[0].Score, data[0].KingdomName, data[0].PlayerName);
-    console.log(playerLoged)
   }
 
     //STORE THE TILE'S INFORMATION
 
 function parseTile(data){
+  arrCastle = [];
+  arrFarm = [];
+  arrBarrack = [];
+  arrBank = [];
+  arrChurch = [];
+
   for(let i=0;i<data.length;i++){
     if(data[i].Type == "Castle"){
-      arrCastle[i] = new castle(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-      updateTile();
+        arrCastle.push(data[i]);
     }
-    if(data[i].Type == "Farm"){
-      arrFarm[i] = new farm(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-      updateTile();
+    else if(data[i].Type == "Farm"){
+        arrFarm.push(data[i])
     }
-    if(data[i].Type == "Barrack"){
-      arrBarrack[i] = new barrack(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-      updateTile();
+    else if(data[i].Type == "Barrack"){
+        arrBarrack.push(data[i])
     }
-    if(data[i].Type == "Bank"){
-      arrBank[i] = new bank(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-      updateTile();
+    else if(data[i].Type == "Bank"){
+        arrBank.push(data[i])
     }
-    if(data[i].Type == "Church"){
-      arrChurch[i] = new church(data[i].BuildingID, data[i].Type, data[i].PosX, data[i].PosY, data[i].PlayerID_FK_Building);
-      updateTile();
+    else if(data[i].Type == "Church"){
+        arrChurch.push(data[i])
     }
-  }
+}
+updateTile();
 }

@@ -133,9 +133,6 @@ class QuestionCreator{
       "PlayerID":playerID,
       "AnswerID":this.option[optionPicked].id
     }
-    console.log("yo wtf heres the id")
-    console.log(statsToSend);
-    console.log(this.option)
     httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
   DrawMe(){
@@ -206,7 +203,6 @@ class ButtonCreator{
   };
   DrawMe(){
     push();
-    console.log("insode of the function draw")
   	if (this.disable == false){
   	  if (this.hovered == true) {
   	    fill("white");
