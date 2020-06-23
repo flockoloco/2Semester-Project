@@ -155,19 +155,9 @@ class ButtonCreator{
 	this.width = width,
 	this.height = height,
   this.color = color,
-  this.action = action
-
-  if (this.action == "options"){
-    this.questionAssigned = questionAssinged,
-  this.optionAssigned = optionAssigned
-  }else if(this.action == "menu"){
-
-  }else if(this.action == "settings"){
-
-  }else if(this.action == "create new run")
-
-
-  
+  this.action = action,
+  this.questionAssigned = questionAssinged,
+  this.optionAssigned = optionAssigned,
 	this.hovered = false,
 	this.disable = disable,
 
@@ -217,20 +207,44 @@ class ButtonCreator{
     }
     pop();
   }
-  ClickMe(question){
+  ClickMe(multiUseVariable){
+    
     if (this.hovered == true){
       if (this.disable == false){
+        console.log("inside of the click me function")
         if (this.action == "options"){
-        question.PickOption(this.optionAssigned);
-        }else if(this.action == "leaderboard"){
+        multiUseVariable.PickOption(this.optionAssigned);
 
         }else if(this.action == "newRun"){
-
-        }else if(this.action == "continue"){
+          let objectToSend1 = {
+            "userID":multiUseVariable,
+            "bla": 2
+          }
+            httpPost('/newRun','json',objectToSend1,function(data){
+            
+            /*let objectToSend = {
+              "userID": data.userID,
+              "playerID": data.playerID
+            }*/
+            //send to game send object with IDS
+          });
+        }else if(this.action == "continueRun"){
+          let objectToSend1 = {
+            "multiUseVariable": multiUseVariable,
+            "bla": 2
+          }
+          httpPost('/continueRun','json',objectToSend1,function(data){
+            let objectToSend = {
+              "userID": data.userID,
+              "playerID": data.playerID
+            }
+            //send to game send object with IDS
+          })
         
         }else if(this.action == "leaderboard"){
-
-        }else if(this.action == "leaderboard"){
+          //send to leaderboard doesnt need ids?
+        }else if(this.action == "settings"){
+          //lmao imagine having time for settings
         }
       }
     }

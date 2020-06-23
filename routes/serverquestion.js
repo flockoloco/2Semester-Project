@@ -72,9 +72,12 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
         if (result[randompick].Concluded == 0){
           /*let update = "update Player_Question set Concluded = true where PlayerID_FK_Player_Question = '"+req.body.playerID+"';";
           pool.query(update,(err0,result0)=>{
-          if (err0) throw err0;});*/
+          if (err0) throw err0;});
           foundAPick = true;
-          infinityLoop = true;
+          infinityLoop = true;*/
+
+          let scoreSql = "update Player set Score = Score + 1 where PlayerID = '"+req.body.playerID+"';"
+          pool.query(scoreSql, function() {});
           UpdateCurrentQuestion(randompick,req.body.playerID);
           FullQuestionCreator(result[randompick],res);
         }
@@ -92,8 +95,6 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
 }
 
 function UpdateCurrentQuestion(questionID,playerID){
-
-  let zeroBasedTo1Based = questionID;
  
   let updatingQuestion = "update Player set CurrentQuestion = '"+questionID+"' where PlayerID = '"+playerID+"';";
   pool.query(updatingQuestion, (err, result2)=>{

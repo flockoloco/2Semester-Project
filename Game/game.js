@@ -18,8 +18,6 @@ let value = 0;
 
 let activeQuestion;
 let gameButtonArray = [];
-let menuButtonArray = [];
-let leaderboardButtonArray = [];
 
 function preload(){
 
