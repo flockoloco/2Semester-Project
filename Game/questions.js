@@ -29,13 +29,22 @@ function ChangeStatsReceiver(stats){
 
 function CheckAlive(){
 //finish dedfunction
-  if (playerLoged.wheat){
+  if (playerLoged.wheat>100){
+    morreste pq tinahs muito
+  }else if (playerLoged.swords>100){
 
-  }else if (playerLoged.swords){
+  }else if (playerLoged.gold>100){
 
-  }else if (playerLoged.gold){
+  }else if (playerLoged.faith>100){
 
-  }else if (playerLoged.faith){
+  }
+  if (playerLoged.wheat<0){
+    morreste pq tinhas pouco
+  }else if (playerLoged.swords<0){
+
+  }else if (playerLoged.gold<0){
+
+  }else if (playerLoged.faith<0){
 
   }
 

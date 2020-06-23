@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
     let user = req.session.user;
     if(user)
     {
-        res.redirect('/menu');
+        res.redirect('/');
         return;
     }
 
@@ -121,8 +121,7 @@ router.get("/getPlayer", function(req,res){
 
     let user = req.session.user
     let username = user.UserName
-    let sql = 'SELECT * FROM player WHERE PlayerID = (SELECT UserID FROM user WHERE UserName = "'+username+'" LIMIT 1);';
-		
+    let sql = 'SELECT * FROM Player WHERE UserID_FK_Player = (SELECT UserID FROM user WHERE UserName = "'+username+'") and Concluded = false ;';
 	pool.query(sql, (err,result)=>{
         if(err) throw err;
         res.send(result);
@@ -194,9 +193,8 @@ router.post('/checkPlayerActiveRun',function (req,res){
     let sql = "select PlayerID from Player where UserID_FK_Player = '"+req.body.userID+"' and Concluded = false;";
     pool.query(sql, (err,result)=>{
         if (err) throw err;
-        if (result[0]){
-            //theres already a current run!! 
-            res.send(result[0].PlayerID);
+        if (result[0] != null){
+            res.send(result[0]);
         }else{
             res.send(false);
         }
@@ -204,19 +202,122 @@ router.post('/checkPlayerActiveRun',function (req,res){
 });
 
 
-router.post('/newRun',function (req,res){ 
-
+router.post('/newRun',function (req,res,callback){ 
+    let userID = req.body.userID;
     let sql = "update Player set Concluded = true where UserID_FK_Player ='"+req.body.userID+"' and Concluded = false;";
     pool.query(sql, (err,result)=>{
         if (err) throw err;
-        let hue = CreateNewPlayer(req.body.userID);
-        res.send(hue);
-    });
+        let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+userID+"', FALSE, '50', '50', '50', '50', 0); "
+        pool.query(player, function() {
+            let sql1 = "select * from Question;";
+            pool.query(sql1,(err1,result1)=>{
+                if (err1) throw err1;
+                let fodase = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false "
+                pool.query(fodase,(fodase1,fodase2)=>{
+                    if (fodase1) throw fodase1;
+                    for (let i = 0;i < result1.length ;i++) {
+                        let b = i +1
+                        let QuestionToInsert = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+fodase2[0].PlayerID+"',false,'"+b+"');";
+                        pool.query(QuestionToInsert,(err2,result2)=>{
+                            if (err2) throw err2;
+                        });
+                    }
+
+                    let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+fodase2[0].PlayerID+"') ";
+                    let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+fodase2[0].PlayerID+"') ";
+                    let CastleSO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '3', '"+fodase2[0].PlayerID+"') ";
+                    let CastleSE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '4', '"+fodase2[0].PlayerID+"') ";
+
+                    let farmpos1 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos2 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos3 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '3', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos4 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '1', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos5 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '2', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos6 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '3', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos7 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '1', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos8 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '2', '"+fodase2[0].PlayerID+"') ";
+
+                    let barrack1 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '4', '"+fodase2[0].PlayerID+"') ";
+                    let barrack2 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '5', '"+fodase2[0].PlayerID+"') ";
+                    let barrack3 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '6', '"+fodase2[0].PlayerID+"') ";
+                    let barrack4 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '4', '"+fodase2[0].PlayerID+"') ";
+                    let barrack5 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '5', '"+fodase2[0].PlayerID+"') ";
+                    let barrack6 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '6', '"+fodase2[0].PlayerID+"') ";
+                    let barrack7 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '5', '"+fodase2[0].PlayerID+"') ";
+                    let barrack8 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '6', '"+fodase2[0].PlayerID+"') ";
+
+                    let bank1 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '1', '"+fodase2[0].PlayerID+"') ";
+                    let bank2 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '2', '"+fodase2[0].PlayerID+"') ";
+                    let bank3 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '1', '"+fodase2[0].PlayerID+"') ";
+                    let bank4 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '2', '"+fodase2[0].PlayerID+"') ";
+                    let bank5 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '3', '"+fodase2[0].PlayerID+"') ";
+                    let bank6 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '1', '"+fodase2[0].PlayerID+"') ";
+                    let bank7 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '2', '"+fodase2[0].PlayerID+"') ";
+                    let bank8 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '3', '"+fodase2[0].PlayerID+"') ";
+
+                    let church1 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '5', '"+fodase2[0].PlayerID+"') ";
+                    let church2 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '6', '"+fodase2[0].PlayerID+"') ";
+                    let church3 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '4', '"+fodase2[0].PlayerID+"') ";
+                    let church4 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '5', '"+fodase2[0].PlayerID+"') ";
+                    let church5 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '6', '"+fodase2[0].PlayerID+"') ";
+                    let church6 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', '"+fodase2[0].PlayerID+"') ";
+                    let church7 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', '"+fodase2[0].PlayerID+"') ";
+                    let church8 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', '"+fodase2[0].PlayerID+"') ";
+                    
+                    pool.query(CastleNO, function() {});
+                    pool.query(CastleNE, function() {});
+                    pool.query(CastleSO, function() {});
+                    pool.query(CastleSE, function() {});
+
+                    pool.query(farmpos1, function() {});
+                    pool.query(farmpos2, function() {});
+                    pool.query(farmpos3, function() {});
+                    pool.query(farmpos4, function() {});
+                    pool.query(farmpos5, function() {});
+                    pool.query(farmpos6, function() {});
+                    pool.query(farmpos7, function() {});
+                    pool.query(farmpos8, function() {});
+
+                    pool.query(barrack1, function() {});
+                    pool.query(barrack2, function() {});
+                    pool.query(barrack3, function() {});
+                    pool.query(barrack4, function() {});
+                    pool.query(barrack5, function() {});
+                    pool.query(barrack6, function() {});
+                    pool.query(barrack7, function() {});
+                    pool.query(barrack8, function() {});
+
+                    pool.query(bank1, function() {});
+                    pool.query(bank2, function() {});
+                    pool.query(bank3, function() {});
+                    pool.query(bank4, function() {});
+                    pool.query(bank5, function() {});
+                    pool.query(bank6, function() {});
+                    pool.query(bank7, function() {});
+                    pool.query(bank8, function() {});
+
+                    pool.query(church1, function() {});
+                    pool.query(church2, function() {});
+                    pool.query(church3, function() {});
+                    pool.query(church4, function() {});
+                    pool.query(church5, function() {});
+                    pool.query(church6, function() {});
+                    pool.query(church7, function() {});
+                    pool.query(church8, function() {});
+                }) 
+            });
+
+            
+
+            res.send(true)
+        });
+    })
 });
-router.post('/continueRun',function (req,res){
-    res.send(SelectForRun(req.body.userID))
- });
-function SelectForRun(userID){
+
+function blaaaaaaaaa(){
+
+
+/*function SelectForRun(userID){
     let sql = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false;";
     pool.query(sql,(err,result)=>{
         if (err) throw err;
@@ -229,14 +330,19 @@ function CreateNewPlayer(userID){
         let sql1 = "select * from Question;";
         pool.query(sql1,(err1,result1)=>{
             if (err1) throw err1;
-            for (let i = 0;i < result1.length ;i++) {
-                let b = i +1
-                let QuestionToInsert = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+userID+"',false,'"+b+"');";
-                pool.query(QuestionToInsert,(err2,result2)=>{
-                    if (err2) throw err2;
-                });
-            }
-        })
+            let fodase = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false "
+            pool.query(fodase,(fodase1,fodase2)=>{
+                if (fodase1) throw fodase1;
+                for (let i = 0;i < result1.length ;i++) {
+                    let b = i +1
+                    let QuestionToInsert = "insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+fodase2[0].PlayerID+"',false,'"+b+"');";
+                    pool.query(QuestionToInsert,(err2,result2)=>{
+                        if (err2) throw err2;
+                    });
+               
+                }
+            }) 
+        });
 
         let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+userID+"') ";
         let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+userID+"') ";
@@ -320,11 +426,10 @@ function CreateNewPlayer(userID){
         pool.query(church7, function() {});
         pool.query(church8, function() {});
         
-        let bob = SelectForRun(userID);
-  
-        return bob;
     })
+});*/
 }
+
 
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-

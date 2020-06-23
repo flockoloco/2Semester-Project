@@ -221,25 +221,10 @@ class ButtonCreator{
             "bla": 2
           }
             httpPost('/newRun','json',objectToSend1,function(data){
-            
-            /*let objectToSend = {
-              "userID": data.userID,
-              "playerID": data.playerID
-            }*/
-            //send to game send object with IDS
-          });
+              window.location.replace("http://127.0.0.1:3000/game");
+            });
         }else if(this.action == "continueRun"){
-          let objectToSend1 = {
-            "multiUseVariable": multiUseVariable,
-            "bla": 2
-          }
-          httpPost('/continueRun','json',objectToSend1,function(data){
-            let objectToSend = {
-              "userID": data.userID,
-              "playerID": data.playerID
-            }
-            //send to game send object with IDS
-          })
+          window.location.replace("http://127.0.0.1:3000/game");
         
         }else if(this.action == "leaderboard"){
           //send to leaderboard doesnt need ids?

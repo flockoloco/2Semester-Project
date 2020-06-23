@@ -1,30 +1,19 @@
 let userid;
 let MenuButtonsArray = [];
 
-function setup() {
-
+function preload() {
+    GetUser();
+    
 }
 
 function GetUser(){
-    console.log("in the user function")
     loadJSON('/getUser', function(data){
-        
         userid = data.UserID;
-        console.log("the most important print")
-        console.log(userid)
     });
 }
 
 function setup() { 
-       
-    console.log("before the function")
-
-    GetUser();
-    console.log("after the function")
     createCanvas(windowWidth, windowHeight);
-
-
-    
     MenuButtonsArray[0] = new ButtonCreator(960-100,100,200,50,"blue","newRun","","",false,"Start a new game!"); //new Run
     MenuButtonsArray[1] = new ButtonCreator(960-100,200,200,50,"blue","continueRun","","",false,"Continue game!"); //continue Run
     MenuButtonsArray[2] = new ButtonCreator(960-100,300,200,50,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
@@ -54,8 +43,8 @@ function CheckUserPlayer(){
     httpPost('/checkPlayerActiveRun','json',objectToSend,CheckUserPlayerReceiver);
 
 }
-function CheckUserPlayerReceiver(playerID){
-    if (playerID == false) {
+function CheckUserPlayerReceiver(data){
+    if (data == false) {
         MenuButtonsArray[1].DisableMe()
     }else {
         MenuButtonsArray[1].EnableMe()
