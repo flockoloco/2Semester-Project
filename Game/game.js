@@ -3,7 +3,7 @@ let arrFarm = [];
 let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
-
+// EU COMIT TUA PRIMA
 
 let wheatImage;
 let goldImage;
