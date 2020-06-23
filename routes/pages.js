@@ -63,7 +63,13 @@ router.get('/register', (req, res, next) => {
 
 router.get('/menu', (req, res, next) => {
 
-    res.render('menuScript', { title: "Fight thy Path [Menu]" });
+    res.render('menuScript', { title: "Fight thy Path [menu]" });
+
+})
+
+router.get('/dead', (req, res, next) => {
+
+    res.render('deadScript.pug', { title: "Fight thy Path [dead]" });
 
 })
 
