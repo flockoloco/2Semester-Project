@@ -69,27 +69,3 @@ function parseTile(data){
     }
     updateTile();
 }
-
-function leaderboard() {
-    
-    var leaderboard = document.getElementById('leaderboard');
-    var tbody = leaderboard.querySelector('tbody');
-    var tbodyHtml = '';
-  
-    var player1 = {name:"Thomas",date:"1",score:"201", death: "arroz"};
-    var player2 = {name:"Thomas",date:"1",score:"201", death: "arroz"};
-    var player3 = {name:"Thomas",date:"1",score:"201", death: "arroz"};
-  
-    var players = [
-      player1,
-      player2,player3
-    ]; 
-    
-    for (var player of players) {
-      tbodyHtml += '<tr><td>' +   player.date + '</td><td>' + player.name + '</td><td>' + player.score + '</td><td>' + player.death + '</td></tr>';
-    }
-    
-    tbody.innerHTML = tbodyHtml;
-  }
-  
-  leaderboard();

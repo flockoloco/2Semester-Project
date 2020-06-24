@@ -69,7 +69,7 @@ router.get('/menu', (req, res, next) => {
 
 router.get('/dead', (req, res, next) => {
 
-    res.render('deadScript', { title: "Fight thy Path [dead]" });
+    res.render('deadScript.pug', { title: "Fight thy Path [dead]" });
 
 })
 
@@ -119,7 +119,6 @@ router.get('/logout', (req, res, next) => {
 
 router.get('/leaderBoard', (req, res, next) => {
         res.render('leaderBoardScript', { title: "Fight thy Path [leaderboard]" });
-        //fazer novo res.render para leaderboard.js
     })
 
         //GET PLAYER INFORMATION FROM THE DATABASE
