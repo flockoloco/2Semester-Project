@@ -118,6 +118,7 @@ class QuestionCreator{
     this.option = [];
     this.id = values.question.id; 
     this.text = values.question.text;
+    this.theme = values.question.theme;
     this.option[0] = values.option0;
     this.option[1] = values.option1;
   }
@@ -135,16 +136,17 @@ class QuestionCreator{
     }
     httpPost('/changeStats','json',statsToSend,ChangeStatsReceiver);
   }
-  DrawMe(){
+  DrawMe(imageArray){
     push();
   		fill("orange");
   	  rect(50, 50, 800, 500, 10);
       textAlign(CENTER);
-      textSize(20);
+      textSize(30);
       
       fill("black");
       text(this.text,425,200);
     pop();
+    image(imageArray[this.theme], 80, 25);
   }
 }
 
@@ -201,7 +203,7 @@ class ButtonCreator{
   	  }
   	  rect(this.posX, this.posY, this.width, this.height, 10);
       textAlign(CENTER);
-      textSize(15);
+      textSize(25);
       fill("black");
       text(this.text,this.posX+this.width/2,this.posY+this.height/2);
     }
