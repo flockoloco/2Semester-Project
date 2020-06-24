@@ -63,8 +63,15 @@ router.get('/register', (req, res, next) => {
 
 router.get('/menu', (req, res, next) => {
 
-    res.render('menuScript', { title: "Fight thy Path [menu]" });
-
+    let user = req.session.user;
+    if(user) 
+    {
+        res.render('menuScript', { title: "Fight thy Path [menu]" });
+        return;
+    }
+    // if no section redicrect to index
+    res.redirect('/');
+    
 })
 
 router.get('/dead', (req, res, next) => {

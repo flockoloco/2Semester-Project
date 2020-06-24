@@ -97,8 +97,8 @@ iframe {
   padding: 15px;
   
   background-position: center;
-  background: #e6e6e6;
-  background-size: 1920px 1040px;
+  background-image: url(/images/background.jpg) ;
+  background-size: 1920px 1080px;
   background-repeat: no-repeat;;
 }
 
