@@ -118,8 +118,8 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/leaderBoard', (req, res, next) => {
-        res.render('leaderBoardScript', { title: "Fight thy Path [leaderboard]" });
-    })
+    res.render('leaderBoardScript');
+})
 
         //GET PLAYER INFORMATION FROM THE DATABASE
 
@@ -319,6 +319,22 @@ router.post('/newRun',function (req,res,callback){
         });
     })
 });
+
+router.get("/playersBoard", function(req,res){
+let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"    
+    
+    pool.query(sql, (err, result) => {
+
+        for(i = 0; i < 10; i++){
+            if(result[i]){}else{result.push({
+                PlayerName: null, 
+                Score: null
+            })}
+        }
+        res.send(result)
+    })
+})
+
 
 function blaaaaaaaaa(){
 
