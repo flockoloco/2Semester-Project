@@ -1,0 +1,30 @@
+html,
+body {
+  font: 14px/1.21 'Helvetica Neue', arial, sans-serif;
+  font-weight: 400;
+}
+
+#leaderboard{
+  position: absolute;
+  bottom: 55%;
+  left: 5%;
+  width: 50%;
+  background: #ffe57e;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid black; 
+}
+
+th:first-child,
+td:first-child {
+  padding-left: 0; 
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
