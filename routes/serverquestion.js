@@ -114,8 +114,7 @@ function FullQuestionCreator(unprocessedQuestion,res){
       let questionParts = {
         "question":question = {
           "id":result1[0].QuestionID,
-          "text":result1[0].Text,
-          "theme":result1[0].Theme
+          "text":result1[0].Text
         },
         "option0":option0 = {
           "id":result[0].AnswerID,

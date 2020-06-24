@@ -3,12 +3,13 @@ let arrFarm = [];
 let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
+// EU COMIT TUA PRIMA
 
 let wheatImage;
 let goldImage;
 let swordImage;
 let faithImage;
-let themeArray = [];
+
 let playerLoged;
 
 let value = 0;
@@ -21,11 +22,6 @@ let gameButtonArray = [];
 function preload(){
 
   getPlayer();
-
-  for (let i = 0; i < 6; i++){
-    themeArray[i] = loadImage('../images/theme'+i+'.png');
-  }
-  console.log(themeArray)
 
   wheatImage = loadImage('../images/wheat.png');
   goldImage = loadImage('../images/gold.png');
@@ -57,7 +53,7 @@ function draw() {
   gameButtonArray[1].DrawMe();
 
   if (activeQuestion){  
-    activeQuestion.DrawMe(themeArray);
+    activeQuestion.DrawMe();
   } 
 
 };
