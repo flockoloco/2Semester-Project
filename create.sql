@@ -103,6 +103,12 @@ insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingS
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The people’s heart knows the truth! Let him live!','+10','-10','0','0',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Give a portion to everyone!','+5','+5','+5','+5',0,0,0,0);
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Store for a time of need!','0','0','+20','0',0,0,'+1',0);
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Pay for the renovations!','+5','0','-10','+5','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('This is a waste of recourses!','+5','0','+5','-10','0','0','0','-1');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("He's benefiting the kingdom! Let him be!",'0','+10','+5','-15','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("Make this man check his morals before God!",'0','-10','-5','+15','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("We won't survive the battle, follow their demands!",'0','0','-10','-10','0','0','-1','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("Not this time! To battle!",'-10','-10','0','0','0','0','0','0');
 
 
 insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('1',true,'This years production was really low :( \nPeople are hungry but the priests claim God will provide in time of need.','1','2','0');
@@ -112,3 +118,16 @@ insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer
 insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('5',true,'The ground is shaking! Are these the God’s? \nEither way half of your castle broke down, you need to secure the resources!','9','10','3');
 insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('6',true,'A robber is being convicted but the people believe he was justified. \nYour people want you to take a stance!','11','12','4');
 insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('7',true,'The profits from the last raid were incredibly good! \nWhere do you plan on investing?','13','14','5');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('8',true,"Your churches are crumbling in need of renovation. \nThe priests are eager to blame it on your lack of help.",'15','16','2');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('9',true,"The priests want to condemn a general for his irreverent actions, \nwhich if concluded would bring great wealth to the army and bourgeoise.","17","18",'6');
+insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('10',true,"The enemies are at our door! \nThey demand money to leave us alone, the priests say we can't give in to heretics! \nThey have the numbers advantage and we will lose many soldiers and farmers in a battle against them!",'19','20','1');
+
+
+insert into belivers.causeofdeath(text) values('As your poluation grew, they slowly separated into multiple groups and a democracy was raised.');
+insert into belivers.causeofdeath(text) values("With your population starving, people's desperation took over and they revolted against the kingdom, killing you.");
+insert into belivers.causeofdeath(text) values('As your armies grows with no bounds, your best general comes to tell you with his army behind him, unfortunately, he is taking over.');
+insert into belivers.causeofdeath(text) values('With your army weak and undermanned, neighboring kingdoms saw your weakness and charged into your walls.');
+insert into belivers.causeofdeath(text) values("With your kingdom growing and with huge riches in your treasury, you go to sleep one night and the last thing you see is an assasin looking at you.");
+insert into belivers.causeofdeath(text) values("With your kingdom completely broke, not even the population stayed to see where the kingdom was heading. You are left alone.");
+insert into belivers.causeofdeath(text) values("PLACEHOLDER");
+insert into belivers.causeofdeath(text) values("After being proclaimed a heretic by the clerics, you are taken outside and burned alive in a public setting.");

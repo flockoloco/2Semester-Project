@@ -20,6 +20,8 @@ function ChangeStats(id,res,AnswerID){
       result[0].Swords = result[0].Swords + answerStats[0].Swords;
       result[0].Gold = result[0].Gold + answerStats[0].Gold;
       result[0].Faith = result[0].Faith + answerStats[0].Faith;
+      
+      //CheckDdead <---
         
       let sql1 = "update player set Wheat = '"+result[0].Wheat +"', Swords = '"+result[0].Swords+"', Gold = '"+result[0].Gold+"', Faith = '"+result[0].Faith+"' where PlayerID = '"+id+"'"
       pool.query(sql1, (err1, result1)=>{
@@ -31,10 +33,23 @@ function ChangeStats(id,res,AnswerID){
         "gold":result[0].Gold,
         "faith":result[0].Faith
       }
+      
       res.send(objectToSend);
     });
   });
 }  
+
+/*funciton ()[
+  if bla > arrBarrack
+  dead = true
+    reasonofdeath = bla
+  else
+
+
+  if 
+
+
+]*/
 
 function CheckAnyLeft(questionArray){
     let checkCounter = 0
