@@ -64,13 +64,13 @@ class Player{
 };
 
 class tile {
-  constructor(x, y, s, c, st, t, id, castle, farm, barrack, bank, church) {
+  constructor(i, x, y, w, h, st, id, castle, farm, barrack, bank, church) {
     this.x = x;
     this.y = y;
-    this.s = s;
-    this.c = c;
+    this.w = w;
+    this.h = h;
+    this.i = i;
     this.st = st;
-    this.t = t;
     this.id = id;
     this.castle = castle;
     this.farm = farm;
@@ -81,10 +81,8 @@ class tile {
 
   draw_tile() {
     push();
-    fill(this.c);
     stroke(this.st);
-    square(this.x, this.y, this.s);
-    text(this.t, this.x + this.s / 2, this.y + this.s / 2);
+    image(this.i, this.x, this.y, this.w, this.h);
     pop();
   };
 
@@ -108,8 +106,8 @@ class tile {
     this.church = church;
   }
 
-  set_color(c){
-	  this.c = c;
+  set_image(i){
+	  this.i = i;
   };
 };
 

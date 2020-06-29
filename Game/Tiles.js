@@ -1,5 +1,14 @@
 let tiles = []; 
 
+let castleNWImage, castleNEImage, castleSWImage, castleSEImage;
+let grassIndex;
+let grassImage;
+let farmImage;
+let farmIndex;
+let churchImage;
+let barrackImage;
+let bankImage;
+
 //DRAW THE TILES
 function drawTile() {
 for (let i = 0; i < tiles.length; i++) {
@@ -36,14 +45,15 @@ y = y + GBH / numberOfCols;
     x = x + GBW / numberOfCols;
     }
     countID++;
-    tiles[i][j] = new tile(x, y, sizeOfTile, 'lightgreen', 25, '', countID);
+    grassIndex = grassImage[Math.floor(Math.random() * grassImage.length)]
+    tiles[i][j] = new tile(grassIndex, x, y, sizeOfTile, sizeOfTile, 25, countID);
     }
 }
 }
 
         //UPDATE THE TILE INFORMATION
 function updateTile(){
-
+    farmIndex = farmImage[Math.floor(Math.random() * farmImage.length)]
 for (let i = 0; i < tiles.length; i++) {
     for (let j = 0; j < tiles.length; j++) {
     for(let k=0;k<arrCastle.length;k++){
@@ -51,35 +61,42 @@ for (let i = 0; i < tiles.length; i++) {
     let py=j+1;
     if(px==arrCastle[k].PosX & py==arrCastle[k].PosY){
     tiles[i][j].set_Castle(arrCastle[k]);
-    tiles[i][j].set_color("LightGray");
+        if(arrCastle[k].Type == 'CastleNW'){
+            tiles[i][j].set_image(castleNWImage)}
+            if(arrCastle[k].Type == 'CastleNE'){
+                tiles[i][j].set_image(castleNEImage)}
+                if(arrCastle[k].Type == 'CastleSW'){
+                    tiles[i][j].set_image(castleSWImage)}
+                    if(arrCastle[k].Type == 'CastleSE'){
+                        tiles[i][j].set_image(castleSEImage)}
     }}
     for(let k=0;k<arrFarm.length;k++){
     let px=i+1;
     let py=j+1;
     if(px==arrFarm[k].PosX & py==arrFarm[k].PosY){
     tiles[i][j].set_Farm(arrFarm[k]);
-    tiles[i][j].set_color("saddlebrown");
+    tiles[i][j].set_image(farmIndex);
     }}
     for(let k=0;k<arrBarrack.length;k++){
     let px=i+1;
     let py=j+1;
     if(px==arrBarrack[k].PosX & py==arrBarrack[k].PosY){
     tiles[i][j].set_Barrack(arrBarrack[k]);
-    tiles[i][j].set_color("#E1A95F");
+    tiles[i][j].set_image(barrackImage);
     }}
     for(let k=0;k<arrBank.length;k++){
     let px=i+1;
     let py=j+1;
     if(px==arrBank[k].PosX & py==arrBank[k].PosY){
     tiles[i][j].set_Bank(arrBank[k]);
-    tiles[i][j].set_color("gold");
+    tiles[i][j].set_image(bankImage);
     }}
     for(let k=0;k<arrChurch.length;k++){
     let px=i+1;
     let py=j+1;
     if(px==arrChurch[k].PosX & py==arrChurch[k].PosY){
     tiles[i][j].set_Church(arrChurch[k]);
-    tiles[i][j].set_color("AQUA");
+    tiles[i][j].set_image(churchImage);
     }}
     }
 }

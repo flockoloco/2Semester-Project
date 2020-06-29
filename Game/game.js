@@ -31,6 +31,15 @@ function preload(){
   goldImage = loadImage('../images/gold.png');
   swordImage = loadImage('../images/sword.png');
   faithImage = loadImage('../images/faith.png');
+  castleNWImage = loadImage('../images/castleNW.png');
+  castleNEImage = loadImage('../images/castleNE.png');
+  castleSWImage = loadImage('../images/castleSW.png');
+  castleSEImage = loadImage('../images/castleSE.png');
+  grassImage = [loadImage('../images/Grass1.png'), loadImage('../images/Grass2.png'), loadImage('../images/Grass3.png'), loadImage('../images/Grass4.png'), loadImage('../images/Grass5.png'), loadImage('../images/Grass6.png'), loadImage('../images/Grass7.png'), loadImage('../images/Grass8.png'), loadImage('../images/Grass9.png'), loadImage('../images/Grass10.png'), loadImage('../images/Grass11.png'), loadImage('../images/Grass12.png'), loadImage('../images/Grass13.png')];
+  farmImage = [loadImage('../images/Farm1.png'), loadImage('../images/Farm2.png'), loadImage('../images/Farm3.png'), loadImage('../images/Farm4.png')];
+  churchImage = loadImage('../images/Church.png');
+  barrackImage = loadImage('../images/Barrack.png');
+  bankImage = loadImage('../images/Bank.png');
 }
 
 function setup() {
@@ -78,7 +87,7 @@ function mouseReleased() {
 
     //GET THE BUILDINGS' INFORMATION
 function loadAll(){
-  initTile();
+  //initTile();
   loadJSON('/getAllBuildings/'+playerLoged.PlayerID,function(data){
     parseTile(data);
   });
@@ -137,7 +146,7 @@ function parseTile(data){
   arrChurch = [];
 
   for(let i=0;i<data.length;i++){
-    if(data[i].Type == "Castle"){
+    if(data[i].Type == "CastleNW" || data[i].Type == "CastleNE" || data[i].Type == "CastleSW" || data[i].Type == "CastleSE"){
         arrCastle.push(data[i]);
     }
     else if(data[i].Type == "Farm"){

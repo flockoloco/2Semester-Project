@@ -236,10 +236,10 @@ router.post('/newRun',function (req,res,callback){
                         });
                     }
 
-                    let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+fodase2[0].PlayerID+"') ";
-                    let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+fodase2[0].PlayerID+"') ";
-                    let CastleSO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '3', '"+fodase2[0].PlayerID+"') ";
-                    let CastleSE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '4', '"+fodase2[0].PlayerID+"') ";
+                    let CastleNO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNW', '3', '3', '"+fodase2[0].PlayerID+"') ";
+                    let CastleNE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNE', '3', '4', '"+fodase2[0].PlayerID+"') ";
+                    let CastleSO = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSW', '4', '3', '"+fodase2[0].PlayerID+"') ";
+                    let CastleSE = "INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSE', '4', '4', '"+fodase2[0].PlayerID+"') ";
 
                     let farmpos1 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', '"+fodase2[0].PlayerID+"') ";
                     let farmpos2 = "INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', '"+fodase2[0].PlayerID+"') ";
