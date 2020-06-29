@@ -11,7 +11,7 @@ function ChangeStats(id,res,AnswerID){
   let answerQuery = "select * from Answer where AnswerID = '"+AnswerID+"';";
   pool.query(answerQuery,(err0,answerStats)=>{
     if (err0) throw err0;
-    bc.buildingCall(answerStats[0].BuildingWheat,answerStats[0].Buildingswords,answerStats[0].BuildingGold,answerStats[0].BuildingFaith,id)
+    bc.buildingCall(answerStats[0].BuildingWheat,answerStats[0].BuildingSwords,answerStats[0].BuildingGold,answerStats[0].BuildingFaith,id)
     let sql = "select * from player where PlayerID = '"+id+"' ;";
     pool.query(sql, (err, result)=>{
       if(err) throw err;

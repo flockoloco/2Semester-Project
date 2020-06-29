@@ -87,7 +87,7 @@ function mouseReleased() {
 
     //GET THE BUILDINGS' INFORMATION
 function loadAll(){
-  //initTile();
+  initTile();
   loadJSON('/getAllBuildings/'+playerLoged.PlayerID,function(data){
     parseTile(data);
   });
