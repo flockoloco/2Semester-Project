@@ -27,10 +27,8 @@ create table Player(
     Score int,
     KingdomName varchar(32),
     PlayerName varchar(32),
-    CauseOfDeathID_FK_Player int null,
     primary key (PlayerID),
-    constraint foreign key (UserID_FK_Player) references User(UserID),
-    constraint foreign key (CauseOfDeathID_FK_Player) references CauseOfDeath(CauseOfDeathID)
+    constraint foreign key (UserID_FK_Player) references User(UserID)
 );
 
 create table Building(
@@ -88,21 +86,89 @@ create table Player_Question(
 
 );
 
+create table Leaderboard(
+	LeaderboardID int auto_increment,
+	PlayerID_FK_Leaderboard int,
+    Score_FK_Leaderboard int,
+    CauseOfDeathID_FK_Leaderboard int,
+    primary key(LeaderboardID),
+	constraint foreign key(CauseOfDeathID_FK_Leaderboard) references CauseOfDeath(CauseOfDeathID),
+    constraint foreign key(PlayerID_FK_Leaderboard) references Player(PlayerID)
+);
 
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a farm!','+20','0','-10','-5','+1',0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a church to pray! lmao','-15','0','0','+20',0,0,0,'+1');
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Go to war!','-20','-20','+40','+10','-1',0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Stay defensive!','+10','+10','-20','-10',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the priests!','0','0','-10','+10',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the traders!','0','0','+10','-10',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Who cares? Work more.','0','-10','+10','0',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a barrack and raise more soldiers.','0','+20','-15','0',0,'+1',0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Farms!','0','0','-15','0',0,0,'-1',0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Banks!','-15','0','0','0','-1',0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The army knows right! Off with his head!','-10','+10','0','0',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The people’s heart knows the truth! Let him live!','+10','-10','0','0',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Give a portion to everyone!','+5','+5','+5','+5',0,0,0,0);
-insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Store for a time of need!','0','0','+20','0',0,0,'+1',0);
+delimiter //
+
+create procedure GetCauseOfDeath(
+	in UserID int
+)
+begin
+	select * 
+ 	from Player
+	where UserID_FK_Player = UserID;
+    select Text from CauseOfDeath where CauseOfDeathID = (
+		select * from leaderboard where PlayerID_FK_Leaderboard = (
+			select PlayerID from Player where UserID_FK_Player = @UserID and Concluded = true order by PlayerID desc limit 1
+		)
+    );
+end //
+
+create procedure AddLeaderboardDeath(
+	in Stat varchar(31),
+    in ValueOfStat varchar(31),
+    in DeadPlayerID int
+)
+begin
+declare IDToInsert int;
+declare PlayerScore int;
+if Stat = 'Wheat' then
+	if ValueOfStat < 0 then
+		set IDToInsert = 1;
+    elseif ValueOFStat > 100 then
+		set IDToInsert = 2;
+    end if;
+elseif Stat = 'Swords' then
+	if ValueOfStat < 0 then
+		set IDToInsert = 3;
+    elseif ValueOFStat > 100 then
+		set IDToInsert = 4;
+    end if;
+elseif Stat = 'Gold' then
+	if ValueOfStat < 0 then
+		set IDToInsert = 5;
+    elseif ValueOFStat > 100 then
+		set IDToInsert = 6;
+    end if;
+elseif Stat = 'Faith' then
+	if ValueOfStat < 0 then
+		set IDToInsert = 7;
+    elseif ValueOFStat > 100 then
+		set IDToInsert = 8;
+    end if;
+
+end if;
+set PlayerScore = (select Score from Player where PlayerID = DeadPlayerID);
+
+	
+	insert into Leaderboard(PlayerID_FK_Leaderboard,Score_FK_Leaderboard,CauseOfDeathID_FK_Leaderboard) values(DeadPlayerID,PlayerScore,IDToInsert);
+end //
+
+delimiter ;
+
+
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a farm!','+20','0','-10','-5','+1','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a church to pray! lmao','-15','0','0','+20','0','0','0','+1');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Go to war!','-20','-20','+40','+10','-1','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Stay defensive!','+10','+10','-20','-10','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the priests!','0','0','-10','+10','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the traders!','0','0','+10','-10','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Who cares? Work more.','0','-10','+10','0','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a barrack and raise more soldiers.','0','+20','-15','0','0','+1','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Farms!','0','0','-15','0','0','0','-1','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Run for the Banks!','-15','0','0','0','-1','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The army knows right! Off with his head!','-10','+10','0','0','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('The people’s heart knows the truth! Let him live!','+10','-10','0','0','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Give a portion to everyone!','+5','+5','+5','+5','0','0','0','0');
+insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Store for a time of need!','0','0','+20','0','0','0','+1','0');
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Pay for the renovations!','+5','0','-10','+5','0','0','0','0');
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('This is a waste of recourses!','+5','0','+5','-10','0','0','0','-1');
 insert into belivers.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("He's benefiting the kingdom! Let him be!",'0','+10','+5','-15','0','0','0','0');
