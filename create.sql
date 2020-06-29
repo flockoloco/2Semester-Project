@@ -87,11 +87,9 @@ create table Player_Question(
 );
 
 create table Leaderboard(
-	LeaderboardID int auto_increment,
 	PlayerID_FK_Leaderboard int,
     Score_FK_Leaderboard int,
     CauseOfDeathID_FK_Leaderboard int,
-    primary key(LeaderboardID),
 	constraint foreign key(CauseOfDeathID_FK_Leaderboard) references CauseOfDeath(CauseOfDeathID),
     constraint foreign key(PlayerID_FK_Leaderboard) references Player(PlayerID)
 );
@@ -111,6 +109,69 @@ begin
 		)
     );
 end //
+
+create procedure AddNewPlayer(## ONLY DO THIS AFTER LAST RUN IS CONCLUDED!
+	in UserIDToAdd int
+)
+begin
+	declare NewPlayerID int;
+	insert into player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) values(UserIDToAdd, false, '50', '50', '50', '50', '0');
+	set NewPlayerID = (select PlayerID from player where UserID_FK_Player = UserIDToAdd and Concluded = false);
+    
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,1);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,2);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,3);
+	insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,4);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,5);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,6);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,7);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,8);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,9);
+    insert into belivers.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values(NewPlayerID,false,10);
+    
+    INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNW', '3', '3', NewPlayerID);
+	INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNE', '3', '4', NewPlayerID);
+    INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSW', '4', '3', NewPlayerID);
+    INSERT INTO belivers.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSE', '4', '4', NewPlayerID);
+    
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', NewPlayerID);
+	INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '3', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '1', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '2', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '3', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '1', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '2', NewPlayerID);
+    
+	INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '4', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '6', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '4', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '6', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '6', NewPlayerID);
+    
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '1', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '2', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '1', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '2', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '3', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '1', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '2', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '3', NewPlayerID);
+    
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '6', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '4', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '6', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', NewPlayerID);
+    INSERT INTO belivers.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', NewPlayerID);
+				
+end //
+
 
 create procedure AddLeaderboardDeath(
 	in Stat varchar(31),
