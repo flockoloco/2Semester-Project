@@ -22,7 +22,7 @@ function preload(){
 
   getPlayer();
 
-  for (let i = 0; i < 6; i++){
+  for (let i = 0; i < 7; i++){
     themeArray[i] = loadImage('../images/theme'+i+'.png');
   }
   console.log(themeArray)
