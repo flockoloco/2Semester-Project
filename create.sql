@@ -100,9 +100,6 @@ create procedure GetCauseOfDeath(
 	in UserID int
 )
 begin
-	select * 
- 	from Player
-	where UserID_FK_Player = UserID;
     select Text from CauseOfDeath where CauseOfDeathID = (
 		select * from leaderboard where PlayerID_FK_Leaderboard = (
 			select PlayerID from Player where UserID_FK_Player = @UserID and Concluded = true order by PlayerID desc limit 1
