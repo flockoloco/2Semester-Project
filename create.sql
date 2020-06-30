@@ -253,5 +253,5 @@ insert into belivers.causeofdeath(text) values('As your armies grows with no bou
 insert into belivers.causeofdeath(text) values('With your army weak and undermanned, neighboring kingdoms saw your weakness and charged into your walls.');
 insert into belivers.causeofdeath(text) values("With your kingdom growing and with huge riches in your treasury, you go to sleep one night and the last thing you see is an assasin looking at you.");
 insert into belivers.causeofdeath(text) values("With your kingdom completely broke, not even the population stayed to see where the kingdom was heading. You are left alone.");
-insert into belivers.causeofdeath(text) values("PLACEHOLDER");
+insert into belivers.causeofdeath(text) values("As the church grows, it sees no more use to you and claims the throne from your hands.");
 insert into belivers.causeofdeath(text) values("After being proclaimed a heretic by the clerics, you are taken outside and burned alive in a public setting.");

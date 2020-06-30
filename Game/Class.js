@@ -201,7 +201,11 @@ class ButtonCreator{
   	  }
   	  rect(this.posX, this.posY, this.width, this.height, 10);
       textAlign(CENTER);
-      textSize(25);
+      if (this.action == "lost"){
+        textSize(35);
+      }else{
+        textSize(25);
+      }
       fill("black");
       text(this.text,this.posX+this.width/2,this.posY+this.height/2);
     }
@@ -225,11 +229,12 @@ class ButtonCreator{
             });
         }else if(this.action == "continueRun"){
           window.location.replace("http://127.0.0.1:3000/game");
-        
         }else if(this.action == "leaderboard"){
           //send to leaderboard doesnt need ids?
         }else if(this.action == "settings"){
           //lmao imagine having time for settings
+        }else if (this.action == "lost"){
+          window.location.replace("http://127.0.0.1:3000/menu");
         }
       }
     }

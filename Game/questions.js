@@ -13,10 +13,16 @@ function DisableButtons(buttonsArray,action){
   }
 }
 function ChangeStatsReceiver(stats){
+  console.log("recieving stats from server")
+  console.log(stats)
   playerLoged.wheat = stats.wheat;
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
   playerLoged.faith = stats.faith;
+  if (stats.deadCheck == true) {
+    console.log("yep ya should be dead rn")
+    dead = true
+  }
   
 
   loadAll();
