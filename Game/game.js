@@ -25,7 +25,6 @@ function preload(){
   for (let i = 0; i < 7; i++){
     themeArray[i] = loadImage('../images/theme'+i+'.png');
   }
-  console.log(themeArray)
 
   wheatImage = loadImage('../images/wheat.png');
   goldImage = loadImage('../images/gold.png');
@@ -36,7 +35,7 @@ function preload(){
   castleSWImage = loadImage('../images/castleSW.png');
   castleSEImage = loadImage('../images/castleSE.png');
   grassImage = [loadImage('../images/Grass1.png'), loadImage('../images/Grass2.png'), loadImage('../images/Grass3.png'), loadImage('../images/Grass4.png'), loadImage('../images/Grass5.png'), loadImage('../images/Grass6.png'), loadImage('../images/Grass7.png'), loadImage('../images/Grass8.png'), loadImage('../images/Grass9.png'), loadImage('../images/Grass10.png'), loadImage('../images/Grass11.png'), loadImage('../images/Grass12.png'), loadImage('../images/Grass13.png')];
-  farmImage = [loadImage('../images/Farm1.png'), loadImage('../images/Farm2.png'), loadImage('../images/Farm3.png'), loadImage('../images/Farm4.png')];
+  farmImage = loadImage('../images/Farm.png')
   churchImage = loadImage('../images/Church.png');
   barrackImage = loadImage('../images/Barrack.png');
   bankImage = loadImage('../images/Bank.png');
