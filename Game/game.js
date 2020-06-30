@@ -5,6 +5,10 @@ let arrBank = [];
 let arrChurch = [];
 let dead = false;
 
+
+let questionImage;
+let answerImage;
+
 let wheatImage;
 let goldImage;
 let swordImage;
@@ -28,6 +32,8 @@ function preload(){
   }
   console.log(themeArray)
 
+  //questionImage = loadImage('../images/questionimage.png');
+  //answerImage = loadImage('../images/answerimage.png');
   wheatImage = loadImage('../images/wheat.png');
   goldImage = loadImage('../images/gold.png');
   swordImage = loadImage('../images/sword.png');

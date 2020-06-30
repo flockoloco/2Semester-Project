@@ -137,7 +137,7 @@ class QuestionCreator{
   DrawMe(imageArray){
     push();
   		fill("orange");
-  	  rect(50, 50, 800, 500, 10);
+  	  rect(100, 50, 900, 600, 10);
       textAlign(CENTER);
       textSize(30);
       
