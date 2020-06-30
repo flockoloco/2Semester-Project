@@ -20,17 +20,18 @@ function preload(){
 }
 
 function setup() {
+    noLoop();
     createCanvas(windowWidth, windowHeight);
     initTile();
     searchBar()
-    //loadAll();
-    leaderboard()
+    loadAll();
+    leaderboard();
+    loop();
 };
 
 function draw() {
     background(250, 218, 94);
     drawTile();
-    
 }
 
 
@@ -65,7 +66,7 @@ function parseTile(data){
     arrChurch = [];
 
     for(let i=0;i<data.length;i++){
-        if(data[i].Type == "Castle"){
+        if(data[i].Type == "CastleNW" || data[i].Type == "CastleNE" || data[i].Type == "CastleSW" || data[i].Type == "CastleSE"){
             arrCastle.push(data[i]);
         }
         else if(data[i].Type == "Farm"){
@@ -91,21 +92,21 @@ function leaderboard() {
     var tbodyHtml = '';
 
     loadJSON('/playersBoard', function(data){
-        player1 = {rank: 1, name: data[0].PlayerName,score: data[0].Score, death: "arroz"};
-        player2 = {rank: 2, name: data[1].PlayerName,score: data[1].Score, death: "arroz"};
-        player3 = {rank: 3, name: data[2].PlayerName,score: data[2].Score, death: "arroz"};
-        player4 = {rank: 4, name: data[3].PlayerName,score: data[3].Score, death: "arroz"};
-        player5 = {rank: 5, name: data[4].PlayerName,score: data[4].Score, death: "arroz"};
-        player6 = {rank: 6, name: data[5].PlayerName,score: data[5].Score, death: "arroz"};
-        player7 = {rank: 7, name: data[6].PlayerName,score: data[6].Score, death: "arroz"};
-        player8 = {rank: 8, name: data[7].PlayerName,score: data[7].Score, death: "arroz"};
-        player9 = {rank: 9, name: data[8].PlayerName,score: data[8].Score, death: "arroz"};
-        player10 = {rank: 10, name: data[9].PlayerName,score: data[9].Score, death: "arroz"};
+        player1 = {rank: 1, name: data[0].username,score: data[0].Score};
+        player2 = {rank: 2, name: data[1].username,score: data[1].Score};
+        player3 = {rank: 3, name: data[2].username,score: data[2].Score};
+        player4 = {rank: 4, name: data[3].username,score: data[3].Score};
+        player5 = {rank: 5, name: data[4].username,score: data[4].Score};
+        player6 = {rank: 6, name: data[5].username,score: data[5].Score};
+        player7 = {rank: 7, name: data[6].username,score: data[6].Score};
+        player8 = {rank: 8, name: data[7].username,score: data[7].Score};
+        player9 = {rank: 9, name: data[8].username,score: data[8].Score};
+        player10 = {rank: 10, name: data[9].username,score: data[9].Score};
 
         var players = [player1,player2,player3,player4,player5,player6,player7,player8,player9,player10]; 
 
         for (var player of players) {
-            tbodyHtml += '<tr><td>' +   player.rank + '</td><td>' + player.name + '</td><td>' + player.score + '</td><td>' + player.death + '</td></tr>';
+            tbodyHtml += '<tr><td>' +   player.rank + '</td><td>' + player.name + '</td><td>' + player.score + '</td></tr>';
         }
         tbody.innerHTML = tbodyHtml;
     })

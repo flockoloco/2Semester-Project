@@ -4,8 +4,7 @@ const pool = require('../core/database');
 const router = express.Router();
 const user = new User();
 
-const sq = require('./serverquestion');
-const { query } = require('../core/database');
+const sq = require('./serverquestion')
 
 // 1 - Get index page
 router.get('/', (req, res, next) => {
@@ -163,11 +162,12 @@ router.get("/getAllBuildingsLeaderboard/:playerID", function(req,res){
 
     let playerlogedID = req.params.playerID;
     
-    let sql = "SELECT * FROM building WHERE PlayerID_FK_Building = (select UserID_FK_Player from player where PlayerName ='"+playerlogedID+"') order by Type";
+    let sql = "select * from Building where PlayerID_FK_Building = (select PlayerID from Player where UserID_FK_Player = (select UserID from User where Username = '"+playerlogedID+"')order by Score desc limit 1)";
     
     pool.query(sql, (err,result)=>{
     if(err) throw err;
     res.send(result);
+    console.log(result)
     });
 });
 router.get('/getPlayerStats/:playerLoged',function (req,res){
@@ -214,22 +214,7 @@ router.post('/checkPlayerActiveRun',function (req,res){
         }
     });
 });
-router.get("/getDeadText/:playerID", function(req,res){
-console.log("FINITO")
-    let playerlogedID = req.params.playerID;
-    let sql0 = "select * from leaderboard where playerID_FK_leaderboard = '"+playerlogedID+"';";
-    pool.query(sql0,(err0,result0) =>{
-        if (err0) throw err0;
-        console.log(result0)
-        let sql1 = "select * from CauseOfDeath where CauseOfDeathID = '"+result0[0].CauseOfDeathID_FK_Leaderboard+"'";
-        pool.query(sql1,(err1,result1)=>{
 
-            if (err1) throw err1;
-            console.log(result1)
-            res.send(result1);
-        })
-    })
-});
 
 router.post('/newRun',function (req,res,callback){ 
     let userID = req.body.userID;
@@ -344,13 +329,13 @@ router.post('/newRun',function (req,res,callback){
 });
 
 router.get("/playersBoard", function(req,res){
-let sql = "SELECT PlayerName, Score FROM player ORDER BY Score DESC LIMIT 10"    
+let sql = "SELECT Sc.Score, US.username FROM player Sc JOIN user US ORDER BY Score DESC LIMIT 10"    
     
     pool.query(sql, (err, result) => {
 
         for(i = 0; i < 10; i++){
             if(result[i]){}else{result.push({
-                PlayerName: null, 
+                username: null, 
                 Score: null
             })}
         }
