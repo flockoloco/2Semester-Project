@@ -19,8 +19,17 @@ function ChangeStatsReceiver(stats){
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
   playerLoged.faith = stats.faith;
+
   if (stats.deadCheck == true) {
-    console.log("yep ya should be dead rn")
+    console.log("right before the get")
+    loadJSON('/getDeadText/'+playerLoged.PlayerID,function(data){
+      console.log("get dead text!")
+      console.log(data[0].Text)
+    deadButton.text = data[0].Text;
+    gameButtonArray[0].DisableMe();
+    gameButtonArray[1].DisableMe();
+  });
+    
     dead = true
   }
   
@@ -32,29 +41,6 @@ function ChangeStatsReceiver(stats){
   //maybe start loop again
 }
 
-
-function CheckAlive(){
-//finish dedfunction
-  if (playerLoged.wheat>100){
-
-  }else if (playerLoged.swords>100){
-
-  }else if (playerLoged.gold>100){
-
-  }else if (playerLoged.faith>100){
-
-  }
-  if (playerLoged.wheat<0){
-
-  }else if (playerLoged.swords<0){
-
-  }else if (playerLoged.gold<0){
-
-  }else if (playerLoged.faith<0){
-
-  }
-
-}
 
 /*function LoadQuestions(){
     buttonArray[0] = new ButtonCreator(100,100,50,50,"blue","",0,false,"option1")

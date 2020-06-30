@@ -194,7 +194,7 @@ class ButtonCreator{
   DrawMe(){
     push();
   	if (this.disable == false){
-  	  if (this.hovered == true) {
+  	  if (this.hovered == true && this.action != "lost") {
   	    fill("white");
   	  }else{
   		  fill(this.color);
@@ -202,7 +202,7 @@ class ButtonCreator{
   	  rect(this.posX, this.posY, this.width, this.height, 10);
       textAlign(CENTER);
       if (this.action == "lost"){
-        textSize(35);
+        textSize(30);
       }else{
         textSize(25);
       }
@@ -231,8 +231,6 @@ class ButtonCreator{
           window.location.replace("http://127.0.0.1:3000/game");
         }else if(this.action == "leaderboard"){
           window.location.replace("http://127.0.0.1:3000/leaderboard");
-        }else if(this.action == "settings"){
-          //lmao imagine having time for settings
         }else if (this.action == "lost"){
           window.location.replace("http://127.0.0.1:3000/menu");
         }

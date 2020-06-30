@@ -52,16 +52,16 @@ function setup() {
   GetNewQuestion(true);
   gameButtonArray[0] = new ButtonCreator(100,700,200,100,"blue","options","",0,false,"option1");
   gameButtonArray[1] = new ButtonCreator(500,700,200,100,"blue","options","",1,false,"option2");
-  deadButton = new ButtonCreator(600,600,400,100,"red","lost","",0,true,"You Died");
+  deadButton = new ButtonCreator(50,50  ,windowWidth - 100,windowHeight - 100,"red","lost","",0,true,"You Died");
   
 
   loop();
 };
 
 function draw() {
-  
+  background(250, 218, 94);
   if (dead == false){
-    background(250, 218, 94);
+   
     drawTile();
     createBars();
     gameButtonArray[0].CheckHover(mouseX,mouseY);
@@ -73,7 +73,7 @@ function draw() {
       activeQuestion.DrawMe(themeArray);
     } 
   }else if (dead == true){
-    background(250, 1, 94);
+    
     deadButton.EnableMe();
     deadButton.CheckHover(mouseX,mouseY);
     deadButton.DrawMe();
@@ -91,9 +91,14 @@ function getPlayer(){
 
 
 function mouseReleased() {
-  gameButtonArray[0].ClickMe(activeQuestion);
+  if (dead==false){
+    gameButtonArray[0].ClickMe(activeQuestion);
   gameButtonArray[1].ClickMe(activeQuestion);
-  deadButton.ClickMe()
+  }else if (dead== true){
+     deadButton.ClickMe()
+  }
+  
+ 
 }
 
     //GET THE BUILDINGS' INFORMATION
