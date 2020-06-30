@@ -195,7 +195,7 @@ router.get("/getUser", function(req,res){
 
     let user = req.session.user
     let username = user.UserName
-    let sql = 'SELECT UserID FROM User WHERE UserName = "'+username+'" LIMIT 1;';
+    let sql = 'SELECT UserID, UserName FROM User WHERE UserName = "'+username+'" LIMIT 1;';
 		
 	pool.query(sql, (err,result)=>{
         if(err) throw err;
@@ -218,10 +218,11 @@ router.post('/checkPlayerActiveRun',function (req,res){
 
 router.post('/newRun',function (req,res,callback){ 
     let userID = req.body.userID;
+    let username = req.body.Username
     let sql = "update Player set Concluded = true where UserID_FK_Player ='"+req.body.userID+"' and Concluded = false;";
     pool.query(sql, (err,result)=>{
         if (err) throw err;
-        let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+userID+"', FALSE, '50', '50', '50', '50', 0); "
+        let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score,PlayerName) VALUES('"+userID+"', FALSE, '50', '50', '50', '50', 0, '"+username+"'); "
         pool.query(player, function() {
             let sql1 = "select * from Question;";
             pool.query(sql1,(err1,result1)=>{
@@ -329,14 +330,14 @@ router.post('/newRun',function (req,res,callback){
 });
 
 router.get("/playersBoard", function(req,res){
-let sql = "SELECT Sc.Score, US.username FROM player Sc JOIN user US ORDER BY Score DESC LIMIT 10"    
+let sql = "SELECT Score, PlayerName FROM player ORDER BY Score DESC LIMIT 10"    
     
     pool.query(sql, (err, result) => {
-
+        console.log(result)
         for(i = 0; i < 10; i++){
             if(result[i]){}else{result.push({
-                username: null, 
-                Score: null
+                PlayerName: "Empty", 
+                Score: "Empty"
             })}
         }
         res.send(result)

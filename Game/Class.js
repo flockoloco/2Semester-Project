@@ -221,8 +221,9 @@ class ButtonCreator{
 
         }else if(this.action == "newRun"){
           let objectToSend1 = {
-            "userID":multiUseVariable,
-            "bla": 2
+            "userID":multiUseVariable.userID,
+            "bla": 2,
+            "Username": multiUseVariable.Username
           }
             httpPost('/newRun','json',objectToSend1,function(data){
               window.location.replace("http://127.0.0.1:3000/game");

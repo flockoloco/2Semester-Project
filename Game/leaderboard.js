@@ -92,16 +92,16 @@ function leaderboard() {
     var tbodyHtml = '';
 
     loadJSON('/playersBoard', function(data){
-        player1 = {rank: 1, name: data[0].username,score: data[0].Score};
-        player2 = {rank: 2, name: data[1].username,score: data[1].Score};
-        player3 = {rank: 3, name: data[2].username,score: data[2].Score};
-        player4 = {rank: 4, name: data[3].username,score: data[3].Score};
-        player5 = {rank: 5, name: data[4].username,score: data[4].Score};
-        player6 = {rank: 6, name: data[5].username,score: data[5].Score};
-        player7 = {rank: 7, name: data[6].username,score: data[6].Score};
-        player8 = {rank: 8, name: data[7].username,score: data[7].Score};
-        player9 = {rank: 9, name: data[8].username,score: data[8].Score};
-        player10 = {rank: 10, name: data[9].username,score: data[9].Score};
+        player1 = {rank: 1, name: data[0].PlayerName,score: data[0].Score};
+        player2 = {rank: 2, name: data[1].PlayerName,score: data[1].Score};
+        player3 = {rank: 3, name: data[2].PlayerName,score: data[2].Score};
+        player4 = {rank: 4, name: data[3].PlayerName,score: data[3].Score};
+        player5 = {rank: 5, name: data[4].PlayerName,score: data[4].Score};
+        player6 = {rank: 6, name: data[5].PlayerName,score: data[5].Score};
+        player7 = {rank: 7, name: data[6].PlayerName,score: data[6].Score};
+        player8 = {rank: 8, name: data[7].PlayerName,score: data[7].Score};
+        player9 = {rank: 9, name: data[8].PlayerName,score: data[8].Score};
+        player10 = {rank: 10, name: data[9].PlayerName,score: data[9].Score};
 
         var players = [player1,player2,player3,player4,player5,player6,player7,player8,player9,player10]; 
 
