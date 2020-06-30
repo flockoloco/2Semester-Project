@@ -210,7 +210,7 @@ class ButtonCreator{
       }else{
         textSize(25);
         
-        text(this.text,this.posX+this.width/2,this.posY+this.height/2);
+        text(this.text,this.posX+this.width/2,this.posY+this.height/2 + 5);
       }
     }
     pop();

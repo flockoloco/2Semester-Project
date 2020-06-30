@@ -24,9 +24,9 @@ function GetUser(){
 
 function setup() { 
     createCanvas(windowWidth, windowHeight);
-    MenuButtonsArray[0] = new ButtonCreator(960-100,300,200,50,"blue","newRun","","",false,"Start a new game!"); //new Run
-    MenuButtonsArray[1] = new ButtonCreator(960-100,400,200,50,"blue","continueRun","","",false,"Continue game!"); //continue Run
-    MenuButtonsArray[2] = new ButtonCreator(960-100,500,200,50,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
+    MenuButtonsArray[0] = new ButtonCreator(835,300,250,75,"blue","newRun","","",false,"Start a new game!"); //new Run
+    MenuButtonsArray[1] = new ButtonCreator(835,400,250,75,"blue","continueRun","","",false,"Continue game!"); //continue Run
+    MenuButtonsArray[2] = new ButtonCreator(835,500,250,75,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
     CheckUserPlayer();
     newrunobject = {
         "userID": userid,

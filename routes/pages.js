@@ -329,7 +329,6 @@ router.post('/newRun',function (req,res,callback){
     })
 });
 router.get("/getDeadText/:playerID", function(req,res){
-    console.log("FINITO")
         let playerlogedID = req.params.playerID;
         let sql0 = "select * from leaderboard where playerID_FK_leaderboard = '"+playerlogedID+"';";
         pool.query(sql0,(err0,result0) =>{
