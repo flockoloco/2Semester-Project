@@ -214,9 +214,9 @@ delimiter ;
 
 
 insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a farm!','+20','0','-10','-5','+1','0','0','0');
-insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a church to pray! lmao','-15','0','0','+20','0','0','0','+1');
-insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Go to war!','-20','-20','+40','+10','-1','0','0','0');
-insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Stay defensive!','+10','+10','-20','-10','0','0','0','0');
+insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Build a church to pray!','-5','-10','0','+20','0','0','0','+1');
+insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Go to war!','-10','-10','+20','+5','-1','0','0','0');
+insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Stay defensive!','+5','+5','-10','-5','0','0','0','0');
 insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the priests!','0','0','-10','+10','0','0','0','0');
 insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Side with the traders!','0','0','+10','-10','0','0','0','0');
 insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values('Who cares? Work more.','0','-10','+10','0','0','0','0','0');
@@ -235,16 +235,16 @@ insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,Build
 insert into fightthypath.Answer(Text,Wheat,Swords,Gold,Faith,BuildingWheat,BuildingSwords,BuildingGold,BuildingFaith) values("Not this time! To battle!",'-10','-10','0','0','0','0','0','0');
 
 
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('1',true,'This years production was really low :( \nPeople are hungry but the priests claim God will provide in time of need.','1','2','0');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('2',true,'Tension between the kingdoms is rising! \nYou have to decide your stance on the future wars.','3','4','1');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('1',true,'This years production was really low :(\nPeople are hungry but the priests claim God will provide in time of need.','1','2','0');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('2',true,'Tension between the kingdoms is rising!\nYou have to decide your stance on the future wars.','3','4','1');
 insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('3',true,'Theres a big fight between the traders and the priests in the court.\nYou need to side with one of them.','5','6','2');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('4',true,'Your army grows angry and tired. \nLong shifts on the castle walls and few pay isn’t worth the effort.','7','8','1');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('5',true,'The ground is shaking! Are these the God’s? \nEither way half of your castle broke down, you need to secure the resources!','9','10','3');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('4',true,'Your army grows angry and tired.\nLong shifts on the castle walls and few pay isn’t worth the effort.','7','8','1');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('5',true,'The ground is shaking! Are these the God’s?\nEither way half of your castle broke down, you need to secure the resources!','9','10','3');
 insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('6',true,'A robber is being convicted but the people believe he was justified. \nYour people want you to take a stance!','11','12','4');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('7',true,'The profits from the last raid were incredibly good! \nWhere do you plan on investing?','13','14','5');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('8',true,"Your churches are crumbling in need of renovation. \nThe priests are eager to blame it on your lack of help.",'15','16','2');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('9',true,"The priests want to condemn a general for his irreverent actions, \nwhich if concluded would bring great wealth to the army and bourgeoise.","17","18",'6');
-insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('10',true,"The enemies are at our door! \nThey demand money to leave us alone, the priests say we can't give in to heretics! \nThey have the numbers advantage and we will lose many soldiers and farmers in a battle against them!",'19','20','1');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('7',true,'The profits from the last raid were incredibly good!\nWhere do you plan on investing?','13','14','4');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('8',true,"Your churches are crumbling in need of renovation.\nThe priests are eager to blame it on your lack of help.",'15','16','2');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('9',true,"The priests want to condemn a general for his irreverent actions,\nwhich if concluded would bring great wealth to the army and bourgeoise.","17","18",'5');
+insert into fightthypath.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('10',true,"The enemies are at our door!\nThey demand a lot of gold, the priests say we can't give in to heretics!\nThey have the numbers advantage and we will lose\n many soldiers and farmers in a battle against them!",'19','20','1');
 
 
 insert into fightthypath.causeofdeath(text) values('As your poluation grew, \nthey slowly separated into multiple groups and a democracy was raised.');

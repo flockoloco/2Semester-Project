@@ -19,6 +19,7 @@ function ChangeStatsReceiver(stats){
   playerLoged.swords = stats.swords;
   playerLoged.gold = stats.gold;
   playerLoged.faith = stats.faith;
+  playerLoged.Score = stats.score;
 
   if (stats.deadCheck == true) {
     console.log("right before the get")

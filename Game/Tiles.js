@@ -28,7 +28,7 @@ let y = 0;
 let x = 0;
 let countID = 0;
 let initialY = height / 1.7 - GBH / 2;
-let initialX = width / 1.3 - GBW / 2;
+let initialX = width / 1.25 - GBW / 2;
 
 for (let i = 0; i < numberOfCols; i++) {
     tiles[i] = [];

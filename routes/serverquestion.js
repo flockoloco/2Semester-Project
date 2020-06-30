@@ -59,7 +59,8 @@ function ChangeStats(id,res,AnswerID){
         "swords":result[0].Swords,
         "gold":result[0].Gold,
         "faith":result[0].Faith,
-        "deadCheck": playerDeadCheck
+        "deadCheck": playerDeadCheck,
+        "score":result[0].Score
       }
       console.log(objectToSend)
       res.send(objectToSend);
@@ -125,7 +126,6 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
   //}while(infinityLoop == false);
 }
 function ConcludePlayer(idForPlayer,causeOfDeath,score){
-
   let sql = "insert into Leaderboard(PlayerID_FK_Leaderboard, Score_FK_Leaderboard, CauseOfDeathID_FK_Leaderboard) values('"+idForPlayer+"','"+score+"','"+causeOfDeath+"');";
   pool.query(sql,(err,result)=>{
     if (err) throw err;

@@ -1,9 +1,12 @@
 let userid;
 let MenuButtonsArray = [];
+let answerImage1;
+let answerImage2;
 
 function preload() {
     GetUser();
-    
+    answerImage1 = loadImage('../images/answerimage1.png');
+    answerImage2 = loadImage('../images/answerimage2.png');
 }
 
 function GetUser(){
@@ -14,10 +17,9 @@ function GetUser(){
 
 function setup() { 
     createCanvas(windowWidth, windowHeight);
-    MenuButtonsArray[0] = new ButtonCreator(960-100,100,200,50,"blue","newRun","","",false,"Start a new game!"); //new Run
-    MenuButtonsArray[1] = new ButtonCreator(960-100,200,200,50,"blue","continueRun","","",false,"Continue game!"); //continue Run
-    MenuButtonsArray[2] = new ButtonCreator(960-100,300,200,50,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
-    MenuButtonsArray[3] = new ButtonCreator(960-100,400,200,50,"blue","settings","","",false,"Settings"); //settings
+    MenuButtonsArray[0] = new ButtonCreator(960-100,300,200,50,"blue","newRun","","",false,"Start a new game!"); //new Run
+    MenuButtonsArray[1] = new ButtonCreator(960-100,400,200,50,"blue","continueRun","","",false,"Continue game!"); //continue Run
+    MenuButtonsArray[2] = new ButtonCreator(960-100,500,200,50,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
     CheckUserPlayer();
 };
 

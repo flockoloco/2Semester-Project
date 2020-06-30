@@ -137,14 +137,14 @@ class QuestionCreator{
   DrawMe(imageArray){
     push();
   		fill("orange");
-  	  rect(100, 50, 900, 600, 10);
+  	  image(questionImage,50, 50, 1100, 300);
       textAlign(CENTER);
       textSize(30);
       
       fill("black");
-      text(this.text,425,200);
+      text(this.text,600,160);
     pop();
-    image(imageArray[this.theme], 80, 25);
+    image(imageArray[this.theme], 50, 400);
   }
 }
 
@@ -194,20 +194,24 @@ class ButtonCreator{
   DrawMe(){
     push();
   	if (this.disable == false){
-  	  if (this.hovered == true && this.action != "lost") {
-  	    fill("white");
+  	  if (this.hovered == true) { 
+        image(answerImage1,this.posX, this.posY, this.width, this.height);
   	  }else{
-  		  fill(this.color);
-  	  }
-  	  rect(this.posX, this.posY, this.width, this.height, 10);
+  		   image(answerImage2,this.posX, this.posY, this.width, this.height);
+      } 
       textAlign(CENTER);
+      fill("black");
       if (this.action == "lost"){
-        textSize(30);
+        
+        textSize(35);
+        text(this.text,this.posX+this.width/2,this.posY+this.height/2 -300);
+        textSize(30)
+        text("Back To Menu",this.posX+this.width/2,this.posY+this.height/2 + 5);
       }else{
         textSize(25);
+        
+        text(this.text,this.posX+this.width/2,this.posY+this.height/2);
       }
-      fill("black");
-      text(this.text,this.posX+this.width/2,this.posY+this.height/2);
     }
     pop();
   }

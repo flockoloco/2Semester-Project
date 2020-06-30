@@ -327,6 +327,22 @@ router.post('/newRun',function (req,res,callback){
         });
     })
 });
+router.get("/getDeadText/:playerID", function(req,res){
+    console.log("FINITO")
+        let playerlogedID = req.params.playerID;
+        let sql0 = "select * from leaderboard where playerID_FK_leaderboard = '"+playerlogedID+"';";
+        pool.query(sql0,(err0,result0) =>{
+            if (err0) throw err0;
+            console.log(result0)
+            let sql1 = "select * from CauseOfDeath where CauseOfDeathID = '"+result0[0].CauseOfDeathID_FK_Leaderboard+"'";
+            pool.query(sql1,(err1,result1)=>{
+    
+                if (err1) throw err1;
+                console.log(result1)
+                res.send(result1);
+            })
+        })
+    });
 
 router.get("/playersBoard", function(req,res){
 let sql = "SELECT Sc.Score, US.username FROM player Sc JOIN user US ORDER BY Score DESC LIMIT 10"    
@@ -342,128 +358,6 @@ let sql = "SELECT Sc.Score, US.username FROM player Sc JOIN user US ORDER BY Sco
         res.send(result)
     })
 })
-
-
-function blaaaaaaaaa(){
-
-
-/*function SelectForRun(userID){
-    let sql = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false;";
-    pool.query(sql,(err,result)=>{
-        if (err) throw err;
-        return (result[0].PlayerID);
-    });
-}
-function CreateNewPlayer(userID){
-    let player = "INSERT INTO player(UserID_FK_Player, Concluded, Wheat, Swords, Gold, Faith, Score) VALUES('"+userID+"', FALSE, '50', '50', '50', '50', 0); "
-    pool.query(player, function() {
-        let sql1 = "select * from Question;";
-        pool.query(sql1,(err1,result1)=>{
-            if (err1) throw err1;
-            let fodase = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false "
-            pool.query(fodase,(fodase1,fodase2)=>{
-                if (fodase1) throw fodase1;
-                for (let i = 0;i < result1.length ;i++) {
-                    let b = i +1
-                    let QuestionToInsert = "insert into fightthypath.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+fodase2[0].PlayerID+"',false,'"+b+"');";
-                    pool.query(QuestionToInsert,(err2,result2)=>{
-                        if (err2) throw err2;
-                    });
-               
-                }
-            }) 
-        });
-
-        let CastleNO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '3', '"+userID+"') ";
-        let CastleNE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '3', '4', '"+userID+"') ";
-        let CastleSO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '3', '"+userID+"') ";
-        let CastleSE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('Castle', '4', '4', '"+userID+"') ";
-
-        let farmpos1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', '"+userID+"') ";
-        let farmpos2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', '"+userID+"') ";
-        let farmpos3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '3', '"+userID+"') ";
-        let farmpos4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '1', '"+userID+"') ";
-        let farmpos5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '2', '"+userID+"') ";
-        let farmpos6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '3', '"+userID+"') ";
-        let farmpos7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '1', '"+userID+"') ";
-        let farmpos8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '2', '"+userID+"') ";
-
-        let barrack1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '4', '"+userID+"') ";
-        let barrack2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '5', '"+userID+"') ";
-        let barrack3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '6', '"+userID+"') ";
-        let barrack4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '4', '"+userID+"') ";
-        let barrack5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '5', '"+userID+"') ";
-        let barrack6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '6', '"+userID+"') ";
-        let barrack7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '5', '"+userID+"') ";
-        let barrack8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '6', '"+userID+"') ";
-
-        let bank1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '1', '"+userID+"') ";
-        let bank2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '2', '"+userID+"') ";
-        let bank3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '1', '"+userID+"') ";
-        let bank4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '2', '"+userID+"') ";
-        let bank5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '3', '"+userID+"') ";
-        let bank6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '1', '"+userID+"') ";
-        let bank7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '2', '"+userID+"') ";
-        let bank8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '3', '"+userID+"') ";
-
-        let church1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '5', '"+userID+"') ";
-        let church2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '6', '"+userID+"') ";
-        let church3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '4', '"+userID+"') ";
-        let church4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '5', '"+userID+"') ";
-        let church5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '6', '"+userID+"') ";
-        let church6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', '"+userID+"') ";
-        let church7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', '"+userID+"') ";
-        let church8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', '"+userID+"') ";
-        
-        pool.query(CastleNO, function() {});
-        pool.query(CastleNE, function() {});
-        pool.query(CastleSO, function() {});
-        pool.query(CastleSE, function() {});
-
-        pool.query(farmpos1, function() {});
-        pool.query(farmpos2, function() {});
-        pool.query(farmpos3, function() {});
-        pool.query(farmpos4, function() {});
-        pool.query(farmpos5, function() {});
-        pool.query(farmpos6, function() {});
-        pool.query(farmpos7, function() {});
-        pool.query(farmpos8, function() {});
-
-        pool.query(barrack1, function() {});
-        pool.query(barrack2, function() {});
-        pool.query(barrack3, function() {});
-        pool.query(barrack4, function() {});
-        pool.query(barrack5, function() {});
-        pool.query(barrack6, function() {});
-        pool.query(barrack7, function() {});
-        pool.query(barrack8, function() {});
-
-        pool.query(bank1, function() {});
-        pool.query(bank2, function() {});
-        pool.query(bank3, function() {});
-        pool.query(bank4, function() {});
-        pool.query(bank5, function() {});
-        pool.query(bank6, function() {});
-        pool.query(bank7, function() {});
-        pool.query(bank8, function() {});
-
-        pool.query(church1, function() {});
-        pool.query(church2, function() {});
-        pool.query(church3, function() {});
-        pool.query(church4, function() {});
-        pool.query(church5, function() {});
-        pool.query(church6, function() {});
-        pool.query(church7, function() {});
-        pool.query(church8, function() {});
-        
-    })
-});*/
-}
-
-
-
-//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-
-
 
 
 
