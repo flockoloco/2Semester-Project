@@ -2,16 +2,23 @@ let userid;
 let MenuButtonsArray = [];
 let answerImage1;
 let answerImage2;
+let newrunobject;
 
+let BG;
 function preload() {
     GetUser();
     answerImage1 = loadImage('../images/answerimage1.png');
     answerImage2 = loadImage('../images/answerimage2.png');
+
+
+    GetUser();
+    BG = loadImage('../images/background.jpg');
 }
 
 function GetUser(){
     loadJSON('/getUser', function(data){
         userid = data.UserID;
+        Username = data.UserName
     });
 }
 
@@ -21,10 +28,14 @@ function setup() {
     MenuButtonsArray[1] = new ButtonCreator(960-100,400,200,50,"blue","continueRun","","",false,"Continue game!"); //continue Run
     MenuButtonsArray[2] = new ButtonCreator(960-100,500,200,50,"blue","leaderboard","","",false,"Leaderboard"); //leaderboard
     CheckUserPlayer();
+    newrunobject = {
+        "userID": userid,
+        "Username": Username
+    }
 };
 
 function draw() {
-    background(250, 218, 94);
+    background(BG)
     // check hovers
     for (let i = 0; MenuButtonsArray.length > i; i++){
         MenuButtonsArray[i].CheckHover(mouseX,mouseY);
@@ -34,7 +45,11 @@ function draw() {
 }
 function mouseReleased() {
     for (let i = 0; MenuButtonsArray.length > i; i++){
-    MenuButtonsArray[i].ClickMe(userid);
+        if(MenuButtonsArray[i].action == "newRun"){
+            MenuButtonsArray[i].ClickMe(newrunobject);
+        }else{
+            MenuButtonsArray[i].ClickMe(userid);
+        }
     }
 }
 function CheckUserPlayer(){
