@@ -230,7 +230,7 @@ class ButtonCreator{
         }else if(this.action == "continueRun"){
           window.location.replace("http://127.0.0.1:3000/game");
         }else if(this.action == "leaderboard"){
-          //send to leaderboard doesnt need ids?
+          window.location.replace("http://127.0.0.1:3000/leaderboard");
         }else if(this.action == "settings"){
           //lmao imagine having time for settings
         }else if (this.action == "lost"){
