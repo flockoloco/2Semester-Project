@@ -247,11 +247,11 @@ insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer
 insert into belivers.Question(QuestionID,Reset,Text,Answer1ID_FK_Question,Answer2ID_FK_Question,Theme) values('10',true,"The enemies are at our door! \nThey demand money to leave us alone, the priests say we can't give in to heretics! \nThey have the numbers advantage and we will lose many soldiers and farmers in a battle against them!",'19','20','1');
 
 
-insert into belivers.causeofdeath(text) values('As your poluation grew, they slowly separated into multiple groups and a democracy was raised.');
-insert into belivers.causeofdeath(text) values("With your population starving, people's desperation took over and they revolted against the kingdom, killing you.");
-insert into belivers.causeofdeath(text) values('As your armies grows with no bounds, your best general comes to tell you with his army behind him, unfortunately, he is taking over.');
-insert into belivers.causeofdeath(text) values('With your army weak and undermanned, neighboring kingdoms saw your weakness and charged into your walls.');
-insert into belivers.causeofdeath(text) values("With your kingdom growing and with huge riches in your treasury, you go to sleep one night and the last thing you see is an assasin looking at you.");
-insert into belivers.causeofdeath(text) values("With your kingdom completely broke, not even the population stayed to see where the kingdom was heading. You are left alone.");
-insert into belivers.causeofdeath(text) values("PLACEHOLDER");
-insert into belivers.causeofdeath(text) values("After being proclaimed a heretic by the clerics, you are taken outside and burned alive in a public setting.");
+insert into belivers.causeofdeath(text) values('As your poluation grew, \nthey slowly separated into multiple groups and a democracy was raised.');
+insert into belivers.causeofdeath(text) values("With your population starving, \npeople's desperation took over and they revolted against the kingdom, killing you.");
+insert into belivers.causeofdeath(text) values('As your armies grows with no bounds, \nyour best general comes to tell you with his army behind him, unfortunately, he is taking over.');
+insert into belivers.causeofdeath(text) values('With your army weak and undermanned, \nneighboring kingdoms saw your weakness and charged into your walls.');
+insert into belivers.causeofdeath(text) values("With your kingdom growing and with huge riches in your treasury, \nyou go to sleep one night and the last thing you see is an assassin looking at you.");
+insert into belivers.causeofdeath(text) values("With your kingdom completely broke, \nnot even the population stayed to see where the kingdom was heading. You are left alone.");
+insert into belivers.causeofdeath(text) values("As the church grows more and more, \nit sees no more use to you and claims the throne from your hands.");
+insert into belivers.causeofdeath(text) values("After being proclaimed a heretic by the clerics,\nyou are taken outside and burned alive in a public setting.");

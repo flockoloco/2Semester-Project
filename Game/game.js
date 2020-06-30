@@ -3,6 +3,7 @@ let arrFarm = [];
 let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
+let dead = false;
 
 let wheatImage;
 let goldImage;
@@ -50,6 +51,7 @@ function setup() {
   GetNewQuestion(true);
   gameButtonArray[0] = new ButtonCreator(100,700,200,100,"blue","options","",0,false,"option1");
   gameButtonArray[1] = new ButtonCreator(500,700,200,100,"blue","options","",1,false,"option2");
+  deadButton = new ButtonCreator(50,50  ,windowWidth - 100,windowHeight - 100,"red","lost","",0,true,"You Died");
   
 
   loop();
@@ -57,16 +59,24 @@ function setup() {
 
 function draw() {
   background(250, 218, 94);
-  drawTile();
-  createBars();
-  gameButtonArray[0].CheckHover(mouseX,mouseY);
-  gameButtonArray[1].CheckHover(mouseX,mouseY);
-  gameButtonArray[0].DrawMe();
-  gameButtonArray[1].DrawMe();
+  if (dead == false){
+   
+    drawTile();
+    createBars();
+    gameButtonArray[0].CheckHover(mouseX,mouseY);
+    gameButtonArray[1].CheckHover(mouseX,mouseY);
+    gameButtonArray[0].DrawMe();
+    gameButtonArray[1].DrawMe();
 
-  if (activeQuestion){  
-    activeQuestion.DrawMe(themeArray);
-  } 
+    if (activeQuestion){  
+      activeQuestion.DrawMe(themeArray);
+    } 
+  }else if (dead == true){
+    
+    deadButton.EnableMe();
+    deadButton.CheckHover(mouseX,mouseY);
+    deadButton.DrawMe();
+  }
 
 };
 
@@ -80,8 +90,14 @@ function getPlayer(){
 
 
 function mouseReleased() {
-  gameButtonArray[0].ClickMe(activeQuestion);
+  if (dead==false){
+    gameButtonArray[0].ClickMe(activeQuestion);
   gameButtonArray[1].ClickMe(activeQuestion);
+  }else if (dead== true){
+     deadButton.ClickMe()
+  }
+  
+ 
 }
 
     //GET THE BUILDINGS' INFORMATION

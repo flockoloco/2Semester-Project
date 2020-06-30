@@ -4,7 +4,8 @@ const pool = require('../core/database');
 const router = express.Router();
 const user = new User();
 
-const sq = require('./serverquestion')
+const sq = require('./serverquestion');
+const { query } = require('../core/database');
 
 // 1 - Get index page
 router.get('/', (req, res, next) => {
@@ -213,7 +214,22 @@ router.post('/checkPlayerActiveRun',function (req,res){
         }
     });
 });
+router.get("/getDeadText/:playerID", function(req,res){
+console.log("FINITO")
+    let playerlogedID = req.params.playerID;
+    let sql0 = "select * from leaderboard where playerID_FK_leaderboard = '"+playerlogedID+"';";
+    pool.query(sql0,(err0,result0) =>{
+        if (err0) throw err0;
+        console.log(result0)
+        let sql1 = "select * from CauseOfDeath where CauseOfDeathID = '"+result0[0].CauseOfDeathID_FK_Leaderboard+"'";
+        pool.query(sql1,(err1,result1)=>{
 
+            if (err1) throw err1;
+            console.log(result1)
+            res.send(result1);
+        })
+    })
+});
 
 router.post('/newRun',function (req,res,callback){ 
     let userID = req.body.userID;

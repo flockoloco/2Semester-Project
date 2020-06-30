@@ -20,36 +20,52 @@ function ChangeStats(id,res,AnswerID){
       result[0].Swords = result[0].Swords + answerStats[0].Swords;
       result[0].Gold = result[0].Gold + answerStats[0].Gold;
       result[0].Faith = result[0].Faith + answerStats[0].Faith;
+      playerDeadCheck = false;
       
-      //CheckDdead <---
+      if (result[0].Wheat < 0) {
+        ConcludePlayer(id,2,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Wheat > 100){
+        ConcludePlayer(id,1,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Swords < 0){
+        ConcludePlayer(id,4,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Swords > 100){
+        ConcludePlayer(id,3,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Gold < 0){
+        ConcludePlayer(id,6,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Gold > 100){
+        ConcludePlayer(id,5,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Faith < 0){
+        ConcludePlayer(id,8,result[0].Score);
+        playerDeadCheck = true;
+      }else if (result[0].Faith > 100){
+        ConcludePlayer(id,7,result[0].Score);
+        playerDeadCheck = true;
+      }
+
         
       let sql1 = "update player set Wheat = '"+result[0].Wheat +"', Swords = '"+result[0].Swords+"', Gold = '"+result[0].Gold+"', Faith = '"+result[0].Faith+"' where PlayerID = '"+id+"'"
       pool.query(sql1, (err1, result1)=>{
         if(err1) throw err1;
       });
+
       let objectToSend = {
         "wheat": result[0].Wheat,
         "swords":result[0].Swords,
         "gold":result[0].Gold,
-        "faith":result[0].Faith
+        "faith":result[0].Faith,
+        "deadCheck": playerDeadCheck
       }
-      
+      console.log(objectToSend)
       res.send(objectToSend);
     });
   });
 }  
-
-/*funciton ()[
-  if bla > arrBarrack
-  dead = true
-    reasonofdeath = bla
-  else
-
-
-  if 
-
-
-]*/
 
 function CheckAnyLeft(questionArray){
     let checkCounter = 0
@@ -107,6 +123,19 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
     });
   });
   //}while(infinityLoop == false);
+}
+function ConcludePlayer(idForPlayer,causeOfDeath,score){
+
+  let sql = "insert into Leaderboard(PlayerID_FK_Leaderboard, Score_FK_Leaderboard, CauseOfDeathID_FK_Leaderboard) values('"+idForPlayer+"','"+score+"','"+causeOfDeath+"');";
+  pool.query(sql,(err,result)=>{
+    if (err) throw err;
+  });
+
+  let sql1 = "update player set Concluded = true where PlayerID = '"+idForPlayer+"' ;";
+  pool.query(sql1,(err1,result1)=>{
+    if (err1) throw err1;
+  })
+
 }
 
 function UpdateCurrentQuestion(questionID,playerID){
