@@ -7,6 +7,18 @@ let arrBarrack = [];
 let arrBank = [];
 let arrChurch = [];
 
+function preload(){
+  castleNWImage = loadImage('../images/castleNW.png');
+  castleNEImage = loadImage('../images/castleNE.png');
+  castleSWImage = loadImage('../images/castleSW.png');
+  castleSEImage = loadImage('../images/castleSE.png');
+  grassImage = [loadImage('../images/Grass1.png'), loadImage('../images/Grass2.png'), loadImage('../images/Grass3.png'), loadImage('../images/Grass4.png'), loadImage('../images/Grass5.png'), loadImage('../images/Grass6.png'), loadImage('../images/Grass7.png'), loadImage('../images/Grass8.png'), loadImage('../images/Grass9.png'), loadImage('../images/Grass10.png'), loadImage('../images/Grass11.png'), loadImage('../images/Grass12.png'), loadImage('../images/Grass13.png')];
+  farmImage = loadImage('../images/Farm.png')
+  churchImage = loadImage('../images/Church.png');
+  barrackImage = loadImage('../images/Barrack.png');
+  bankImage = loadImage('../images/Bank.png');
+}
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     initTile();

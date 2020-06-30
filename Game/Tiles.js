@@ -4,7 +4,6 @@ let castleNWImage, castleNEImage, castleSWImage, castleSEImage;
 let grassIndex;
 let grassImage;
 let farmImage;
-let farmIndex;
 let churchImage;
 let barrackImage;
 let bankImage;
@@ -53,7 +52,6 @@ y = y + GBH / numberOfCols;
 
         //UPDATE THE TILE INFORMATION
 function updateTile(){
-    farmIndex = farmImage[Math.floor(Math.random() * farmImage.length)]
 for (let i = 0; i < tiles.length; i++) {
     for (let j = 0; j < tiles.length; j++) {
     for(let k=0;k<arrCastle.length;k++){
@@ -75,7 +73,7 @@ for (let i = 0; i < tiles.length; i++) {
     let py=j+1;
     if(px==arrFarm[k].PosX & py==arrFarm[k].PosY){
     tiles[i][j].set_Farm(arrFarm[k]);
-    tiles[i][j].set_image(farmIndex);
+    tiles[i][j].set_image(farmImage);
     }}
     for(let k=0;k<arrBarrack.length;k++){
     let px=i+1;
