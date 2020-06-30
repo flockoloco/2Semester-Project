@@ -227,57 +227,57 @@ router.post('/newRun',function (req,res,callback){
             let sql1 = "select * from Question;";
             pool.query(sql1,(err1,result1)=>{
                 if (err1) throw err1;
-                let fodase = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false "
-                pool.query(fodase,(fodase1,fodase2)=>{
-                    if (fodase1) throw fodase1;
+                let playerIDQuery = "select PlayerID from Player where UserID_FK_Player = '"+userID+"' and Concluded = false "
+                pool.query(playerIDQuery,(playerIDQuery1,playerIDQuery2)=>{
+                    if (playerIDQuery1) throw playerIDQuery1;
                     for (let i = 0;i < result1.length ;i++) {
                         let b = i +1
-                        let QuestionToInsert = "insert into fightthypath.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+fodase2[0].PlayerID+"',false,'"+b+"');";
+                        let QuestionToInsert = "insert into fightthypath.Player_Question(PlayerID_FK_Player_Question,Concluded,QuestionID_FK_Player_Question) values('"+playerIDQuery2[0].PlayerID+"',false,'"+b+"');";
                         pool.query(QuestionToInsert,(err2,result2)=>{
                             if (err2) throw err2;
                         });
                     }
 
-                    let CastleNO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNW', '3', '3', '"+fodase2[0].PlayerID+"') ";
-                    let CastleNE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNE', '3', '4', '"+fodase2[0].PlayerID+"') ";
-                    let CastleSO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSW', '4', '3', '"+fodase2[0].PlayerID+"') ";
-                    let CastleSE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSE', '4', '4', '"+fodase2[0].PlayerID+"') ";
+                    let CastleNO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNW', '3', '3', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let CastleNE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleNE', '3', '4', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let CastleSO = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSW', '4', '3', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let CastleSE = "INSERT INTO fightthypath.building(Type, PosX, PosY, PlayerID_FK_Building) VALUES ('CastleSE', '4', '4', '"+playerIDQuery2[0].PlayerID+"') ";
 
-                    let farmpos1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '3', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '1', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '2', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '3', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '1', '"+fodase2[0].PlayerID+"') ";
-                    let farmpos8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '2', '"+fodase2[0].PlayerID+"') ";
+                    let farmpos1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '2', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '1', '3', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '2', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '2', '3', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let farmpos8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Farm', '3', '2', '"+playerIDQuery2[0].PlayerID+"') ";
 
-                    let barrack1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '4', '"+fodase2[0].PlayerID+"') ";
-                    let barrack2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '5', '"+fodase2[0].PlayerID+"') ";
-                    let barrack3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '6', '"+fodase2[0].PlayerID+"') ";
-                    let barrack4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '4', '"+fodase2[0].PlayerID+"') ";
-                    let barrack5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '5', '"+fodase2[0].PlayerID+"') ";
-                    let barrack6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '6', '"+fodase2[0].PlayerID+"') ";
-                    let barrack7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '5', '"+fodase2[0].PlayerID+"') ";
-                    let barrack8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '6', '"+fodase2[0].PlayerID+"') ";
+                    let barrack1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '4', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '1', '6', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '4', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '2', '6', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let barrack8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Barrack', '3', '6', '"+playerIDQuery2[0].PlayerID+"') ";
 
-                    let bank1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '1', '"+fodase2[0].PlayerID+"') ";
-                    let bank2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '2', '"+fodase2[0].PlayerID+"') ";
-                    let bank3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '1', '"+fodase2[0].PlayerID+"') ";
-                    let bank4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '2', '"+fodase2[0].PlayerID+"') ";
-                    let bank5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '3', '"+fodase2[0].PlayerID+"') ";
-                    let bank6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '1', '"+fodase2[0].PlayerID+"') ";
-                    let bank7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '2', '"+fodase2[0].PlayerID+"') ";
-                    let bank8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '3', '"+fodase2[0].PlayerID+"') ";
+                    let bank1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '4', '2', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '2', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '5', '3', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '1', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '2', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let bank8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Bank', '6', '3', '"+playerIDQuery2[0].PlayerID+"') ";
 
-                    let church1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '5', '"+fodase2[0].PlayerID+"') ";
-                    let church2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '6', '"+fodase2[0].PlayerID+"') ";
-                    let church3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '4', '"+fodase2[0].PlayerID+"') ";
-                    let church4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '5', '"+fodase2[0].PlayerID+"') ";
-                    let church5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '6', '"+fodase2[0].PlayerID+"') ";
-                    let church6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', '"+fodase2[0].PlayerID+"') ";
-                    let church7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', '"+fodase2[0].PlayerID+"') ";
-                    let church8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', '"+fodase2[0].PlayerID+"') ";
+                    let church1 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church2 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '4', '6', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church3 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '4', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church4 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church5 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '5', '6', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church6 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '4', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church7 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '5', '"+playerIDQuery2[0].PlayerID+"') ";
+                    let church8 = "INSERT INTO fightthypath.tile(Type, PosX, PosY, PlayerID_FK_Tile) VALUES ('Church', '6', '6', '"+playerIDQuery2[0].PlayerID+"') ";
                     
                     pool.query(CastleNO, function() {});
                     pool.query(CastleNE, function() {});

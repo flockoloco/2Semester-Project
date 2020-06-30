@@ -89,9 +89,9 @@ function PickRandomQuestion(req,res){ //this is the picks every single one befor
   let sql = "select * from Player_Question where PlayerID_FK_Player_Question = '"+req.body.playerID+"' order by QuestionID_FK_Player_Question asc;";
   pool.query(sql, (err, result)=>{
     if(err) throw err;
-    let yepItsBigQueryTime = "select CurrentQuestion from Player where PlayerID = '"+req.body.playerID+"';";
+    let currentQuestionQuery = "select CurrentQuestion from Player where PlayerID = '"+req.body.playerID+"';";
 
-    pool.query(yepItsBigQueryTime, (err4, currentquestioncheck)=>{ 
+    pool.query(currentQuestionQuery, (err4, currentquestioncheck)=>{ 
       if (err4) throw err4;
       if ((currentquestioncheck[0].CurrentQuestion != null)&&(req.body.firstTimeCheck == true)) { //this only happens when theres a new player/new run
         UpdateCurrentQuestion(currentquestioncheck[0].CurrentQuestion,req.body.playerID);
